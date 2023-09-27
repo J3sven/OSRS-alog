@@ -3,19 +3,8 @@
 <head>
   <link rel="SHORTCUT ICON" href="alog_assets/favicon.ico">
   <title>Adventurer's log</title>
-  <style type="text/css">
-    /*\*/
-    /* @import url(alog_assets/global-41.css); */
-    /**/
-  </style>
-
-
-  <style type="text/css">
-    /*\*/
-    @import url(alog_assets/player_log-4.css);
-    /**/
-  </style>
-  <script src="/js/client/hiscores.js"></script>
+  <link rel="stylesheet" href="css/main.css">
+  <script src="js/client/hiscores.js"></script>
 </head>
 
 <div id="content">
@@ -153,6 +142,7 @@
     const logs = {};
 
     ws.addEventListener('message', (event) => {
+      console.log(event.data);
       const receivedData = JSON.parse(event.data);
       const logsElement = document.getElementById('RAAccordion');
 

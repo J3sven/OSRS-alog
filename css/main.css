@@ -1,0 +1,852 @@
+body {
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    font-family: Arial, Helvetica, FreeSans, sans-serif;
+    text-align: center;
+    font-family: Arial, Helvetica, FreeSans, sans-serif;
+    background-image: url('../img/background.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.clear {
+    clear: both;
+    font-size: 0px;
+    height: 0px;
+    line-height: 0px;
+}
+
+.bottomrightshad {
+    padding: 45px 45px;
+}
+
+#logHeader {
+    text-align: center;
+    height: 35px;
+
+    background: url('../alog_assets/log_header_wide.jpg') no-repeat;
+
+}
+
+#greyBack {
+    border: 4px solid #363636;
+    background-color: #1c1c1c;
+    height: 1%;
+}
+
+#searchPanel {
+    float: right;
+    display: inline;
+    margin-right: 4px;
+    margin-top: 11px;
+    font-size: 14px;
+    text-decoration: none;
+    width: 185px;
+    line-height: 20px;
+    height: 20px;
+    text-align: center;
+    color: #a4a4a4;
+}
+
+#logTitle {
+    vertical-align: middle;
+    height: 35px;
+    text-align: center;
+    margin: auto;
+
+    width: 348px;
+
+    line-height: 32px;
+    font-weight: bold;
+    font-size: 18px;
+    color: #4c3209;
+}
+
+.panel_189 {
+    background: url('../alog_assets/panel_189.jpg') transparent no-repeat;
+    width: 728px;
+    height: 189px;
+    margin: 8px auto;
+    padding: 3px 0 0;
+    position: relative;
+}
+
+#homepanel.panel_189 {
+    background: url('../alog_assets/panel_189_home.jpg') transparent no-repeat;
+}
+
+.subpanel {
+    padding: 40px 10px 0;
+    width: 320px;
+    height: 147px;
+    position: absolute;
+    top: 11px;
+    text-align: center;
+}
+
+#plog_login {
+    left: 12px;
+}
+
+#plog_search {
+    left: 376px;
+}
+
+#input_bit {
+    margin: 24px 0 0;
+}
+
+#input_bit_left {
+    float: left;
+    display: inline;
+    margin: 0 0 0 37px;
+    text-align: left;
+}
+
+#input_bit_right {
+    float: left;
+    display: inline;
+    margin: 14px 0 0 8px;
+}
+
+#plog_search input {
+    width: 160px;
+}
+
+.panel_header {
+    font-family: Palatino Linotype, Book Antiqua, Palatino, Times New Roman, Times, serif;
+    font-variant: small-caps;
+    font-size: 14px;
+}
+
+.plog_button {
+    height: 23px;
+    line-height: 23px;
+    background-image: url('../alog_assets/rounded_button.png');
+    float: left;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    cursor: pointer;
+    outline: none;
+}
+
+.plog_button:hover {
+    color: #c0b679;
+}
+
+.plog_button_back {
+    cursor: pointer;
+    background-position: center -23px;
+    background-repeat: repeat-x;
+}
+
+.plog_buttonL {
+    background-position: left top;
+    float: left;
+}
+
+.plog_buttonR {
+    background-position: right -46px;
+    float: left;
+    padding: 0 5px;
+    margin: 0px;
+    border: 0px;
+}
+
+.plog_button_back:hover {
+    background-position: center -92px;
+}
+
+.plog_buttonL:hover {
+    background-position: left -69px;
+}
+
+.plog_buttonR:hover {
+    background-position: right -115px;
+}
+
+.plog_button_back:active {
+    background-position: center -161px;
+}
+
+.plog_buttonL:active {
+    background-position: left -138px;
+}
+
+.plog_buttonR:active {
+    background-position: right -184px;
+}
+
+.panel_189 .header {
+    background: url('../alog_assets/panel_header.jpg') transparent no-repeat;
+    width: 721px;
+    height: 27px;
+    margin: 0px auto;
+    text-align: center;
+    color: #E8E8E8;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 26px;
+}
+
+.panel_189 .content {
+    color: #E8E8E8;
+    font-family: Arial, Helvetica, FreeSans, sans-serif;
+    font-variant: normal;
+    font-weight: bold;
+    font-size: 12px;
+    padding: 0 10px 10px;
+}
+
+.panel_189 button {
+    border: 0;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: Palatino Linotype, Book Antiqua, Palatino, Times New Roman, Times, serif;
+    font-variant: small-caps;
+    color: #A9A9A9;
+    vertical-align: middle;
+}
+
+.panel_189 label {
+    vertical-align: middle;
+}
+
+.section {
+    text-align: left;
+    font-family: Palatino Linotype, Book Antiqua, Palatino, Times New Roman, Times, serif;
+    font-variant: small-caps;
+}
+
+input.go {
+    font-family: Palatino Linotype, Book Antiqua, Palatino, Times New Roman, Times, serif;
+    font-variant: small-caps;
+    border: none;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 15px;
+    float: right;
+    width: 33px;
+    height: 20px;
+    color: #a9a9a9;
+    background: transparent;
+    font-weight: bold;
+    display: inline;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+}
+
+#searchBox {
+    background: white;
+    border: none;
+    float: left;
+    height: 15px;
+    margin-left: 2px;
+    margin-top: 1px;
+    padding-left: 6px;
+    width: 140px;
+    display: inline;
+    font-size: 12px;
+}
+
+.logSmallSlate {
+    width: 361px;
+    height: 159px;
+    margin-top: 9px;
+    color: #b6b6b5;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+#plog_self #avatar {
+    margin-left: 9px;
+    float: left;
+    display: inline;
+}
+
+#plog_other #avatar {
+    margin-left: 9px;
+    float: left;
+    display: inline;
+}
+
+#plog_other #avatar.private {
+    background: url('../alog_assets/avatar_back_other_private2.jpg');
+    margin-left: 9px;
+    float: left;
+    display: inline;
+}
+
+#gender {
+    margin-left: 7px;
+    margin-top: 8px;
+    width: 168px;
+    height: 27px;
+    float: left;
+    text-align: center;
+    line-height: 27px;
+    display: inline;
+}
+
+#timePlayed {
+    margin-left: 7px;
+    margin-top: 1px;
+    width: 168px;
+    height: 41px;
+    float: left;
+    text-align: center;
+    line-height: 16px;
+    padding-top: 3px;
+    display: inline;
+}
+
+#avatar .title {
+    width: 345px;
+    height: 34px;
+    margin-left: 8px;
+    margin-top: 8px;
+    float: left;
+    text-align: center;
+    color: #4c3209;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 31px;
+    display: inline;
+}
+
+#avatar img {
+    border: 1px solid #707070;
+}
+
+#avatar .body,
+#avatar .head {
+    height: 100px;
+    margin-top: 8px;
+    margin-left: 8px;
+    float: left;
+    display: inline;
+}
+
+#avatar .head {
+    width: 100px;
+}
+
+#avatar .body {
+    width: 60px;
+}
+
+#scores {
+    margin-right: 9px;
+    float: right;
+    background: url('../alog_assets/score_back.jpg') transparent no-repeat;
+    display: inline;
+}
+
+#scores .details,
+#scores .title {
+    width: 345px;
+    height: 20px;
+    margin-left: 8px;
+    margin-top: 8px;
+    float: left;
+    text-align: center;
+    color: #e8e8e8;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 18px;
+    display: inline;
+}
+
+#scores .details {
+    font-size: 14px;
+    margin-top: 0px;
+}
+
+#scores .buttonContainer {
+    margin-left: 3px;
+    width: 355px;
+    height: 105px;
+    overflow: hidden;
+    margin-top: 2px;
+}
+
+.parchment {
+    width: 367px;
+    height: 372px;
+    background: url('../alog_assets/parchment_left.jpg') no-repeat;
+    margin-top: 0px;
+}
+
+#myAchievements.parchment {
+    margin-left: 6px;
+    float: left;
+    display: inline;
+}
+
+.parchment .title {
+    color: #43392d;
+    font-size: 19px;
+    height: 38px;
+    line-height: 42px;
+    margin: 6px auto auto;
+    text-align: center;
+    width: 300px;
+}
+
+.accordion {
+    font-family: Arial, Helvetica, FreeSans, sans-serif;
+    width: 347px;
+    height: 307px;
+    margin: auto;
+    margin-top: 0px;
+    font-variant: normal;
+    color: #3d281d;
+    overflow: hidden;
+}
+
+.AMHead,
+.AMHead.expanded {
+    width: 347px;
+    height: 24px;
+    background: url('../alog_assets/bar.gif') no-repeat;
+    display: block;
+    overflow: hidden;
+    text-align: left;
+    text-decoration: none;
+}
+
+.AMHead.expanded,
+.AMHead.selected {
+    background: url('../alog_assets/bar_selected.gif') no-repeat;
+}
+
+.AMHead span,
+.AMHead.expanded span {
+    float: left;
+    text-align: left;
+    cursor: pointer;
+    display: inline;
+}
+
+.AMHead span.Title,
+.AMHead.expanded span.Title {
+    margin-top: 2px;
+    float: left;
+    margin-left: 22px;
+    width: 324px;
+    font-size: 11px;
+    font-weight: bold;
+    color: #3d281d;
+    height: 20px;
+    line-height: 18px;
+    display: inline;
+}
+
+.AMBody,
+.AMBody.expanded {
+    border-left: 1px solid #292926;
+    border-right: 1px solid #292926;
+    overflow-y: hidden;
+    background: url('../alog_assets/brown_pixel.gif') repeat-x bottom;
+    font-size: 0.9em;
+    color: #3d281d;
+    height: 59px;
+    display: none;
+    width: 345px;
+}
+
+.AMBody.expanded,
+.AMBody.selected {
+    display: block;
+}
+
+.AMBody p,
+.AMBody.expanded p {
+    margin: 0px;
+}
+
+.AMBodyLiner {
+    margin: 2px 7px;
+}
+
+.AMBodyLiner a {
+    color: black;
+}
+
+#scores .buttonContainer a.compare,
+#logHeader_buttonless a.profile,
+#logHeader a.profile,
+#avatar a.privacy {
+    color: #a9a9a9;
+    text-decoration: none;
+    text-align: center;
+    font-weight: bold;
+    display: block;
+}
+
+#logHeader_buttonless a.profile,
+#logHeader_buttonless span.profile,
+#logHeader a.profile,
+#avatar a.privacy {
+    float: left;
+    margin-left: 4px;
+    margin-top: 11px;
+    font-size: 14px;
+    width: 185px;
+    line-height: 20px;
+    height: 20px;
+    display: inline;
+}
+
+#avatar a.privacy {
+    background: url('../alog_assets/privacy.jpg') transparent no-repeat left top;
+    margin-left: 4px;
+    margin-top: 5px;
+    width: 171px;
+    height: 25px;
+    line-height: 25px;
+}
+
+.buttonContainer a.compare {
+    background: url('../alog_assets/compare_with_friends.jpg') transparent no-repeat left top;
+    float: left;
+    font-size: 15px;
+    height: 25px;
+    line-height: 25px;
+    margin-left: 45px;
+    margin-top: 1px;
+    width: 263px;
+    text-decoration: none;
+    display: inline;
+}
+
+.buttonContainer .scoreButton {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+}
+
+.buttonContainer .scoreButton {
+    margin-left: 1px;
+    margin-top: 1px;
+    padding-top: 6px;
+    width: 43px;
+    height: 25px;
+    line-height: 12px;
+    float: left;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: bold;
+    font-family: arial;
+    color: #a9a9a9;
+    cursor: pointer;
+    background: url('../alog_assets/score_button.jpg?2') transparent no-repeat;
+    text-align: center;
+    display: inline;
+}
+
+.buttonContainer .scoreButton img {
+    border: none;
+    width: 16px;
+    height: 16px;
+    margin-left: 1px;
+    margin-top: -2px;
+    vertical-align: middle;
+    margin-right: 1px;
+}
+
+.buttonContainer #skill0 {
+    background: url('../alog_assets/score_button_total.jpg') transparent no-repeat;
+    text-align: center;
+    height: 24px;
+    padding-top: 11px;
+    vertical-align: bottom;
+}
+
+.buttonContainer #skill0.selected {
+    background: url('../alog_assets/score_button_total_press.jpg') transparent no-repeat;
+}
+
+.buttonContainer .scoreButton.selected {
+    color: #C0B679;
+    background: url('../alog_assets/score_button_press.jpg') transparent no-repeat;
+    width: 43px;
+}
+
+#logHeader_buttonless a.profile:hover,
+#logHeader a.profile:hover,
+#avatar a.privacy:hover,
+.buttonContainer a.compare:hover {
+    color: #c0b679;
+    font-weight: bold;
+}
+
+.buttonContainer .scoreButton:hover {
+    color: #C0B679;
+}
+
+.buttonContainer a.compare:hover,
+#avatar a.privacy:hover {
+    background-position: left -25px;
+}
+
+#logHeader a.profile:hover,
+#logHeader_buttonless a.profile:hover {
+    background: url('../alog_assets/profile_hover.jpg') transparent no-repeat;
+}
+
+#logHeader a.profile:active,
+#logHeader_buttonless a.profile:active,
+#avatar a.privacy:active,
+#scores .buttonContainer a.compare:active {
+    padding-left: 1px;
+}
+
+#logHeader a.profile:active,
+#logHeader_buttonless a.profile:active {
+    background: url('../alog_assets/profile_press.jpg') transparent no-repeat;
+}
+
+#avatar a.privacy:active,
+#scores .buttonContainer a.compare:active {
+    background-position: left bottom;
+}
+
+#scores .buttonContainer .scoreButton.total:active {
+    background: url('../alog_assets/score_button_total_press.jpg') transparent no-repeat;
+    width: 43px;
+}
+
+#scores .buttonContainer .scoreButton:active {
+    background: url('../alog_assets/score_button_press.jpg') transparent no-repeat;
+    width: 43px;
+    color: #C0B679;
+}
+
+#plog_other #quests {
+    background: url('../alog_assets/quests_back_large.jpg') transparent no-repeat;
+    margin: 8px 0 7px 3px;
+    float: left;
+    height: 361px;
+    width: 361px;
+    display: inline;
+}
+
+#friends a,
+#quests a {
+    color: #e8e8e8;
+    text-decoration: none;
+}
+
+#friends a:hover,
+#quests a:hover {
+    color: #f8f8f8;
+}
+
+#quests .title,
+#friends .title {
+    height: 33px;
+    margin: auto;
+    text-align: center;
+    color: #4c3209;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 32px;
+    color: #e8e8e8;
+}
+
+#quests .buttonContainer {
+    margin: 9px auto 0px auto;
+    width: 336px;
+    height: 17px;
+    text-align: center;
+}
+
+#quests a#completed,
+#quests a#started,
+#quests a#uninitiated {
+    color: #e8e8e8;
+    float: left;
+    display: inline;
+    height: 15px;
+    line-height: 15px;
+    text-decoration: none;
+    margin: 1px 0px 1px 1px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+#quests a#completed {
+    width: 113px;
+}
+
+#quests a#started {
+    width: 98px;
+}
+
+#quests a#uninitiated {
+    width: 120px;
+}
+
+#quests a#completed:hover,
+#quests a#started:hover,
+#quests a#uninitiated:hover {
+    color: #C0B679;
+}
+
+#quests a#completed:active,
+#quests a#started:active,
+#quests a#uninitiated:active,
+#quests a#completed.selected,
+#quests a#started.selected,
+#quests a#uninitiated.selected {
+    padding-left: 1px;
+    color: #C0B679;
+}
+
+#quests a#completed:active,
+#quests a#completed.selected {
+    width: 112px;
+    background: url('../alog_assets/quests_press.jpg') transparent no-repeat;
+}
+
+#quests a#started:active,
+#quests a#started.selected {
+    width: 97px;
+    background: url('../alog_assets/quests_press.jpg') transparent no-repeat;
+}
+
+#quests a#uninitiated:active,
+#quests a#uninitiated.selected {
+    width: 119px;
+    background: url('../alog_assets/quests_press.jpg') transparent no-repeat;
+}
+
+#friends .two_col,
+#plog_self #quests .two_col,
+#plog_self #quests .one_col {
+    height: 140px;
+    margin: auto;
+    margin: 10px 0px 0px 0px;
+}
+
+#plog_other #quests .two_col,
+#plog_other #quests .one_col {
+    height: 258px;
+    margin: auto;
+    margin: 10px 0px 0px 0px;
+}
+
+#friends .two_col,
+#friends .one_col {
+    height: 176px;
+    margin: auto;
+    margin: 0px 0px 0px 0px;
+}
+
+#friends .two_col ul,
+#quests .two_col ul,
+#friends .one_col ul,
+#quests .one_col ul {
+    float: left;
+    line-height: 17px;
+    width: 165px;
+    list-style: none;
+    padding: 2px 0px 0px 12px;
+    margin: 0px;
+    list-style: none;
+    color: #e8e8e8;
+    font-weight: bold;
+    font-variant: normal;
+    display: inline;
+}
+
+#friends .one_col li,
+#quests .one_col li,
+#friends .one_col li,
+#quests .one_col li {
+    height: 17px;
+    overflow: hidden;
+}
+
+#friends .one_col ul,
+#quests .one_col ul {
+    width: 337px;
+}
+
+#pageinfo {
+    display: block;
+    float: left;
+    width: 100px;
+    text-align: center;
+}
+
+.activitycontainer {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 3px;
+}
+
+
+.activitycontainer span {
+    cursor: pointer;
+    padding: 2px;
+    text-align: center;
+    max-height: 20px;
+    background-image: url('../alog_assets/activity_button.png');
+}
+
+.activitycontainer span.selected {
+    background-image: url('../alog_assets/activity_button_pressed.png');
+}
+
+#content {
+    height: 100%;
+    width: 100%;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+}
+
+#plog_other {
+    background-color: #1c1c1c;
+    box-shadow: 0 0 25px 15px #1c1c1c;
+}
+
+
+@keyframes spinner {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.spinner {
+    background: unset;
+}
+
+.spinner:before {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    margin-left: -10px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    border-top-color: #000;
+    animation: spinner .6s linear infinite;
+}
