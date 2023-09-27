@@ -1,0 +1,931 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+  <script src="alog_assets/analytics.js" type="text/javascript"></script>
+  <script
+    type="text/javascript">window.addEventListener('DOMContentLoaded', function () { var v = archive_analytics.values; v.service = 'wb'; v.server_name = 'wwwb-app221.us.archive.org'; v.server_ms = 447; archive_analytics.send_pageview({}); });</script>
+  <script type="text/javascript" src="alog_assets/bundle-playback.js" charset="utf-8"></script>
+  <script type="text/javascript" src="alog_assets/wombat.js" charset="utf-8"></script>
+  <script>window.RufflePlayer = window.RufflePlayer || {}; window.RufflePlayer.config = { "autoplay": "on", "unmuteOverlay": "hidden" };</script>
+  <script type="text/javascript" src="alog_assets/ruffle.js"></script>
+  <script type="text/javascript">
+    __wm.init("https://web.archive.org/web");
+    __wm.wombat("http://services.runescape.com:80/m=adventurers-log/display_player_profile.ws?searchName=elias", "20110910132542", "https://web.archive.org/", "web", "/_static/",
+      "1315661142");
+  </script>
+  <link rel="stylesheet" type="text/css" href="alog_assets/banner-styles.css">
+  <link rel="stylesheet" type="text/css" href="alog_assets/iconochive.css">
+  <!-- End Wayback Rewrite JS Include -->
+
+  <link rel="icon" type="image/vnd.microsoft.icon"
+    href="https://web.archive.org/web/20110910132542im_/http://www.runescape.com/favicon.ico">
+  <link rel="SHORTCUT ICON" href="https://web.archive.org/web/20110910132542im_/http://www.runescape.com/favicon.ico">
+  <link rel="apple-touch-icon"
+    href="https://web.archive.org/web/20110910132542im_/http://www.runescape.com/img/mobile.png">
+  <meta http-equiv="X-UA-Compatible" content="IE=8">
+  <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+  <meta http-equiv="Content-Language" content="en, 
+English
+">
+  <meta name="keywords"
+    content="MMORPG, free RPG games online, online multiplayer, role-playing, massively multiplayer games, mmo, RuneScape, Jagex, java">
+  <meta name="description"
+    content="Play RuneScape for free, and join a global community of millions as you complete quests and win enormous treasures in a 3D world full of magic and monsters.">
+  <meta name="title" content="RuneScape - MMORPG - The No.1 Free Online Multiplayer Game">
+  <title>RuneScape - MMORPG - The No.1 Free Online Multiplayer Game</title>
+  <style type="text/css">
+    /*\*/
+    @import url(https://web.archive.org/web/20110910132542cs_/http://www.runescape.com/css/global-41.css);
+    /**/
+  </style>
+  <script type="text/javascript" src="alog_assets/jquery_1_4_2.js"></script>
+  <script type="text/javascript">
+    $(function () {
+
+
+      $("#play, #playExisting, #playBannerNoad").each(function () { this.href += "?j=1"; });
+      $("#menuPlay1,#menuPlay2,#footerPlay,#loginPlay").each(function () { this.href += "&j=1"; })
+    })
+  </script>
+
+
+  <style type="text/css">
+    /*\*/
+    @import url(https://web.archive.org/web/20110910132542cs_/http://www.runescape.com/css/player_log-4.css);
+    /**/
+  </style>
+  <link rel="alternate" type="application/rss+xml" title="Recent events for Elias"
+    href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m=adventurers-log/rssfeed?searchName=Elias">
+  <script type="text/javascript" src="alog_assets/jquery_ui_1_8_2_core_accordion_tabs_effects.js"></script>
+
+  <script type="text/javascript">
+    $(function () {
+
+
+      $("#RAAccordion").accordion({ header: ".AMHead" }).bind("accordionchangestart",
+        function (event, ui) {
+          var active = ui.newHeader;
+          var i = active.prevAll(".AMHead").length + 1;
+          if (i > active.siblings(".AMHead").length) { i -= 2; }
+          active.click(function () { active.parent().accordion("activate", i) });
+        })
+        .children('.selected').click(function () { $(this).parent().accordion("activate", 1) });
+    })
+  </script>
+
+
+  <script type="text/javascript">//<![CDATA[
+
+
+
+    /* Classes for data kept in arrays for dynamic updating. */
+    function skill(name_in, xp_in, level_in, rank_in) {
+      this.name = name_in;
+      this.xp = xp_in;
+      this.level = level_in;
+      this.rank = rank_in;
+    }
+
+
+
+    function quest(name_in, kbguid_in) {
+      this.name = name_in;
+      this.kbguid = kbguid_in;
+    }
+    /* Init array for skills containing the data for the dynamic arrays */
+    var skills = [new skill('Total Level', '3,000,000,000', 2496, '1'), new skill('Attack', '197,533,620', 99, '66'), new skill('Defence', '54,351,806', 99, '1,173'), new skill('Strength', '52,362,279', 99, '2,733'), new skill('Constitution', '119,296,021', 99, '75'), new skill('Ranged', '150,540,085', 99, '38'), new skill('Prayer', '200,000,000', 99, '8'), new skill('Magic', '78,901,295', 99, '73'), new skill('Cooking', '200,000,000', 99, '46'), new skill('Woodcutting', '86,203,099', 99, '160'), new skill('Fletching', '200,000,000', 99, '47'), new skill('Fishing', '32,581,170', 99, '1,563'), new skill('Firemaking', '200,000,000', 99, '23'), new skill('Crafting', '200,000,000', 99, '18'), new skill('Smithing', '38,871,595', 99, '88'), new skill('Mining', '25,907,440', 99, '1,233'), new skill('Herblore', '200,000,000', 99, '10'), new skill('Agility', '28,399,200', 99, '141'), new skill('Thieving', '200,000,000', 99, '13'), new skill('Slayer', '106,632,846', 99, '23'), new skill('Farming', '91,872,376', 99, '57'), new skill('Runecrafting', '55,710,385', 99, '88'), new skill('Hunter', '42,741,595', 99, '927'), new skill('Construction', '163,020,424', 99, '14'), new skill('Summoning', '75,074,764', 99, '12'), new skill('Dungeoneering', '200,000,000', 120, '46')];
+    /* Init array for quests containing the data for the dynamic arrays */
+    var quests = [[new quest('A Clockwork Syringe', null), new quest('A Rum Deal', 'rum_deal_members'), new quest('A Soul\'s Bane', 'a_soul_s_bane_members'), new quest('A Tail of Two Cats', 'a_tail_of_two_cats_members'), new quest('A Void Dance', 'a_void_dance_members'), new quest('All Fired Up', 'all_fired_up_members'), new quest('Animal Magnetism', 'animal_magnetism_members'), new quest('Another Slice of H.A.M.', 'another_slice_of_h_a_m_members'), new quest('As A First Resort...', 'as_a_first_resort_members'), new quest('Back to my Roots', 'back_to_my_roots_members'), new quest('Between a Rock...', 'between_a_rock_members'), new quest('Big Chompy Bird Hunting', 'big_chompy_bird_hunting_members'), new quest('Biohazard', 'biohazard_members'), new quest('Black Knights\' Fortress', 'black_knights_fortress'), new quest('Blood Runs Deep', 'blood_runs_deep_members'), new quest('Buyers and Cellars', 'buyers_and_cellars_members'), new quest('Cabin Fever', 'cabin_fever_members'), new quest('Catapult Construction', 'catapult_construction_members'), new quest('Chosen Commander', 'the_chosen_commander_members'), new quest('Clock Tower', 'clock_tower_members'), new quest('Cold War', 'cold_war_members'), new quest('Contact!', 'contact_members'), new quest('Cook\'s Assistant', 'cook_s_assistant'), new quest('Creature of Fenkenstrain', 'creature_of_fenkenstrain_members'), new quest('Curse of Arrav', 'the_curse_of_arrav_members'), new quest('Deadliest Catch', 'deadliest_catch_members'), new quest('Dealing with Scabaras', 'dealing_with_scabaras_members'), new quest('Death Plateau', 'death_plateau_members'), new quest('Death to the Dorgeshuun', 'death_to_the_dorgeshuun_members'), new quest('Defender of Varrock', 'defender_of_varrock_members'), new quest('Demon Slayer', 'demon_slayer'), new quest('Desert Treasure', 'desert_treasure_members'), new quest('Devious Minds', 'devious_minds_members'), new quest('Dig Site', 'the_dig_site_members'), new quest('Do No Evil', null), new quest('Doric\'s Quest', 'doric_s_quest'), new quest('Dragon Slayer', 'dragon_slayer'), new quest('Dream Mentor', 'dream_mentor_members'), new quest('Druidic Ritual', 'druidic_ritual_members'), new quest('Dwarf Cannon', 'dwarf_cannon_members'), new quest('Eadgar\'s Ruse', 'eadgar_s_ruse_members'), new quest('Eagles\' Peak', 'eagles_peak_members'), new quest('Enakhra\'s Lament', 'enakhra_s_lament_members'), new quest('Enlightened Journey', 'an_enlightened_journey_members'), new quest('Ernest the Chicken', 'ernest_the_chicken'), new quest('Fairy Tale I - Growing Pains', 'a_fairy_tale_part_i_growing_pains_members'), new quest('Fairy Tale II - Cure a Queen', 'a_fairy_tale_part_ii_cure_a_queen_members'), new quest('Fairy Tale III - Battle at Orks Rift', 'a_fairy_tale_part_iii_battle_at_orks_rift_members'), new quest('Family Crest', 'the_family_crest_members'), new quest('Fight Arena', 'fight_arena_members'), new quest('Fishing Contest', 'fishing_contest_members'), new quest('Forgettable Tale of a Drunken Dwarf', 'forgettable_tale_of_a_drunken_dwarf_members'), new quest('Forgiveness of a Chaos Dwarf', 'forgiveness_of_a_chaos_dwarf_members'), new quest('Fremennik Isles', 'the_fremennik_isles_members'), new quest('Fur \'n\' Seek', 'fur_n_seek_members'), new quest('Garden of Tranquility', 'garden_of_tranquillity_members'), new quest('Gertrude\'s Cat', 'gertrude_s_cat_members'), new quest('Ghosts Ahoy', 'ghosts_ahoy_members'), new quest('Glorious Memories', 'glorious_memories_members'), new quest('Goblin Diplomacy', 'goblin_diplomacy'), new quest('Great Brain Robbery', 'the_great_brain_robbery_members'), new quest('Grim Tales', 'grim_tales_members'), new quest('Gunnar\'s Ground', 'gunnar_s_ground'), new quest('Haunted Mine', 'haunted_mine_members'), new quest('Hazeel Cult', 'hazeel_cult_members'), new quest('Heroes\' Quest', 'heroes_quest_members'), new quest('Holy Grail', 'holy_grail_members'), new quest('Horror from the Deep', 'horror_from_the_deep_members'), new quest('Hunt for Red Raktuber', 'hunt_for_red_raktuber_members'), new quest('Icthlarin\'s Little Helper', 'icthlarin_s_little_helper_members'), new quest('Imp Catcher', 'imp_catcher'), new quest('In Aid of the Myreque', 'in_aid_of_the_myreque_members'), new quest('In Pyre Need', 'in_pyre_need_members'), new quest('In Search of the Myreque', 'in_search_of_the_myreque_members'), new quest('Jungle Potion', 'jungle_potion_members'), new quest('Kennith\'s Concerns', 'kennith_s_concerns_members'), new quest('King of the Dwarves', 'king_of_the_dwarves_members'), new quest('King\'s Ransom', 'kings_ransom_members'), new quest('Land of the Goblins', 'land_of_the_goblins'), new quest('Legacy of Seergaze', 'legacy_of_seergaze_members'), new quest('Legends\' Quest', 'legends_quest_members'), new quest('Lost City', 'lost_city_members'), new quest('Love Story', null), new quest('Lunar Diplomacy', 'lunar_diplomacy_members'), new quest('Making History', 'making_history_members'), new quest('Meeting History', 'meeting_history_members'), new quest('Merlin\'s Crystal', 'merlin_s_crystal_members'), new quest('Missing My Mummy', 'missing_my_mummy_members'), new quest('Monk\'s Friend', 'monk_s_friend_members'), new quest('Monkey Madness', 'monkey_madness_members'), new quest('Mountain Daughter', 'mountain_daughter_members'), new quest('Mourning\'s Ends Part I', 'mourning_s_ends_part_i_members'), new quest('Mourning\'s Ends Part II', 'mourning_s_ends_part_ii_the_temple_of_light_members'), new quest('Murder Mystery', 'murder_mystery_members'), new quest('My Arm\'s Big Adventure', 'my_arm_s_big_adventure_members'), new quest('Myths of the White Lands', 'myths_of_the_white_lands_members'), new quest('Nature Spirit', 'the_nature_spirit_members'), new quest('Nomad\'s Requiem', 'nomads_requiem_members'), new quest('Observatory Quest', 'observatory_quest_members'), new quest('Olaf\'s Quest', 'olaf_s_quest_members'), new quest('One Small Favour', 'one_small_favour_members'), new quest('Perils of Ice Mountain', 'perils_of_ice_mountain'), new quest('Pirate\'s Treasure', 'pirate_s_treasure'), new quest('Plague City', 'plague_city_members'), new quest('Priest in Peril', 'priest_in_peril_members'), new quest('Prince Ali Rescue', 'prince_ali_rescue'), new quest('Prisoner of Glouphrie', 'Prisoner_of_Glouphrie_Members'), new quest('Quiet Before the Swarm', 'quiet_before_the_swarm_members'), new quest('Rag and Bone Man', 'rag_and_bone_man_members'), new quest('Rat Catchers', 'rat_catchers_members'), new quest('Recipe for Disaster', 'recipe_for_disaster_members'), new quest('Recipe for Disaster: Awowogei', 'recipe_for_disaster_members'), new quest('Recipe for Disaster: Dwarf', 'recipe_for_disaster_members'), new quest('Recipe for Disaster: Evil Dave', 'recipe_for_disaster_members'), new quest('Recipe for Disaster: Goblin Generals', 'recipe_for_disaster_members'), new quest('Recipe for Disaster: Lumbridge Sage', 'recipe_for_disaster_members'), new quest('Recipe for Disaster: Pirate Pete', 'recipe_for_disaster_members'), new quest('Recipe for Disaster: Sir Amik Varze', 'recipe_for_disaster_members'), new quest('Recipe for Disaster: Skrach', 'recipe_for_disaster_members'), new quest('Recipe for Disaster: Starting Out', 'recipe_for_disaster_members'), new quest('Recruitment Drive', 'recruitment_drive_members'), new quest('Regicide', 'regicide_members'), new quest('Rocking Out', 'rocking_out_members'), new quest('Roving Elves', 'roving_elves_members'), new quest('Royal Trouble', 'royal_trouble_members'), new quest('Rune Mechanics', 'sym_rune_mechanics_members_n_z'), new quest('Rune Mysteries', 'rune_mysteries'), new quest('Salt in the Wound', 'salt_in_the_wound_members'), new quest('Scorpion Catcher', 'scorpion_catcher_members'), new quest('Sea Slug', 'sea_slug_members'), new quest('Shades of Mort\'ton', 'shades_of_mort_ton_members'), new quest('Shadow of the Storm', 'shadow_of_the_storm_members'), new quest('Sheep Herder', 'sheep_herder_members'), new quest('Shield of Arrav', 'shield_of_arrav'), new quest('Shilo Village', 'quest_shilo_village_members'), new quest('Slug Menace', 'slug_menace_members'), new quest('Smoking Kills', 'smoking_kills_members'), new quest('Spirit of Summer', 'spirit_of_summer_i_members'), new quest('Spirits of the Elid', 'spirits_of_the_elid_members'), new quest('Summer\'s End', 'spirit_of_summer_part_ii_members'), new quest('Swan Song', 'swan_song_members'), new quest('Swept Away', 'swept_away_members'), new quest('Tai Bwo Wannai Trio', 'tai_bwo_wannai_trio_members'), new quest('Tale of the Muspah', 'the_tale_of_the_muspah_members'), new quest('Tears of Guthix', 'tears_of_guthix_members'), new quest('Temple of Ikov', 'temple_of_ikov_members'), new quest('The Blood Pact', 'blood_pact'), new quest('The Darkness of Hallowvale', 'darkness_of_hallowvale_members'), new quest('The Elemental Workshop I', 'the_elemental_workshop_i_members'), new quest('The Elemental Workshop II', 'the_elemental_workshop_ii_members'), new quest('The Elemental Workshop III', 'the_elemental_workshop_iii_members'), new quest('The Elemental Workshop IV', 'the_elemental_workshop_iv_members'), new quest('The Eyes of Glouphrie', 'the_eyes_of_glouphrie_members'), new quest('The Feud', 'the_feud_members'), new quest('The Fremennik Trials', 'the_fremennik_trials_members'), new quest('The Giant Dwarf', 'the_giant_dwarf_members'), new quest('The Golem', 'the_golem_members'), new quest('The Grand Tree', 'the_grand_tree_members'), new quest('The Hand in the Sand', 'hand_in_the_sand_members'), new quest('The Knight\'s Sword', 'the_knight_s_sword'), new quest('The Lost Tribe', 'lost_tribe_members'), new quest('The Path of Glouphrie', 'path_of_glouphrie'), new quest('The Restless Ghost', 'the_restless_ghost'), new quest('The Temple at Senntisten', 'the_temple_at_senntisten_members'), new quest('The Tourist Trap', 'the_tourist_trap_members'), new quest('The Void Stares Back', 'the_void_stares_back_members'), new quest('The Watchtower', 'watchtower_members'), new quest('Throne of Miscellania', 'throne_of_miscellania_members'), new quest('TokTz-Ket-Dill', 'toktz_ket_dill_members'), new quest('Tower of Life', 'tower_of_life_members'), new quest('Tree Gnome Village', 'tree_gnome_village_members'), new quest('Tribal Totem', 'tribal_totem_members'), new quest('Troll Romance', 'troll_romance_members'), new quest('Troll Stronghold', 'quest_troll_stronghold_members'), new quest('Underground Pass', 'underground_pass_members'), new quest('Unstable Foundations', 'how_do_i_get_started0#Tutorial_Island'), new quest('Vampyre Slayer', 'vampire_slayer'), new quest('Wanted!', 'wanted_members'), new quest('Waterfall Quest', 'waterfall_quest_members'), new quest('What Lies Below', 'what_lies_below_members'), new quest('While Guthix Sleeps', 'while_guthix_sleeps_members'), new quest('Witch\'s House', 'witch_s_house_members'), new quest('Within the Light', 'within_the_light_members'), new quest('Wolf Whistle', 'wolf_whistle_members'), new quest('Zogre Flesh Eaters', 'zogre_flesh_eaters_members')], [], [new quest('The Branches of Darkmeyer', null)]];
+    var quest_type = 0;
+    var quest_page = 0;
+    var quest_page_count = [13, 1, 1];
+    var quest_selected = 0;
+
+
+
+    function update_quests(q, p) {
+
+      if ((q == quest_type && p == quest_page) || q < 0 || p < 0 || q >= quests.length || (p > 0 && p >= quests[q].length)) {
+        return false;
+      }
+
+      switch (quest_selected) {
+        case 0: {
+          $("#completed").removeClass("selected");
+          break;
+        }
+        case 1: {
+          $("#started").removeClass("selected");
+          break;
+        }
+        case 2: {
+          $("#uninitiated").removeClass("selected");
+          break;
+        }
+      }
+
+      switch (q) {
+        case 0: {
+          $("#completed").addClass("selected");
+          quest_selected = q;
+          break;
+        }
+        case 1: {
+          $("#started").addClass("selected");
+          quest_selected = q;
+          break;
+        }
+        case 2: {
+          $("#uninitiated").addClass("selected");
+          quest_selected = q;
+          break;
+        }
+      }
+      var elem;
+
+      if (p == 0) {
+        elem = document.getElementById('questsFirstImg');
+        elem.src = 'https://web.archive.org/web/20110910132542/http://www.runescape.com/img/playerlog/buttons/jump_first_null.png';
+        elem.alt = 'Disabled first arrow';
+        elem = document.getElementById('questsFirst');
+        elem.onclick = function () { return false; };
+        elem.className = 'disabled';
+        elem.href = '';
+        elem = document.getElementById('questsPreviousImg');
+        elem.src = 'https://web.archive.org/web/20110910132542/http://www.runescape.com/img/playerlog/buttons/jump_previous_null.png';
+        elem.alt = 'Disabled previous arrow';
+        elem = document.getElementById('questsPrevious');
+        elem.onclick = function () { return false; };
+        elem.className = 'disabled';
+        elem.href = '';
+      }
+
+      else {
+        elem = document.getElementById('questsFirstImg');
+        elem.src = 'https://web.archive.org/web/20110910132542/http://www.runescape.com/img/playerlog/buttons/jump_first.png';
+        elem.alt = 'First arrow';
+        elem = document.getElementById('questsFirst');
+        elem.onclick = function () { return update_quests(quest_type, 0); };
+        elem.className = 'First';
+        elem.href = '?searchName=Elias&view_quest=' + quest_type + '&quest_page=0#questsFirst';
+        elem = document.getElementById('questsPreviousImg');
+        elem.src = 'https://web.archive.org/web/20110910132542/http://www.runescape.com/img/playerlog/buttons/jump_previous.png';
+        elem.alt = 'Previous arrow';
+        elem = document.getElementById('questsPrevious');
+        elem.onclick = function () { return update_quests(quest_type, quest_page - 1); };
+        elem.className = 'Previous';
+        elem.href = '?searchName=Elias&view_quest=' + quest_type + '&quest_page=' + (p - 1) + '#questsNext';
+      }
+
+      if (p == quest_page_count[q] - 1) {
+        elem = document.getElementById('questsNextImg');
+        elem.src = 'https://web.archive.org/web/20110910132542/http://www.runescape.com/img/playerlog/buttons/jump_next_null.png';
+        elem.alt = 'Disabled last arrow';
+        elem = document.getElementById('questsNext');
+        elem.onclick = function () { return false; };
+        elem.className = 'disabled';
+        elem.href = '';
+        elem = document.getElementById('questsLastImg');
+        elem.src = 'https://web.archive.org/web/20110910132542/http://www.runescape.com/img/playerlog/buttons/jump_last_null.png';
+        elem.alt = 'Disabled last arrow';
+        elem = document.getElementById('questsLast');
+        elem.onclick = function () { return false; };
+        elem.className = 'disabled';
+        elem.href = '';
+      }
+
+      else {
+        elem = document.getElementById('questsNextImg');
+        elem.src = 'https://web.archive.org/web/20110910132542/http://www.runescape.com/img/playerlog/buttons/jump_next.png';
+        elem.alt = 'Next arrow';
+        elem = document.getElementById('questsNext');
+        elem.onclick = function () { return update_quests(quest_type, quest_page + 1); };
+        elem.className = 'Next';
+        elem.href = '?searchName=Elias&view_quest=' + quest_type + '&quest_page=' + (p + 1) + '#questsNext';
+        elem = document.getElementById('questsLastImg');
+        elem.src = 'https://web.archive.org/web/20110910132542/http://www.runescape.com/img/playerlog/buttons/jump_last.png';
+        elem.alt = 'Last arrow';
+        elem = document.getElementById('questsLast');
+        elem.onclick = function () { return update_quests(quest_type, quest_page_count[quest_type] - 1); };
+        elem.className = 'Last';
+        elem.href = '?searchName=Elias&view_quest=' + quest_type + '&quest_page=' + (quest_page_count[quest_type] - 1) + '#questsFirst';
+      }
+      if (q != quest_type) document.getElementById('questsPagecount').innerHTML = quest_page_count[q];
+      var content = '<ul>';
+      var quest_start = p * 15;
+      var quest_end = quest_start + 15;
+      var i = quest_start;
+      for (; i < quest_end && i < quests[q].length; i++) {
+        content += '<li><a href="';
+
+
+        content += 'https://web.archive.org/web/20110910132542/http://www.runescape.com/kbase/guid/';
+        if (quests[q][i].kbguid != null) content += quests[q][i].kbguid; else content += 'quests0';
+
+        content += '" target="_blank">' + quests[q][i].name + '</a></li>';
+      }
+      content += '</ul>';
+      document.getElementById('quest_div').innerHTML = content;
+      quest_type = q;
+      quest_page = p;
+      document.getElementById('questsPage').innerHTML = quest_page + 1;
+      return false;
+    }
+
+
+
+    var skill_selected = 0;
+    function update_skills(i) {
+      $("#skill" + skill_selected).removeClass("selected");
+      skill_selected = i;
+      $("#skill" + i).addClass("selected");
+      document.getElementById('skilltitle').innerHTML = skills[i].name;
+      document.getElementById('skillxp').innerHTML = skills[i].xp;
+      document.getElementById('skilllevel').innerHTML = skills[i].level;
+      document.getElementById('skillrank').innerHTML = skills[i].rank;
+      return false;
+    } //End of function update_skills
+    //]]></script>
+
+</head>
+
+<body id="navcommunity" class="bodyBackground"><!-- BEGIN WAYBACK TOOLBAR INSERT -->
+  <script>__wm.rw(0);</script>
+  <div id="wm-ipp-base" lang="en" style="display: block; direction: ltr;">
+  </div>
+  <div id="wm-ipp-print">The Wayback Machine -
+    https://web.archive.org/web/20110910132542/http://services.runescape.com:80/m=adventurers-log/display_player_profile.ws?searchName=elias
+  </div>
+  <script type="text/javascript">//<![CDATA[
+    __wm.bt(700, 27, 25, 2, "web", "http://services.runescape.com/m%3Dadventurers-log/display_player_profile.ws?searchName=Elias", "20110910132542", 1996, "/_static/", ["/_static/css/banner-styles.css?v=S1zqJCYt", "/_static/css/iconochive.css?v=qtvMKcIJ"], false);
+    __wm.rw(1);
+    //]]></script>
+  <!-- END WAYBACK TOOLBAR INSERT -->
+
+  <a name="top"></a>
+
+
+
+  <div class="bodyBackgroundHead">
+
+    <div id="menubox">
+      <ul id="menus">
+        <li class="top"><a href="https://web.archive.org/web/20110910132542/http://www.runescape.com/title.ws" id="home"
+            class="tl"><span class="ts">Home</span></a></li>
+        <li class="top"><a id="play" class="tl"
+            href="https://web.archive.org/web/20110910132542/http://www.runescape.com/game.ws?j=1"
+            onclick="try{pageTracker._trackPageview('/play_game/menu/top')}catch(x){}; try{_pageTracker._trackPageview('/play_game/menu/top')}catch(x){}"><span
+              class="ts">Play Now</span><!--[if gt IE 6]><!--></a><!--<![endif]-->
+          <!--[if lte IE 6]><table><tr><td><![endif]-->
+
+          <ul>
+            <li><a
+                href="https://web.archive.org/web/20110910132542/http://www.runescape.com/game.ws?autocreate=true&amp;j=1"
+                id="menuPlay1" class="fly"><span>New Users</span></a></li>
+            <li><a href="https://web.archive.org/web/20110910132542/http://www.runescape.com/game.ws?j=1"
+                id="playExisting"
+                onclick="try{pageTracker._trackPageview('/play_game/menu/existing')}catch(x){}; try{_pageTracker._trackPageview('/play_game/menu/existing')}catch(x){}"
+                class="fly"><span>Existing Users</span></a></li>
+            <li><a href="https://web.archive.org/web/20110910132542/http://www.runescape.com/options.ws"
+                class="fly"><span>Java Options</span></a></li>
+          </ul>
+          <!--[if lte IE 6]></td></tr></table></a><![endif]-->
+        </li>
+        <li class="top"><a id="account" class="tl"
+            href="https://web.archive.org/web/20110910132542/http://www.runescape.com/account_management.ws"><span
+              class="ts">Account</span><!--[if gt IE 6]><!--></a><!--<![endif]-->
+          <!--[if lte IE 6]><table><tr><td><![endif]-->
+
+          <ul>
+            <li><a href="https://web.archive.org/web/20110910132542/http://www.runescape.com/members/members.ws"
+                class="fly"><span>Upgrade Your Account</span></a></li>
+            <li><a href="https://web.archive.org/web/20110910132542/http://www.runescape.com/store_locator.ws"
+                class="fly"><span>Membership Cards</span></a></li>
+            <li><a
+                href="https://web.archive.org/web/20110910132542/http://www.runescape.com/game.ws?autocreate=true&amp;j=1"
+                id="menuPlay2" class="fly"><span>Create New Account</span></a></li>
+            <li><a href="https://web.archive.org/web/20110910132542/https://secure.runescape.com/m=friend-referral/"
+                class="fly"><span>Refer A Friend</span></a></li>
+            <li><a href="https://web.archive.org/web/20110910132542/https://secure.runescape.com/m=loyalty-points/"
+                class="fly"><span>Members Loyalty Programme</span></a></li>
+            <li><a href="https://web.archive.org/web/20110910132542/http://www.runescape.com/account_management.ws"
+                class="fly"><span>Account Management</span></a></li>
+          </ul>
+          <!--[if lte IE 6]></td></tr></table></a><![endif]-->
+        </li>
+        <li class="top"><a id="guide" class="tl"
+            href="https://web.archive.org/web/20110910132542/http://www.runescape.com/kbase/guid/manual"><span
+              class="ts">Game Guide</span><!--[if gt IE 6]><!--></a><!--<![endif]-->
+          <!--[if lte IE 6]><table><tr><td><![endif]-->
+          <!--[if lte IE 6]><iframe src=""></iframe><![endif]-->
+          <ul>
+            <li><a href="https://web.archive.org/web/20110910132542/http://www.runescape.com/kbase/guid/manual"
+                class="fly"><span>Manual</span></a></li>
+            <li><a href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m=questhelp/index.ws"
+                class="fly"><span>QuestHelp</span></a></li>
+            <li><a
+                href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m=itemdb_rs/frontpage.ws"
+                class="fly"><span>Grand Exchange</span></a></li>
+            <li><a
+                href="https://web.archive.org/web/20110910132542/http://www.runescape.com/kbase/guid/rules_of_conduct"
+                class="fly"><span>Rules</span></a></li>
+            <li><a href="https://web.archive.org/web/20110910132542/http://www.runescape.com/kbase/guid/lore"
+                class="fly"><span>Lores</span></a></li>
+            <li><a href="https://web.archive.org/web/20110910132542/http://www.runescape.com/splash.ws"
+                class="fly"><span>What is RuneScape?</span></a></li>
+          </ul>
+          <!--[if lte IE 6]></td></tr></table></a><![endif]-->
+        </li>
+        <li class="top"><a id="community" class="tl"
+            href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m=forum/forums.ws"><span
+              class="ts">Community</span><!--[if gt IE 6]><!--></a><!--<![endif]-->
+          <!--[if lte IE 6]><table><tr><td><![endif]-->
+          <!--[if lte IE 6]><iframe src=""></iframe><![endif]-->
+          <ul>
+            <li><a href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m=forum/forums.ws"
+                class="fly"><span>Forums</span></a></li>
+            <li><a href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m=clan-home/"
+                class="fly"><span>Clans</span></a></li>
+            <li><a href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m=hiscore/hiscores.ws"
+                class="fly"><span>Hiscores</span></a></li>
+            <li><a
+                href="https://web.archive.org/web/20110910132542/http://www.runescape.com/kbase/guid/Player_Submissions"
+                class="fly"><span>Player Submissions</span></a></li>
+            <li><a
+                href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m=adventurers-log/display_player_profile.ws"
+                class="fly"><span>Adventurer's Log</span></a></li>
+            <li><a href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m=poll/"
+                class="fly"><span>Polls</span></a></li>
+            <li><a
+                href="https://web.archive.org/web/20110910132542/http://www.runescape.com/kbase/guid/Downloads_and_Wallpapers"
+                class="fly"><span>Downloads &amp; Wallpapers</span></a></li>
+            <li><a href="https://web.archive.org/web/20110910132542/http://www.runescape.com/kbase/guid/media"
+                class="fly"><span>Media</span></a></li>
+
+          </ul>
+          <!--[if lte IE 6]></td></tr></table></a><![endif]-->
+        </li>
+        <li class="top"><a id="help" class="tl"
+            href="https://web.archive.org/web/20110910132542/http://www.runescape.com/kbase/guid/Customer_Support"><span
+              class="ts">Help</span><!--[if gt IE 6]><!--></a><!--<![endif]-->
+          <!--[if lte IE 6]><table><tr><td><![endif]-->
+          <!--[if lte IE 6]><iframe src=""></iframe><![endif]-->
+          <ul>
+            <li><a
+                href="https://web.archive.org/web/20110910132542/http://www.runescape.com/kbase/guid/Customer_Support"
+                class="fly"><span>Customer Support</span></a></li>
+            <li><a
+                href="https://web.archive.org/web/20110910132542/http://www.runescape.com/redirect.ws?mod=www&amp;dest=loginapplet/loginapplet.ws?mod=accountappeal&amp;dest=beginappeal.ws"
+                class="fly"><span>Recover an Account</span></a></li>
+            <li><a
+                href="https://web.archive.org/web/20110910132542/http://www.runescape.com/redirect.ws?mod=offence-appeal&amp;dest=index.ws"
+                class="fly"><span>Appeal Bans &amp; Mutes</span></a></li>
+            <li><a href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m=bugtracker_v4/"
+                class="fly"><span>Submit a Bug Report</span></a></li>
+            <li><a href="https://web.archive.org/web/20110910132542/http://www.runescape.com/parents.ws"
+                class="fly"><span>Parents' Guide</span></a></li>
+          </ul>
+          <!--[if lte IE 6]></td></tr></table></a><![endif]-->
+        </li>
+        <li class="top"><a
+            href="https://web.archive.org/web/20110910132542/https://secure.runescape.com/m=weblogin/loginform.ws?mod=adventurers-log&amp;ssl=0&amp;dest=display_player_profile.ws"
+            id="login" class="tl"><span class="ts">Log In</span></a></li>
+      </ul>
+      <br class="clear">
+    </div>
+
+    <div id="bannerNoad">
+      <a href="https://web.archive.org/web/20110910132542/http://www.runescape.com/game.ws?j=1" class="HoverImg"
+        id="playBannerNoad"><img src="alog_assets/playnow.png" alt="Play Now"></a>
+    </div>
+    <div id="scroll">
+      <div id="head">
+        <div id="headBg">
+          <div id="langAndLogin">
+
+            <div id="lang">
+              <a href="https://web.archive.org/web/20110910132542/http://www.runescape.com/title.ws?set_lang=0"><img
+                  alt="English" title="English" src="alog_assets/en.gif"></a>
+              <a href="https://web.archive.org/web/20110910132542/http://www.runescape.com/l=1/title.ws?set_lang=1"><img
+                  alt="Deutsch" title="Deutsch" src="alog_assets/de.gif"></a>
+              <a href="https://web.archive.org/web/20110910132542/http://www.runescape.com/l=2/title.ws?set_lang=2"><img
+                  alt="Fran�ais" title="Fran�ais" src="alog_assets/fr.gif"></a>
+              <a href="https://web.archive.org/web/20110910132542/http://www.runescape.com/l=3/title.ws?set_lang=3"><img
+                  alt="Portugu�s (BR)" title="Portugu�s (BR)" src="alog_assets/br.gif"></a>
+            </div>
+
+
+          </div>
+
+          <div class="navigation">
+            <div class="location">
+              <b>Location: </b> <a
+                href="https://web.archive.org/web/20110910132542/http://www.runescape.com/title.ws">Home</a> &gt;
+              Adventurer's Log for Elias
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="content">
+        <div id="plog_other" class="section">
+          <div id="logHeader_buttonless">
+            <span class="profile"></span>
+
+            <div id="searchPanel">
+              <form action="display_player_profile.ws">
+                <input maxlength="12" type="text" name="searchName" id="searchBox" value="Elias"
+                  onfocus="if (this.value=='Search other users...') {this.value=''}"
+                  onblur="if(this.value=='')this.value='Search other users...';">
+                <input class="go" type="submit" value="Go">
+                <script type="text/javascript">
+                  document.getElementById("searchBox").value = "Elias";
+                </script>
+              </form>
+            </div>
+            <div id="logTitle">Adventurer's Log</div>
+          </div>
+          <div id="greyBack">
+            <div id="avatar" class="logSmallSlate private">
+              <div class="title">Elias</div>
+              <br class="clear">
+              <img src="alog_assets/default_chat.png" class="head" alt="Elias avatar head">
+              <img src="alog_assets/default_full.png" class="body" alt="Elias avatar body">
+              <div id="gender">Gender:
+                Male</div>
+            </div>
+            <div id="scores" class="logSmallSlate">
+              <div class="title" id="skilltitle">Total Level</div>
+              <div class="details" id="skillsdetail">
+                Level: <span id="skilllevel">2496</span>
+                - Rank:
+                <span id="skillrank">
+                  1
+                </span>
+                - XP: <span id="skillxp">3,000,000,000</span>
+              </div>
+              <br class="clear">
+              <div class="buttonContainer">
+                <a id="skill0"
+                  href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m%3Dadventurers-log/display_player_profile.ws?searchName=Elias&amp;skill=0"
+                  onclick="return update_skills(0);" class="scoreButton selected">2496</a>
+                <a id="skill1"
+                  href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m%3Dadventurers-log/display_player_profile.ws?searchName=Elias&amp;skill=1"
+                  onclick="return update_skills(1);" class="scoreButton ">
+                  <img src="alog_assets/skill_icon_Attack1.gif" alt="Attack">99
+                </a>
+                <a id="skill2"
+                  href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m%3Dadventurers-log/display_player_profile.ws?searchName=Elias&amp;skill=2"
+                  onclick="return update_skills(2);" class="scoreButton ">
+                  <img src="alog_assets/skill_icon_Defence1.gif" alt="Defence">99
+                </a>
+                <a id="skill3"
+                  href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m%3Dadventurers-log/display_player_profile.ws?searchName=Elias&amp;skill=3"
+                  onclick="return update_skills(3);" class="scoreButton ">
+                  <img src="alog_assets/skill_icon_Strength1.gif" alt="Strength">99
+                </a>
+                <a id="skill4"
+                  href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m%3Dadventurers-log/display_player_profile.ws?searchName=Elias&amp;skill=4"
+                  onclick="return update_skills(4);" class="scoreButton ">
+                  <img src="alog_assets/skill_icon_Constitution1.gif" alt="Constitution">99
+                </a>
+                <a id="skill5"
+                  href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m%3Dadventurers-log/display_player_profile.ws?searchName=Elias&amp;skill=5"
+                  onclick="return update_skills(5);" class="scoreButton ">
+                  <img src="alog_assets/skill_icon_Ranged1.gif" alt="Ranged">99
+                </a>
+                <a id="skill6"
+                  href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m%3Dadventurers-log/display_player_profile.ws?searchName=Elias&amp;skill=6"
+                  onclick="return update_skills(6);" class="scoreButton ">
+                  <img src="alog_assets/skill_icon_Prayer1.gif" alt="Prayer">99
+                </a>
+                <a id="skill7"
+                  href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m%3Dadventurers-log/display_player_profile.ws?searchName=Elias&amp;skill=7"
+                  onclick="return update_skills(7);" class="scoreButton ">
+                  <img src="alog_assets/skill_icon_Magic1.gif" alt="Magic">99
+                </a>
+                <a id="skill8"
+                  href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m%3Dadventurers-log/display_player_profile.ws?searchName=Elias&amp;skill=8"
+                  onclick="return update_skills(8);" class="scoreButton ">
+                  <img src="alog_assets/skill_icon_Cooking1.gif" alt="Cooking">99
+                </a>
+                <a id="skill9"
+                  href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m%3Dadventurers-log/display_player_profile.ws?searchName=Elias&amp;skill=9"
+                  onclick="return update_skills(9);" class="scoreButton ">
+                  <img src="alog_assets/skill_icon_Woodcutting1.gif" alt="Woodcutting">99
+                </a>
+                <a id="skill10"
+                  href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m%3Dadventurers-log/display_player_profile.ws?searchName=Elias&amp;skill=10"
+                  onclick="return update_skills(10);" class="scoreButton ">
+                  <img src="alog_assets/skill_icon_Fletching1.gif" alt="Fletching">99
+                </a>
+                <a id="skill11"
+                  href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m%3Dadventurers-log/display_player_profile.ws?searchName=Elias&amp;skill=11"
+                  onclick="return update_skills(11);" class="scoreButton ">
+                  <img src="alog_assets/skill_icon_Fishing1.gif" alt="Fishing">99
+                </a>
+                <a id="skill12"
+                  href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m%3Dadventurers-log/display_player_profile.ws?searchName=Elias&amp;skill=12"
+                  onclick="return update_skills(12);" class="scoreButton ">
+                  <img src="alog_assets/skill_icon_Firemaking1.gif" alt="Firemaking">99
+                </a>
+                <a id="skill13"
+                  href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m%3Dadventurers-log/display_player_profile.ws?searchName=Elias&amp;skill=13"
+                  onclick="return update_skills(13);" class="scoreButton ">
+                  <img src="alog_assets/skill_icon_Crafting1.gif" alt="Crafting">99
+                </a>
+                <a id="skill14"
+                  href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m%3Dadventurers-log/display_player_profile.ws?searchName=Elias&amp;skill=14"
+                  onclick="return update_skills(14);" class="scoreButton ">
+                  <img src="alog_assets/skill_icon_Smithing1.gif" alt="Smithing">99
+                </a>
+                <a id="skill15"
+                  href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m%3Dadventurers-log/display_player_profile.ws?searchName=Elias&amp;skill=15"
+                  onclick="return update_skills(15);" class="scoreButton ">
+                  <img src="alog_assets/skill_icon_Mining1.gif" alt="Mining">99
+                </a>
+                <a id="skill16"
+                  href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m%3Dadventurers-log/display_player_profile.ws?searchName=Elias&amp;skill=16"
+                  onclick="return update_skills(16);" class="scoreButton ">
+                  <img src="alog_assets/skill_icon_Herblore1.gif" alt="Herblore">99
+                </a>
+                <a id="skill17"
+                  href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m%3Dadventurers-log/display_player_profile.ws?searchName=Elias&amp;skill=17"
+                  onclick="return update_skills(17);" class="scoreButton ">
+                  <img src="alog_assets/skill_icon_Agility1.gif" alt="Agility">99
+                </a>
+                <a id="skill18"
+                  href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m%3Dadventurers-log/display_player_profile.ws?searchName=Elias&amp;skill=18"
+                  onclick="return update_skills(18);" class="scoreButton ">
+                  <img src="alog_assets/skill_icon_Thieving1.gif" alt="Thieving">99
+                </a>
+                <a id="skill19"
+                  href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m%3Dadventurers-log/display_player_profile.ws?searchName=Elias&amp;skill=19"
+                  onclick="return update_skills(19);" class="scoreButton ">
+                  <img src="alog_assets/skill_icon_Slayer1.gif" alt="Slayer">99
+                </a>
+                <a id="skill20"
+                  href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m%3Dadventurers-log/display_player_profile.ws?searchName=Elias&amp;skill=20"
+                  onclick="return update_skills(20);" class="scoreButton ">
+                  <img src="alog_assets/skill_icon_Farming1.gif" alt="Farming">99
+                </a>
+                <a id="skill21"
+                  href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m%3Dadventurers-log/display_player_profile.ws?searchName=Elias&amp;skill=21"
+                  onclick="return update_skills(21);" class="scoreButton ">
+                  <img src="alog_assets/skill_icon_Runecrafting1.gif" alt="Runecrafting">99
+                </a>
+                <a id="skill22"
+                  href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m%3Dadventurers-log/display_player_profile.ws?searchName=Elias&amp;skill=22"
+                  onclick="return update_skills(22);" class="scoreButton ">
+                  <img src="alog_assets/skill_icon_Hunter1.gif" alt="Hunter">99
+                </a>
+                <a id="skill23"
+                  href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m%3Dadventurers-log/display_player_profile.ws?searchName=Elias&amp;skill=23"
+                  onclick="return update_skills(23);" class="scoreButton ">
+                  <img src="alog_assets/skill_icon_Construction1.gif" alt="Construction">99
+                </a>
+                <a id="skill24"
+                  href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m%3Dadventurers-log/display_player_profile.ws?searchName=Elias&amp;skill=24"
+                  onclick="return update_skills(24);" class="scoreButton ">
+                  <img src="alog_assets/skill_icon_Summoning1.gif" alt="Summoning">99
+                </a>
+                <a id="skill25"
+                  href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m%3Dadventurers-log/display_player_profile.ws?searchName=Elias&amp;skill=25"
+                  onclick="return update_skills(25);" class="scoreButton ">
+                  <img src="alog_assets/skill_icon_Dungeoneering1.gif" alt="Dungeoneering">120
+                </a>
+                <a href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m=hiscore/compare.ws?user1=Elias"
+                  class="compare" target="_blank">Compare hiscores</a>
+              </div>
+            </div>
+            <br class="clear">
+            <div id="myAchievements" class="parchment" style="position: relative;">
+              <div id="feed" style="position:absolute; top: 13px; right: 41px;">
+                <a
+                  href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m=adventurers-log/rssfeed?searchName=Elias">
+                  <!--[if gte IE 7]><!---><img title="Subscribe to RSS" alt=""
+                    src="alog_assets/logo.png"><!--<![endif]-->
+                  <!--[if IE 6]><img title="Subscribe to RSS" alt="" src="http://www.jagex.com/img/crossservice/RSS/logo_ie6.png"/><![endif]--></a>
+              </div>
+              <div class="title">Recent Events</div>
+              <div id="RAAccordion" class="accordion ui-accordion ui-widget ui-helper-reset ui-accordion-icons"
+                role="tablist">
+                <a class="AMHead ui-accordion-header ui-helper-reset ui-state-active ui-corner-top" id="A0"
+                  href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m%3Dadventurers-log/display_player_profile.ws?searchName=Elias&amp;rasection=1&amp;fasection=-1#RAAccordion"
+                  onclick="return false;" role="tab" aria-expanded="true" tabindex="0"><span
+                    class="ui-icon ui-icon-triangle-1-s"></span>
+                  <span class="Title">I killed Bork.</span>
+                  <br class="clear">
+                </a>
+                <div
+                  class="AMBody expanded ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active"
+                  id="A0Body" style="height: 59px;" role="tabpanel">
+                  <div class="AMBodyLiner">
+                    <p>I killed Bork, a big ork. (28th July 2011)</p>
+                  </div>
+                  <br class="clear">
+                </div>
+                <a class="AMHead ui-accordion-header ui-helper-reset ui-state-default ui-corner-all" id="A1"
+                  href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m%3Dadventurers-log/display_player_profile.ws?searchName=Elias&amp;rasection=1&amp;fasection=-1#RAAccordion"
+                  onclick="return false;" role="tab" aria-expanded="false" tabindex="-1"><span
+                    class="ui-icon ui-icon-triangle-1-e"></span>
+                  <span class="Title">Quest complete: Salt in the Wound</span>
+                  <br class="clear">
+                </a>
+                <div class="AMBody ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" id="A1Body"
+                  style="height: 59px; display: none;" role="tabpanel">
+                  <div class="AMBodyLiner">
+                    <p>I teamed up with Kennith, Ezekial and Eva to put an end to the slug menace. (28th July 2011)</p>
+                  </div>
+                  <br class="clear">
+                </div>
+                <a class="AMHead ui-accordion-header ui-helper-reset ui-state-default ui-corner-all" id="A2"
+                  href="&amp;fasection=-1#RAAccordion"
+                  onclick="return false;" role="tab" aria-expanded="false" tabindex="-1"><span
+                    class="ui-icon ui-icon-triangle-1-e"></span>
+                  <span class="Title">Quest complete: Deadliest Catch</span>
+                  <br class="clear">
+                </a>
+                <div class="AMBody ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" id="A2Body"
+                  style="height: 59px; display: none;" role="tabpanel">
+                  <div class="AMBodyLiner">
+                    <p>I helped Jones hunt down the deadly sea creature. (28th July 2011)</p>
+                  </div>
+                  <br class="clear">
+                </div>
+                <a class="AMHead ui-accordion-header ui-helper-reset ui-state-default ui-corner-all" id="A3"
+                  href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m%3Dadventurers-log/display_player_profile.ws?searchName=Elias&amp;rasection=3&amp;fasection=-1#RAAccordion"
+                  onclick="return false;" role="tab" aria-expanded="false" tabindex="-1"><span
+                    class="ui-icon ui-icon-triangle-1-e"></span>
+                  <span class="Title">74000000XP in Summoning</span>
+                  <br class="clear">
+                </a>
+                <div class="AMBody ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" id="A3Body"
+                  style="height: 59px; display: none;" role="tabpanel">
+                  <div class="AMBodyLiner">
+                    <p>I now have at least 74000000 experience points in the Summoning skill. (28th July 2011)</p>
+                  </div>
+                  <br class="clear">
+                </div>
+                <a class="AMHead ui-accordion-header ui-helper-reset ui-state-default ui-corner-all" id="A4"
+                  href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m%3Dadventurers-log/display_player_profile.ws?searchName=Elias&amp;rasection=4&amp;fasection=-1#RAAccordion"
+                  onclick="return false;" role="tab" aria-expanded="false" tabindex="-1"><span
+                    class="ui-icon ui-icon-triangle-1-e"></span>
+                  <span class="Title">72000000XP in Summoning</span>
+                  <br class="clear">
+                </a>
+                <div class="AMBody ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" id="A4Body"
+                  style="height: 59px; display: none;" role="tabpanel">
+                  <div class="AMBodyLiner">
+                    <p>I now have at least 72000000 experience points in the Summoning skill. (27th July 2011)</p>
+                  </div>
+                  <br class="clear">
+                </div>
+                <a class="AMHead ui-accordion-header ui-helper-reset ui-state-default ui-corner-all" id="A5"
+                  href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m%3Dadventurers-log/display_player_profile.ws?searchName=Elias&amp;rasection=5&amp;fasection=-1#RAAccordion"
+                  onclick="return false;" role="tab" aria-expanded="false" tabindex="-1"><span
+                    class="ui-icon ui-icon-triangle-1-e"></span>
+                  <span class="Title">70000000XP in Summoning</span>
+                  <br class="clear">
+                </a>
+                <div class="AMBody ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" id="A5Body"
+                  style="height: 59px; display: none;" role="tabpanel">
+                  <div class="AMBodyLiner">
+                    <p>I now have at least 70000000 experience points in the Summoning skill. (27th July 2011)</p>
+                  </div>
+                  <br class="clear">
+                </div>
+                <a class="AMHead ui-accordion-header ui-helper-reset ui-state-default ui-corner-all" id="A6"
+                  href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m%3Dadventurers-log/display_player_profile.ws?searchName=Elias&amp;rasection=6&amp;fasection=-1#RAAccordion"
+                  onclick="return false;" role="tab" aria-expanded="false" tabindex="-1"><span
+                    class="ui-icon ui-icon-triangle-1-e"></span>
+                  <span class="Title">68000000XP in Summoning</span>
+                  <br class="clear">
+                </a>
+                <div class="AMBody ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" id="A6Body"
+                  style="height: 59px; display: none;" role="tabpanel">
+                  <div class="AMBodyLiner">
+                    <p>I now have at least 68000000 experience points in the Summoning skill. (27th July 2011)</p>
+                  </div>
+                  <br class="clear">
+                </div>
+                <a class="AMHead ui-accordion-header ui-helper-reset ui-state-default ui-corner-all" id="A7"
+                  href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m%3Dadventurers-log/display_player_profile.ws?searchName=Elias&amp;rasection=7&amp;fasection=-1#RAAccordion"
+                  onclick="return false;" role="tab" aria-expanded="false" tabindex="-1"><span
+                    class="ui-icon ui-icon-triangle-1-e"></span>
+                  <span class="Title">106000000XP in Slayer</span>
+                  <br class="clear">
+                </a>
+                <div class=" ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" id="A7Body"
+                  style="height: 59px; display: none;" role="tabpanel">
+                  <div class="AMBodyLiner">
+                    <p>I now have at least 106000000 experience points in the Slayer skill. (27th July 2011)</p>
+                  </div>
+                  <br class="clear">
+                </div>
+                <a class="AMHead ui-accordion-header ui-helper-reset ui-state-default ui-corner-all" id="A8"
+                  href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m%3Dadventurers-log/display_player_profile.ws?searchName=Elias&amp;rasection=8&amp;fasection=-1#RAAccordion"
+                  onclick="return false;" role="tab" aria-expanded="false" tabindex="-1"><span
+                    class="ui-icon ui-icon-triangle-1-e"></span>
+                  <span class="Title">86000000XP in Woodcutting</span>
+                  <br class="clear">
+                </a>
+                <div class="AMBody ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" id="A8Body"
+                  style="height: 59px; display: none;" role="tabpanel">
+                  <div class="AMBodyLiner">
+                    <p>I now have at least 86000000 experience points in the Woodcutting skill. (27th July 2011)</p>
+                  </div>
+                  <br class="clear">
+                </div>
+                <a class="AMHead ui-accordion-header ui-helper-reset ui-state-default ui-corner-all" id="A9"
+                  href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m%3Dadventurers-log/display_player_profile.ws?searchName=Elias&amp;rasection=9&amp;fasection=-1#RAAccordion"
+                  onclick="return false;" role="tab" aria-expanded="false" tabindex="-1"><span
+                    class="ui-icon ui-icon-triangle-1-e"></span>
+                  <span class="Title">28000000XP in Agility</span>
+                  <br class="clear">
+                </a>
+                <div class="AMBody ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" id="A9Body"
+                  style="height: 59px; display: none;" role="tabpanel">
+                  <div class="AMBodyLiner">
+                    <p>I now have at least 28000000 experience points in the Agility skill. (27th July 2011)</p>
+                  </div>
+                  <br class="clear">
+                </div>
+              </div>
+            </div>
+            <div id="quests">
+              <div class="title">Quests</div>
+              <div class="buttonContainer">
+                <a onclick="return update_quests(0,0)"
+                  href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m%3Dadventurers-log/display_player_profile.ws?searchName=Elias&amp;view_quest=0#completed"
+                  id="completed" class="selected">Completed</a><a onclick="return update_quests(1,0)"
+                  href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m%3Dadventurers-log/display_player_profile.ws?searchName=Elias&amp;view_quest=1#started"
+                  id="started" class="">Started</a><a onclick="return update_quests(2,0)"
+                  href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m%3Dadventurers-log/display_player_profile.ws?searchName=Elias&amp;view_quest=2#uninitiated"
+                  id="uninitiated" class="">Not Started</a>
+              </div>
+              <div class="one_col" id="quest_div">
+                <ul>
+                  <li><a href="https://web.archive.org/web/20110910132542/http://www.runescape.com/kbase/guid/quests0"
+                      target="_blank">A Clockwork Syringe</a></li>
+                  <li><a
+                      href="https://web.archive.org/web/20110910132542/http://www.runescape.com/kbase/guid/rum_deal_members"
+                      target="_blank">A Rum Deal</a></li>
+                  <li><a
+                      href="https://web.archive.org/web/20110910132542/http://www.runescape.com/kbase/guid/a_soul_s_bane_members"
+                      target="_blank">A Soul's Bane</a></li>
+                  <li><a
+                      href="https://web.archive.org/web/20110910132542/http://www.runescape.com/kbase/guid/a_tail_of_two_cats_members"
+                      target="_blank">A Tail of Two Cats</a></li>
+                  <li><a
+                      href="https://web.archive.org/web/20110910132542/http://www.runescape.com/kbase/guid/a_void_dance_members"
+                      target="_blank">A Void Dance</a></li>
+                  <li><a
+                      href="https://web.archive.org/web/20110910132542/http://www.runescape.com/kbase/guid/all_fired_up_members"
+                      target="_blank">All Fired Up</a></li>
+                  <li><a
+                      href="https://web.archive.org/web/20110910132542/http://www.runescape.com/kbase/guid/animal_magnetism_members"
+                      target="_blank">Animal Magnetism</a></li>
+                  <li><a
+                      href="https://web.archive.org/web/20110910132542/http://www.runescape.com/kbase/guid/another_slice_of_h_a_m_members"
+                      target="_blank">Another Slice of H.A.M.</a></li>
+                  <li><a
+                      href="https://web.archive.org/web/20110910132542/http://www.runescape.com/kbase/guid/as_a_first_resort_members"
+                      target="_blank">As A First Resort...</a></li>
+                  <li><a
+                      href="https://web.archive.org/web/20110910132542/http://www.runescape.com/kbase/guid/back_to_my_roots_members"
+                      target="_blank">Back to my Roots</a></li>
+                  <li><a
+                      href="https://web.archive.org/web/20110910132542/http://www.runescape.com/kbase/guid/between_a_rock_members"
+                      target="_blank">Between a Rock...</a></li>
+                  <li><a
+                      href="https://web.archive.org/web/20110910132542/http://www.runescape.com/kbase/guid/big_chompy_bird_hunting_members"
+                      target="_blank">Big Chompy Bird Hunting</a></li>
+                  <li><a
+                      href="https://web.archive.org/web/20110910132542/http://www.runescape.com/kbase/guid/biohazard_members"
+                      target="_blank">Biohazard</a></li>
+                  <li><a
+                      href="https://web.archive.org/web/20110910132542/http://www.runescape.com/kbase/guid/black_knights_fortress"
+                      target="_blank">Black Knights' Fortress</a></li>
+                  <li><a
+                      href="https://web.archive.org/web/20110910132542/http://www.runescape.com/kbase/guid/blood_runs_deep_members"
+                      target="_blank">Blood Runs Deep</a></li>
+                </ul>
+              </div>
+              <div class="PageControls">
+                <a id="questsFirst" class="disabled"
+                  href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m%3Dadventurers-log/display_player_profile.ws?searchName=Elias&amp;view_quest=0&amp;quest_page=0#questsFirst">
+                  <img id="questsFirstImg" alt="Disabled first arrow" title="" src="alog_assets/jump_first_null.png">
+                </a>
+                <a id="questsPrevious" class="disabled"
+                  href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m%3Dadventurers-log/display_player_profile.ws?searchName=Elias&amp;view_quest=0&amp;quest_page=0#questsNext">
+                  <img id="questsPreviousImg" alt="Disabled previous arrow" title=""
+                    src="alog_assets/jump_previous_null.png">
+                </a>
+                <div id="pageinfo">Page&nbsp;<span id="questsPage">1</span>&nbsp;of&nbsp;<span
+                    id="questsPagecount">13</span></div>
+                <a onclick="return update_quests(quest_type,quest_page+1)
+" class="Next" name="questsNext" id="questsNext"
+                  href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m%3Dadventurers-log/display_player_profile.ws?searchName=Elias&amp;view_quest=0&amp;quest_page=1#questsNext">
+                  <img id="questsNextImg" alt="Next arrow" title="Next" src="alog_assets/jump_next.png">
+                </a>
+                <a onclick="return update_quests(quest_type,quest_page_count[quest_type]-1)
+" class="Last" name="questsLast" id="questsLast"
+                  href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m%3Dadventurers-log/display_player_profile.ws?searchName=Elias&amp;view_quest=0&amp;quest_page=12#questsFirst">
+                  <img id="questsLastImg" alt="Last arrow" title="Last" src="alog_assets/jump_last.png">
+                </a>
+              </div>
+            </div>
+            <br class="clear">
+          </div>
+          <br class="clear">
+        </div>
+        <script type="text/javascript">
+          $(function () {
+
+
+            $(".AMHead.expanded").removeClass("expanded");
+          })
+        </script>
+
+        <br class="clear">
+      </div>
+      <div id="footer">
+        <div class="contain">
+          <div class="footerdesc">
+            This website and its contents are copyright � 1999 - 2011 Jagex Ltd<br>
+            Use of this website is subject to our <a
+              href="https://web.archive.org/web/20110910132542/http://www.runescape.com/terms/terms.ws">Terms &amp;
+              Conditions</a> and <a
+              href="https://web.archive.org/web/20110910132542/http://www.runescape.com/privacy/privacy.ws">Privacy
+              Policy</a>.
+          </div>
+          <a class="jagexlink"
+            href="https://web.archive.org/web/20110910132542/http://www.jagex.com/p=2sA9c0-ltlLB7H6LqG1ya8HsfouobXJr4Av4RGYIPRo/"
+            target="_blank">
+            <img src="alog_assets/jagex.png" alt="Jagex">
+          </a>
+        </div>
+
+
+
+      </div>
+    </div>
+  </div>
+
+
+  <script type="text/javascript">
+
+
+    document.write(unescape("%3Cscript src='https://web.archive.org/web/20110910132542/http://www.google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+
+  </script>
+  <script src="alog_assets/ga.js" type="text/javascript"></script>
+
+  <script type="text/javascript">
+    try {
+      var _pageTracker = _gat._getTracker("UA-2058817-15");
+      _pageTracker._setDomainName(".runescape.com");
+
+
+      _pageTracker._trackPageview();
+    } catch (x) { }
+  </script>
+
+  <script type="text/javascript">
+    try {
+      var pageTracker = _gat._getTracker("UA-2058817-2");
+      pageTracker._setDomainName(".runescape.com");
+
+
+      pageTracker._trackPageview();
+    } catch (x) { }
+  </script>
+
+
+
+
+
+</body>
+
+</html>
+<!--
+     FILE ARCHIVED ON 13:25:42 Sep 10, 2011 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 05:19:46 Sep 27, 2023.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->
+<!--
+playback timings (ms):
+  captures_list: 156.662 (11)
+  exclusion.robots: 0.18
+  exclusion.robots.policy: 0.171
+  cdx.remote: 0.056
+  esindex: 0.009
+  LoadShardBlock: 115.751 (3)
+  PetaboxLoader3.datanode: 88.545 (4)
+  load_resource: 280.529
+  PetaboxLoader3.resolve: 96.968
+-->

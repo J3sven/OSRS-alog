@@ -1,0 +1,531 @@
+<html>
+
+<head>
+
+  <link rel="SHORTCUT ICON" href="alog_assets/favicon.ico">
+  <meta http-equiv="X-UA-Compatible" content="IE=8">
+  <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+  <meta http-equiv="Content-Language" content="en, 
+    English
+    ">
+  <meta name="keywords"
+    content="MMORPG, free RPG games online, online multiplayer, role-playing, massively multiplayer games, mmo, RuneScape, Jagex, java">
+  <meta name="description"
+    content="Play RuneScape for free, and join a global community of millions as you complete quests and win enormous treasures in a 3D world full of magic and monsters.">
+  <meta name="title" content="RuneScape - MMORPG - The No.1 Free Online Multiplayer Game">
+  <title>Adventurer's log</title>
+  <style type="text/css">
+    /*\*/
+    @import url(alog_assets/global-41.css);
+    /**/
+  </style>
+  <script type="text/javascript" src="alog_assets/jquery_1_4_2.js"></script>
+  <script type="text/javascript">
+    $(function () {
+
+
+      $("#play, #playExisting, #playBannerNoad").each(function () { this.href += "?j=1"; });
+      $("#menuPlay1,#menuPlay2,#footerPlay,#loginPlay").each(function () { this.href += "&j=1"; })
+    })
+  </script>
+
+
+  <style type="text/css">
+    /*\*/
+    @import url(alog_assets/player_log-4.css);
+    /**/
+  </style>
+  <link rel="alternate" type="application/rss+xml" title="Recent events for J3 gg"
+    href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m=adventurers-log/rssfeed?searchName=J3 gg">
+  <script type="text/javascript" src="alog_assets/jquery_ui_1_8_2_core_accordion_tabs_effects.js"></script>
+
+  <script type="text/javascript">//<![CDATA[
+
+    class Skill {
+      constructor(name, exp, level, rank) {
+        this.name = name;
+        this.exp = exp;
+        this.level = level;
+        this.rank = rank;
+      }
+    }
+
+    class Activity {
+      constructor(name, count, rank) {
+        this.name = name;
+        this.count = count;
+        this.rank = rank;
+      }
+    }
+
+    var skills = {};
+
+    const getOSRSHiscores = async (username) => {
+      const response = await fetch(`http://localhost:3000/fetchHiscores?player=${username}`);
+      const json = await response.json();
+
+      const mainData = json.main;
+
+      skills = Object.entries(mainData.skills).map(([name, { rank, level, xp }]) => new Skill(name, xp, level, rank));
+
+      const activities = [];
+
+      for (const [category, data] of Object.entries(mainData)) {
+        if (category === 'skills') continue;
+
+        for (const [name, { rank, score }] of Object.entries(data)) {
+          activities.push(new Activity(name, score, rank));
+        }
+      }
+      populateInitialSkills();
+      console.log('skills:', skills, 'activities:', activities);
+    }
+
+
+    const updateButtonLevels = () => {
+      const buttons = document.querySelectorAll('.scoreButton');
+      buttons.forEach((button, index) => {
+        if (button.classList.contains('quest')) return;
+        const skill = skills[index];
+        if (button.querySelector('img')) {
+          button.innerHTML = `<img src="alog_assets/skill_icon_${skill.name}.gif" alt="${skill.name}">${skill.level}`;
+        } else {
+          button.textContent = skill.level;
+        }
+      });
+    };
+
+    const populateInitialSkills = () => {
+      const skillLevelElement = document.getElementById('skilllevel');
+      const skillRankElement = document.getElementById('skillrank');
+      const skillXpElement = document.getElementById('skillxp');
+      const skillTitleElement = document.getElementById('skilltitle');
+
+      const totalLevelSkill = skills.find(skill => skill.name === 'overall'); // Find 'Total Level' skill
+
+      if (totalLevelSkill) {
+        skillLevelElement.textContent = totalLevelSkill.level;
+        skillRankElement.textContent = totalLevelSkill.rank;
+        skillXpElement.textContent = totalLevelSkill.exp;
+        skillTitleElement.textContent = 'Total Level';
+      }
+
+      updateButtonLevels();
+
+      const buttonContainer = document.querySelector('.buttonContainer');
+
+      buttonContainer.addEventListener('click', (event) => {
+        let target = event.target;
+        while (target !== buttonContainer) {
+          if (target.classList.contains('scoreButton')) {
+            const skillName = target.getAttribute('data-skill-name');
+            updateSkills(skillName);
+            return;
+          }
+          target = target.parentElement;
+        }
+      });
+    };
+
+
+    const updateSkills = (skillName) => {
+      const skill = skills.find(skill => skill.name === skillName.toLowerCase());
+      if (!skill) return;  // Exit if skill is not found
+
+      const buttons = document.querySelectorAll('.scoreButton');
+      buttons.forEach(button => {
+        if (button.getAttribute('data-skill-name') === skillName.toLowerCase()) {
+          button.classList.add('selected');
+        } else {
+          button.classList.remove('selected');
+        }
+      });
+
+      const skillLevelElement = document.getElementById('skilllevel');
+      const skillRankElement = document.getElementById('skillrank');
+      const skillXpElement = document.getElementById('skillxp');
+      const skillTitleElement = document.getElementById('skilltitle');
+
+      skillLevelElement.textContent = skill.level;
+      skillRankElement.textContent = skill.rank;
+      skillXpElement.textContent = skill.exp;
+      skillTitleElement.textContent = skillName === 'overall' ? 'Total Level' : skillName;
+    };
+
+
+
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+      getOSRSHiscores('j3_gg').then(() => {
+        populateInitialSkills();
+      });
+    });
+
+
+  </script>
+
+</head>
+
+<div id="content">
+  <div id="plog_other" class="section">
+    <div id="logHeader">
+      <span class="profile"></span>
+
+      <div id="searchPanel">
+        <form action="display_player_profile.ws">
+          <input maxlength="12" type="text" name="searchName" id="searchBox" value="J3 gg"
+            onfocus="if (this.value=='Search other users...') {this.value=''}"
+            onblur="if(this.value=='')this.value='Search other users...';">
+          <input class="go" type="submit" value="Go">
+          <script type="text/javascript">
+            document.getElementById("searchBox").value = "J3 gg";
+          </script>
+        </form>
+      </div>
+      <div id="logTitle">Adventurer's Log</div>
+    </div>
+    <div id="greyBack">
+      <div id="avatar" class="logSmallSlate private">
+        <div class="title">J3 gg</div>
+        <br class="clear">
+        <img src="img/head.png" class="head" alt="J3 gg avatar head">
+        <img src="img/full.png" class="body" alt="J3 gg avatar body">
+        <div id="gender" style="text-align: left;"><img src="img/collectionlog.png" class="body"
+            style="height: 20px; width: 20px; padding: 0; margin-right: 25px; border: 0; display: inline;"
+            alt="collectionlog">
+          498/1477</div>
+        <div id="gender" style="text-align: left;"><img src="img/combatachievements.png" class="body"
+            style="height: 20px; width: 20px; padding: 0; margin-right: 25px; border: 0; display: inline;"
+            alt="collectionlog">
+          498/1477</div>
+        <div id="gender" style="text-align: left;"><img src="img/diaries.png" class="body"
+            style="height: 20px; width: 20px; padding: 0; margin-right: 25px; border: 0; display: inline;"
+            alt="collectionlog">
+          498/1477</div>
+      </div>
+      <div id="scores" class="logSmallSlate">
+        <div class="title" id="skilltitle"></div>
+        <div class="details" id="skillsdetail">
+          Level: <span id="skilllevel"></span>
+          - Rank: <span id="skillrank"></span>
+          - XP: <span id="skillxp"></span>
+        </div>
+        <br class="clear">
+        <div class="buttonContainer">
+          <button id="skill0" data-skill-name="overall" class="scoreButton selected">2496</button>
+          <button data-skill-name="attack" class="scoreButton "><img src="alog_assets/skill_icon_Attack.gif"
+              alt="Attack">99</button>
+          <button data-skill-name="defence" class="scoreButton "><img src="alog_assets/skill_icon_Defence.gif"
+              alt="Defence">99</button>
+          <button data-skill-name="strength" class="scoreButton "><img src="alog_assets/skill_icon_Strength.gif"
+              alt="Strength">99</button>
+          <button data-skill-name="hitpoints" class="scoreButton "><img src="alog_assets/skill_icon_Hitpoints.gif"
+              alt="Hitpoints">99</button>
+          <button data-skill-name="ranged" class="scoreButton "><img src="alog_assets/skill_icon_Ranged.gif"
+              alt="Ranged">99</button>
+          <button data-skill-name="prayer" class="scoreButton "><img src="alog_assets/skill_icon_Prayer.gif"
+              alt="Prayer">99</button>
+          <button data-skill-name="magic" class="scoreButton "><img src="alog_assets/skill_icon_Magic.gif"
+              alt="Magic">99</button>
+          <button data-skill-name="cooking" class="scoreButton "><img src="alog_assets/skill_icon_Cooking.gif"
+              alt="Cooking">99</button>
+          <button data-skill-name="woodcutting" class="scoreButton "><img
+              src="alog_assets/skill_icon_Woodcutting.gif" alt="Woodcutting">99</button>
+          <button data-skill-name="fletching" class="scoreButton "><img src="alog_assets/skill_icon_Fletching.gif"
+              alt="Fletching">99</button>
+          <button data-skill-name="fishing" class="scoreButton "><img src="alog_assets/skill_icon_Fishing.gif"
+              alt="Fishing">99</button>
+          <button data-skill-name="firemaking" class="scoreButton "><img src="alog_assets/skill_icon_Firemaking.gif"
+              alt="Firemaking">99</button>
+          <button data-skill-name="crafting" class="scoreButton "><img src="alog_assets/skill_icon_Crafting.gif"
+              alt="Crafting">99</button>
+          <button data-skill-name="smithing" class="scoreButton "><img src="alog_assets/skill_icon_Smithing.gif"
+              alt="Smithing">99</button>
+          <button data-skill-name="mining" class="scoreButton "><img src="alog_assets/skill_icon_Mining.gif"
+              alt="Mining">99</button>
+          <button data-skill-name="herblore" class="scoreButton "><img src="alog_assets/skill_icon_Herblore.gif"
+              alt="Herblore">99</button>
+          <button data-skill-name="agility" class="scoreButton "><img src="alog_assets/skill_icon_Agility.gif"
+              alt="Agility">99</button>
+          <button data-skill-name="thieving" class="scoreButton "><img src="alog_assets/skill_icon_Thieving.gif"
+              alt="Thieving">99</button>
+          <button data-skill-name="slayer" class="scoreButton "><img src="alog_assets/skill_icon_Slayer.gif"
+              alt="Slayer">99</button>
+          <button data-skill-name="farming" class="scoreButton "><img src="alog_assets/skill_icon_Farming.gif"
+              alt="Farming">99</button>
+          <button data-skill-name="runecraft" class="scoreButton "><img src="alog_assets/skill_icon_Runecraft.gif"
+              alt="Runecrafting">99</button>
+          <button data-skill-name="hunter" class="scoreButton "><img src="alog_assets/skill_icon_Hunter.gif"
+              alt="Hunter">99</button>
+          <button data-skill-name="construction" class="scoreButton "><img
+              src="alog_assets/skill_icon_Construction.gif" alt="Construction">99</button>
+          <button class="scoreButton quest"><img src="alog_assets/quest_icon.gif" alt="quest points">300</button>
+          <a href="https://secure.runescape.com/m=hiscore_oldschool/hiscorepersonal?user1=j3_gg" class="compare"
+            target="_blank">Compare hiscores</a>
+        </div>
+      </div>
+      <br class="clear">
+      <div id="myAchievements" class="parchment" style="position: relative;">
+        <div class="title">Recent Events</div>
+        <div id="RAAccordion" class="accordion ui-accordion ui-widget ui-helper-reset ui-accordion-icons"
+          role="tablist">
+        </div>
+      </div>
+      <div id="quests">
+        <div class="title">Activities</div>
+        <div class="details title" id="activitydetail">
+          <span id="activity name">Clue Scrolls (all)</span>
+          <span id="activitycount">292</span>
+          - Rank: <span id="activityrank">234342</span>
+        </div>
+        <div class="one_col" id="quest_div">
+          <div class="buttonContainer activitycontainer">
+            <span data-activity-name="hunterV2"><img src="alog_assets/game_icon_hunterV2.png"
+                alt="hunterV2">-1</span>
+            <span data-activity-name="rogueV2"><img src="alog_assets/game_icon_rogueV2.png" alt="rogueV2">-1</span>
+            <span data-activity-name="hunter"><img src="alog_assets/game_icon_hunter.png" alt="hunter">-1</span>
+            <span data-activity-name="rogue"><img src="alog_assets/game_icon_rogue.png" alt="rogue">-1</span>
+            <span data-activity-name="all"><img src="alog_assets/game_icon_all.png" alt="all">236</span>
+            <span data-activity-name="beginner"><img src="alog_assets/game_icon_beginner.png"
+                alt="beginner">-1</span>
+            <span data-activity-name="easy"><img src="alog_assets/game_icon_easy.png" alt="easy">1</span>
+            <span data-activity-name="medium"><img src="alog_assets/game_icon_medium.png" alt="medium">14</span>
+            <span data-activity-name="hard"><img src="alog_assets/game_icon_hard.png" alt="hard">187</span>
+            <span data-activity-name="elite"><img src="alog_assets/game_icon_elite.png" alt="elite">19</span>
+            <span data-activity-name="master"><img src="alog_assets/game_icon_master.png" alt="master">15</span>
+            <span data-activity-name="abyssalSire"><img src="alog_assets/game_icon_abyssalSire.png"
+                alt="abyssalSire">-1</span>
+            <span data-activity-name="alchemicalHydra"><img src="alog_assets/game_icon_alchemicalHydra.png"
+                alt="alchemicalHydra">-1</span>
+            <span data-activity-name="artio"><img src="alog_assets/game_icon_artio.png" alt="artio">-1</span>
+            <span data-activity-name="barrows"><img src="alog_assets/game_icon_barrows.png" alt="barrows">271</span>
+            <span data-activity-name="bryophyta"><img src="alog_assets/game_icon_bryophyta.png"
+                alt="bryophyta">5</span>
+            <span data-activity-name="callisto"><img src="alog_assets/game_icon_callisto.png"
+                alt="callisto">-1</span>
+            <span data-activity-name="calvarion"><img src="alog_assets/game_icon_calvarion.png"
+                alt="calvarion">-1</span>
+            <span data-activity-name="cerberus"><img src="alog_assets/game_icon_cerberus.png"
+                alt="cerberus">-1</span>
+            <span data-activity-name="chambersOfXeric"><img src="alog_assets/game_icon_chambersOfXeric.png"
+                alt="chambersOfXeric">5</span>
+            <span data-activity-name="chaosElemental"><img src="alog_assets/game_icon_chaosElemental.png"
+                alt="chaosElemental">16</span>
+            <span data-activity-name="chaosFanatic"><img src="alog_assets/game_icon_chaosFanatic.png"
+                alt="chaosFanatic">10</span>
+            <span data-activity-name="commanderZilyana"><img src="alog_assets/game_icon_commanderZilyana.png"
+                alt="commanderZilyana">-1</span>
+            <span data-activity-name="corporealBeast"><img src="alog_assets/game_icon_corporealBeast.png"
+                alt="corporealBeast">-1</span>
+            <span data-activity-name="crazyArchaeologist"><img src="alog_assets/game_icon_crazyArchaeologist.png"
+                alt="crazyArchaeologist">10</span>
+            <span data-activity-name="dagannothPrime"><img src="alog_assets/game_icon_dagannothPrime.png"
+                alt="dagannothPrime">155</span>
+            <span data-activity-name="dagannothRex"><img src="alog_assets/game_icon_dagannothRex.png"
+                alt="dagannothRex">293</span>
+            <span data-activity-name="dagannothSupreme"><img src="alog_assets/game_icon_dagannothSupreme.png"
+                alt="dagannothSupreme">162</span>
+            <span data-activity-name="derangedArchaeologist"><img
+                src="alog_assets/game_icon_derangedArchaeologist.png" alt="derangedArchaeologist">25</span>
+            <span data-activity-name="dukeSucellus"><img src="alog_assets/game_icon_dukeSucellus.png"
+                alt="dukeSucellus">-1</span>
+            <span data-activity-name="generalGraardor"><img src="alog_assets/game_icon_generalGraardor.png"
+                alt="generalGraardor">9</span>
+            <span data-activity-name="giantMole"><img src="alog_assets/game_icon_giantMole.png"
+                alt="giantMole">58</span>
+            <span data-activity-name="grotesqueGuardians"><img src="alog_assets/game_icon_grotesqueGuardians.png"
+                alt="grotesqueGuardians">-1</span>
+            <span data-activity-name="hespori"><img src="alog_assets/game_icon_hespori.png" alt="hespori">3</span>
+            <span data-activity-name="kalphiteQueen"><img src="alog_assets/game_icon_kalphiteQueen.png"
+                alt="kalphiteQueen">-1</span>
+            <span data-activity-name="kingBlackDragon"><img src="alog_assets/game_icon_kingBlackDragon.png"
+                alt="kingBlackDragon">-1</span>
+            <span data-activity-name="kraken"><img src="alog_assets/game_icon_kraken.png" alt="kraken">-1</span>
+            <span data-activity-name="kreearra"><img src="alog_assets/game_icon_kreearra.png"
+                alt="kreearra">-1</span>
+            <span data-activity-name="krilTsutsaroth"><img src="alog_assets/game_icon_krilTsutsaroth.png"
+                alt="krilTsutsaroth">-1</span>
+            <span data-activity-name="lizardmanShaman"><img src="alog_assets/game_icon_lizardmanShaman.png"
+                alt="lizardmanShaman">-1</span>
+            <span data-activity-name="nightmare"><img src="alog_assets/game_icon_nightmare.png"
+                alt="nightmare">-1</span>
+            <span data-activity-name="obor"><img src="alog_assets/game_icon_obor.png" alt="obor">-1</span>
+            <span data-activity-name="sarachnis"><img src="alog_assets/game_icon_sarachnis.png"
+                alt="sarachnis">-1</span>
+            <span data-activity-name="scorpia"><img src="alog_assets/game_icon_scorpia.png" alt="scorpia">5</span>
+            <span data-activity-name="skotizo"><img src="alog_assets/game_icon_skotizo.png" alt="skotizo">-1</span>
+            <span data-activity-name="tempoross"><img src="alog_assets/game_icon_tempoross.png"
+                alt="tempoross">-1</span>
+            <span data-activity-name="thermonuclearSmokeDevil"><img
+                src="alog_assets/game_icon_thermonuclearSmokeDevil.png" alt="thermonuclearSmokeDevil">-1</span>
+            <span data-activity-name="tzKalZuk"><img src="alog_assets/game_icon_tzKalZuk.png"
+                alt="tzKalZuk">-1</span>
+            <span data-activity-name="tzTokJad"><img src="alog_assets/game_icon_tzTokJad.png"
+                alt="tzTokJad">-1</span>
+            <span data-activity-name="venenatis"><img src="alog_assets/game_icon_venenatis.png"
+                alt="venenatis">-1</span>
+            <span data-activity-name="vetion"><img src="alog_assets/game_icon_vetion.png" alt="vetion">-1</span>
+            <span data-activity-name="vorkath"><img src="alog_assets/game_icon_vorkath.png" alt="vorkath">3</span>
+            <span data-activity-name="wintertodt"><img src="alog_assets/game_icon_wintertodt.png"
+                alt="wintertodt">9</span>
+            <span data-activity-name="zalcano"><img src="alog_assets/game_icon_zalcano.png" alt="zalcano">-1</span>
+            <span data-activity-name="zulrah"><img src="alog_assets/game_icon_zulrah.png" alt="zulrah">-1</span>
+          </div>
+        </div>
+      </div>
+      <br class="clear">
+    </div>
+    <br class="clear">
+  </div>
+  <script type="text/javascript">
+    $(function () {
+
+
+      $(".AMHead.expanded").removeClass("expanded");
+    })
+  </script>
+
+
+  <script>
+    const ws = new WebSocket('ws://localhost:3000');
+
+    function markdownToHtml(markdown) {
+      return markdown.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+    }
+
+    let logs = {};
+    let lastSource = null;
+    let tallyCount = 1;
+    let lastElementIndex = null;
+
+    ws.addEventListener('message', (event) => {
+      const newLogs = JSON.parse(event.data);
+
+      newLogs.forEach((data) => {
+        const id = data.body.embeds[0].timestamp;
+        logs[id] = data;
+      });
+
+      const sortedLogs = Object.values(logs).sort((a, b) => new Date(b.body.embeds[0].timestamp) - new Date(a.body.embeds[0].timestamp));
+      const logsElement = document.getElementById('RAAccordion');
+
+      const currentSource = sortedLogs[0].body.extra.source;
+      const timestamp = new Date(sortedLogs[0].body.embeds[0].timestamp).toLocaleString();
+
+      if (lastSource === currentSource) {
+        tallyCount++;
+        if (lastElementIndex !== null) {
+          const headerToUpdate = document.getElementById('A' + lastElementIndex);
+          const bodyToUpdate = document.getElementById('A' + lastElementIndex + 'Body');
+
+          headerToUpdate.innerHTML = `<span class="ui-icon ui-icon-triangle-1-e"></span><span class="Title">I killed ${tallyCount} ${currentSource}${tallyCount > 1 ? 's' : ''}.</span>`;
+          bodyToUpdate.innerHTML = `<div class="AMBodyLiner"><p>I killed ${tallyCount} ${currentSource}${tallyCount > 1 ? 's' : ''}. (${timestamp})</p></div>`;
+        }
+      } else {
+        tallyCount = 1;
+        lastElementIndex = logsElement.childNodes.length / 2;
+
+        const newHeader = document.createElement('a');
+        newHeader.className = 'AMHead ui-accordion-header ui-helper-reset ui-state-default ui-corner-all';
+        newHeader.id = 'A' + lastElementIndex;
+        newHeader.innerHTML = `<span class="ui-icon ui-icon-triangle-1-e"></span><span class="Title">I killed ${tallyCount} ${currentSource}${tallyCount > 1 ? 's' : ''}.</span>`;
+
+        const newBody = document.createElement('div');
+        newBody.className = 'AMBody ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom';
+        newBody.id = 'A' + lastElementIndex + 'Body';
+        newBody.style.height = '0px';
+        newBody.innerHTML = `<div class="AMBodyLiner"><p>I killed ${tallyCount} ${currentSource}${tallyCount > 1 ? 's' : ''}. (${timestamp})</p></div>`;
+
+        if (logsElement.firstChild) {
+          logsElement.insertBefore(newBody, logsElement.firstChild);
+          logsElement.insertBefore(newHeader, logsElement.firstChild);
+        } else {
+          logsElement.appendChild(newHeader);
+          logsElement.appendChild(newBody);
+        }
+        expandNewlyAddedElement(newHeader);
+      }
+
+      lastSource = currentSource;
+    });
+
+
+
+  </script>
+  <script>
+    let currentIndex = -1;
+
+    const expandAccordion = (header) => {
+      document.querySelectorAll('#RAAccordion .AMHead').forEach(h => {
+        if (h.nextElementSibling.style.height !== '0px' && h !== header) {
+          collapseAccordion(h);
+        }
+      });
+
+      const body = header.nextElementSibling;
+      body.style.height = '0';
+      body.style.display = 'block';
+      body.style.overflow = 'hidden';
+      const targetHeight = '59px';
+      body.style.transition = 'height 0.3s ease-out';
+      setTimeout(() => { body.style.height = targetHeight; }, 0);
+    };
+
+    const collapseAccordion = (header) => {
+      const body = header.nextElementSibling;
+      body.style.transition = 'height 0.3s ease-out';
+      body.style.height = '0';
+      setTimeout(() => { body.style.display = 'none'; }, 300);
+    };
+
+    document.addEventListener('click', (event) => {
+
+      if (event.target.closest('#RAAccordion .AMHead')) {
+        const RAAccordion = document.querySelector('#RAAccordion');
+        const header = event.target.closest('.AMHead');
+        const index = Array.from(RAAccordion.querySelectorAll('.AMHead')).indexOf(header);
+
+        if (currentIndex !== index) {
+          currentIndex = index;
+          expandAccordion(header);
+        } else {
+          currentIndex = -1;
+          collapseAccordion(header);
+        }
+      }
+
+      if (event.target.closest('#RAAccordion .selected')) {
+        const selected = event.target.closest('.selected');
+        expandAccordion(selected.parentElement);
+        currentIndex = 1;
+      }
+    });
+
+    // Call this function whenever you add dynamic content
+    // const expandNewlyAddedElement = (newHeader) => {
+    //   expandAccordion(newHeader);
+    //   currentIndex = Array.from(document.querySelectorAll('#RAAccordion .AMHead')).indexOf(newHeader);
+    // };
+
+    function expandNewlyAddedElement(newHeader) {
+      // First close all other headers
+      const allHeaders = document.querySelectorAll('.AMHead');
+      allHeaders.forEach(header => {
+        if (header !== newHeader) {
+          // Function to close the accordion item
+          collapseAccordion(header);
+        }
+      });
+
+      // Now open the new header
+      // Function to expand the accordion item
+      expandAccordion(newHeader);
+    }
+
+
+  </script>
+
+
+  <br class="clear">
+</div>
