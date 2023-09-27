@@ -21,5 +21,5 @@ TBD, project is currently work in progress
 ## Acknowledgments
 
 This project makes use of discontinued assets from the old RuneScape website.
-[pajlads](https://github.com/pajlads) for creating Dink.
-[MidgetJake](https://github.com/MidgetJake) for creating UniversalDiscordNotifier that Dink was built on.
+- [pajlads](https://github.com/pajlads) for creating Dink.
+- [MidgetJake](https://github.com/MidgetJake) for creating UniversalDiscordNotifier that Dink was built on.
