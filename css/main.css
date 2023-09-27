@@ -38,8 +38,8 @@ body {
 #searchPanel {
     float: right;
     display: inline;
-    margin-right: 4px;
-    margin-top: 11px;
+    margin-right: -2px;
+    margin-top: 9px;
     font-size: 14px;
     text-decoration: none;
     width: 185px;
@@ -223,7 +223,7 @@ input.go {
     font-family: Palatino Linotype, Book Antiqua, Palatino, Times New Roman, Times, serif;
     font-variant: small-caps;
     border: none;
-    font-size: 15px;
+    font-size: 13px;
     font-weight: bold;
     line-height: 15px;
     float: right;
@@ -244,7 +244,7 @@ input.go {
     float: left;
     height: 15px;
     margin-left: 2px;
-    margin-top: 1px;
+    margin-top: 4px;
     padding-left: 6px;
     width: 140px;
     display: inline;
@@ -849,4 +849,10 @@ input.go {
     border: 2px solid #ccc;
     border-top-color: #000;
     animation: spinner .6s linear infinite;
+}
+
+#RAAccordion p.defaultText{
+    text-align: center;
+    max-width: 85%;
+    margin: 15px auto;
 }

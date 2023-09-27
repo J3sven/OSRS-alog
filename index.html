@@ -1,192 +1,142 @@
 <html>
 
+<!-- Most of the structure, images and styles on this page are retrieved from an old cache of the official Runescape website. This is not my work, I just used as scaffolding to recreate the page. The visual design is not my work, but the functionality is. I have included the images and styles in the repo as they are no longer available on the official website. The visual assets that are retrieved from the cache are separated in the alog_assets directory. -->
+
 <head>
   <link rel="SHORTCUT ICON" href="alog_assets/favicon.ico">
   <title>Adventurer's log</title>
   <link rel="stylesheet" href="css/main.css">
-  <script src="js/client/hiscores.js"></script>
 </head>
 
-<div id="content">
-  <div id="plog_other" class="section">
-    <div id="logHeader">
-      <span class="profile"></span>
+<body>
+  <div id="content">
+    <div id="plog_other" class="section">
+      <div id="logHeader">
+        <span class="profile"></span>
 
-      <div id="searchPanel">
-        <form action="display_player_profile.ws">
-          <input maxlength="12" type="text" name="searchName" id="searchBox" value="J3 gg"
-            onfocus="if (this.value=='Search other users...') {this.value=''}"
-            onblur="if(this.value=='')this.value='Search other users...';">
-          <input class="go" type="submit" value="Go">
-          <script type="text/javascript">
-            document.getElementById("searchBox").value = "J3 gg";
-          </script>
-        </form>
-      </div>
-      <div id="logTitle">Adventurer's Log</div>
-    </div>
-    <div id="greyBack">
-      <div id="avatar" class="logSmallSlate private">
-        <div class="title">J3 gg</div>
-        <br class="clear">
-        <img src="img/head.png" class="head" alt="J3 gg avatar head">
-        <img src="img/full.png" class="body" alt="J3 gg avatar body">
-        <div id="gender" style="text-align: left;"><img src="img/collectionlog.png" class="body"
-            style="height: 20px; width: 20px; padding: 0; font-size: 1.2rem; margin-right: 25px; border: 0; display: inline;"
-            alt="collectionlog">
-          498/1477</div>
-        <div id="gender" style="text-align: left;"><img src="img/combatachievements.png" class="body"
-            style="height: 20px; width: 20px; padding: 0; font-size: 1.2rem; margin-right: 25px; border: 0; display: inline;"
-            alt="combat achievements">
-          112/485</div>
-        <div id="gender" style="text-align: left;"><img src="img/diaries.png" class="body"
-            style="height: 20px; width: 20px; padding: 0; font-size: 1.2rem; margin-right: 25px; border: 0; display: inline;"
-            alt="Achievement diaries">
-          480/492</div>
-      </div>
-      <div id="scores" class="logSmallSlate">
-        <div class="title" id="skilltitle"></div>
-        <div class="details" id="skillsdetail">
-          Level: <span id="skilllevel"></span>
-          - Rank: <span id="skillrank"></span>
-          - XP: <span id="skillxp"></span>
+        <div id="searchPanel">
+          <form action="display_player_profile.ws">
+            <input maxlength="12" type="text" name="searchName" id="searchBox" value="J3 gg"
+              onfocus="if (this.value=='Search other users...') {this.value=''}"
+              onblur="if(this.value=='')this.value='Search other users...';">
+            <input class="go" type="submit" value="Go">
+            <script type="text/javascript">
+              document.getElementById("searchBox").value = "J3 gg";
+            </script>
+          </form>
         </div>
-        <br class="clear">
-        <div class="buttonContainer">
-          <button id="skill0" data-skill-name="overall" class="scoreButton selected"></button>
-          <button data-skill-name="attack" class="scoreButton "><img src="alog_assets/skill_icon_Attack.gif"
-              alt="Attack"></button>
-          <button data-skill-name="defence" class="scoreButton "><img src="alog_assets/skill_icon_Defence.gif"
-              alt="Defence"></button>
-          <button data-skill-name="strength" class="scoreButton "><img src="alog_assets/skill_icon_Strength.gif"
-              alt="Strength"></button>
-          <button data-skill-name="hitpoints" class="scoreButton "><img src="alog_assets/skill_icon_Hitpoints.gif"
-              alt="Hitpoints"></button>
-          <button data-skill-name="ranged" class="scoreButton "><img src="alog_assets/skill_icon_Ranged.gif"
-              alt="Ranged"></button>
-          <button data-skill-name="prayer" class="scoreButton "><img src="alog_assets/skill_icon_Prayer.gif"
-              alt="Prayer"></button>
-          <button data-skill-name="magic" class="scoreButton "><img src="alog_assets/skill_icon_Magic.gif"
-              alt="Magic"></button>
-          <button data-skill-name="cooking" class="scoreButton "><img src="alog_assets/skill_icon_Cooking.gif"
-              alt="Cooking"></button>
-          <button data-skill-name="woodcutting" class="scoreButton "><img src="alog_assets/skill_icon_Woodcutting.gif"
-              alt="Woodcutting"></button>
-          <button data-skill-name="fletching" class="scoreButton "><img src="alog_assets/skill_icon_Fletching.gif"
-              alt="Fletching"></button>
-          <button data-skill-name="fishing" class="scoreButton "><img src="alog_assets/skill_icon_Fishing.gif"
-              alt="Fishing"></button>
-          <button data-skill-name="firemaking" class="scoreButton "><img src="alog_assets/skill_icon_Firemaking.gif"
-              alt="Firemaking"></button>
-          <button data-skill-name="crafting" class="scoreButton "><img src="alog_assets/skill_icon_Crafting.gif"
-              alt="Crafting"></button>
-          <button data-skill-name="smithing" class="scoreButton "><img src="alog_assets/skill_icon_Smithing.gif"
-              alt="Smithing"></button>
-          <button data-skill-name="mining" class="scoreButton "><img src="alog_assets/skill_icon_Mining.gif"
-              alt="Mining"></button>
-          <button data-skill-name="herblore" class="scoreButton "><img src="alog_assets/skill_icon_Herblore.gif"
-              alt="Herblore"></button>
-          <button data-skill-name="agility" class="scoreButton "><img src="alog_assets/skill_icon_Agility.gif"
-              alt="Agility"></button>
-          <button data-skill-name="thieving" class="scoreButton "><img src="alog_assets/skill_icon_Thieving.gif"
-              alt="Thieving"></button>
-          <button data-skill-name="slayer" class="scoreButton "><img src="alog_assets/skill_icon_Slayer.gif"
-              alt="Slayer"></button>
-          <button data-skill-name="farming" class="scoreButton "><img src="alog_assets/skill_icon_Farming.gif"
-              alt="Farming"></button>
-          <button data-skill-name="runecraft" class="scoreButton "><img src="alog_assets/skill_icon_Runecraft.gif"
-              alt="Runecrafting"></button>
-          <button data-skill-name="hunter" class="scoreButton "><img src="alog_assets/skill_icon_Hunter.gif"
-              alt="Hunter"></button>
-          <button data-skill-name="construction" class="scoreButton "><img src="alog_assets/skill_icon_Construction.gif"
-              alt="Construction"></button>
-          <button disabled class="scoreButton quest"><img src="alog_assets/quest_icon.gif"
-              alt="quest points">300</button>
-          <a href="https://secure.runescape.com/m=hiscore_oldschool/hiscorepersonal?user1=j3_gg" class="compare"
-            target="_blank">Compare hiscores</a>
-        </div>
+        <div id="logTitle">Adventurer's Log</div>
       </div>
-      <br class="clear">
-      <div id="myAchievements" class="parchment" style="position: relative;">
-        <div class="title">Recent Events</div>
-        <div id="RAAccordion" class="accordion ui-accordion ui-widget ui-helper-reset ui-accordion-icons"
-          role="tablist">
+      <div id="greyBack">
+        <div id="avatar" class="logSmallSlate private">
+          <div class="title">J3 gg</div>
+          <br class="clear">
+          <img src="img/head.png" class="head" alt="J3 gg avatar head">
+          <img src="img/full.png" class="body" alt="J3 gg avatar body">
+          <div id="gender" style="text-align: left;"><img src="img/collectionlog.png" class="body"
+              style="height: 20px; width: 20px; padding: 0; font-size: 1.2rem; margin-right: 25px; border: 0; display: inline;"
+              alt="collectionlog">
+            498/1477</div>
+          <div id="gender" style="text-align: left;"><img src="img/combatachievements.png" class="body"
+              style="height: 20px; width: 20px; padding: 0; font-size: 1.2rem; margin-right: 25px; border: 0; display: inline;"
+              alt="combat achievements">
+            112/485</div>
+          <div id="gender" style="text-align: left;"><img src="img/diaries.png" class="body"
+              style="height: 20px; width: 20px; padding: 0; font-size: 1.2rem; margin-right: 25px; border: 0; display: inline;"
+              alt="Achievement diaries">
+            480/492</div>
         </div>
-      </div>
-      <div id="quests">
-        <div class="title">Activities</div>
-        <div class="details title" id="activitydetail">
-          <span id="activity name"></span>
-          <span id="activitycount"></span>
-          <span id="activityrank"></span>
-        </div>
-        <div class="one_col" id="quest_div">
-          <div class="buttonContainer activitycontainer">
-            <div class="spinner"></div>
+        <div id="scores" class="logSmallSlate">
+          <div class="title" id="skilltitle"></div>
+          <div class="details" id="skillsdetail">
+            Level: <span id="skilllevel"></span>
+            - Rank: <span id="skillrank"></span>
+            - XP: <span id="skillxp"></span>
+          </div>
+          <br class="clear">
+          <div class="buttonContainer">
+            <button id="skill0" data-skill-name="overall" class="scoreButton selected"></button>
+            <button data-skill-name="attack" class="scoreButton "><img src="alog_assets/skill_icon_Attack.gif"
+                alt="Attack"></button>
+            <button data-skill-name="defence" class="scoreButton "><img src="alog_assets/skill_icon_Defence.gif"
+                alt="Defence"></button>
+            <button data-skill-name="strength" class="scoreButton "><img src="alog_assets/skill_icon_Strength.gif"
+                alt="Strength"></button>
+            <button data-skill-name="hitpoints" class="scoreButton "><img src="alog_assets/skill_icon_Hitpoints.gif"
+                alt="Hitpoints"></button>
+            <button data-skill-name="ranged" class="scoreButton "><img src="alog_assets/skill_icon_Ranged.gif"
+                alt="Ranged"></button>
+            <button data-skill-name="prayer" class="scoreButton "><img src="alog_assets/skill_icon_Prayer.gif"
+                alt="Prayer"></button>
+            <button data-skill-name="magic" class="scoreButton "><img src="alog_assets/skill_icon_Magic.gif"
+                alt="Magic"></button>
+            <button data-skill-name="cooking" class="scoreButton "><img src="alog_assets/skill_icon_Cooking.gif"
+                alt="Cooking"></button>
+            <button data-skill-name="woodcutting" class="scoreButton "><img src="alog_assets/skill_icon_Woodcutting.gif"
+                alt="Woodcutting"></button>
+            <button data-skill-name="fletching" class="scoreButton "><img src="alog_assets/skill_icon_Fletching.gif"
+                alt="Fletching"></button>
+            <button data-skill-name="fishing" class="scoreButton "><img src="alog_assets/skill_icon_Fishing.gif"
+                alt="Fishing"></button>
+            <button data-skill-name="firemaking" class="scoreButton "><img src="alog_assets/skill_icon_Firemaking.gif"
+                alt="Firemaking"></button>
+            <button data-skill-name="crafting" class="scoreButton "><img src="alog_assets/skill_icon_Crafting.gif"
+                alt="Crafting"></button>
+            <button data-skill-name="smithing" class="scoreButton "><img src="alog_assets/skill_icon_Smithing.gif"
+                alt="Smithing"></button>
+            <button data-skill-name="mining" class="scoreButton "><img src="alog_assets/skill_icon_Mining.gif"
+                alt="Mining"></button>
+            <button data-skill-name="herblore" class="scoreButton "><img src="alog_assets/skill_icon_Herblore.gif"
+                alt="Herblore"></button>
+            <button data-skill-name="agility" class="scoreButton "><img src="alog_assets/skill_icon_Agility.gif"
+                alt="Agility"></button>
+            <button data-skill-name="thieving" class="scoreButton "><img src="alog_assets/skill_icon_Thieving.gif"
+                alt="Thieving"></button>
+            <button data-skill-name="slayer" class="scoreButton "><img src="alog_assets/skill_icon_Slayer.gif"
+                alt="Slayer"></button>
+            <button data-skill-name="farming" class="scoreButton "><img src="alog_assets/skill_icon_Farming.gif"
+                alt="Farming"></button>
+            <button data-skill-name="runecraft" class="scoreButton "><img src="alog_assets/skill_icon_Runecraft.gif"
+                alt="Runecrafting"></button>
+            <button data-skill-name="hunter" class="scoreButton "><img src="alog_assets/skill_icon_Hunter.gif"
+                alt="Hunter"></button>
+            <button data-skill-name="construction" class="scoreButton "><img src="alog_assets/skill_icon_Construction.gif"
+                alt="Construction"></button>
+            <button disabled class="scoreButton quest"><img src="alog_assets/quest_icon.gif"
+                alt="quest points">300</button>
+            <a href="https://secure.runescape.com/m=hiscore_oldschool/hiscorepersonal?user1=j3_gg" class="compare"
+              target="_blank">Compare hiscores</a>
           </div>
         </div>
+        <br class="clear">
+        <div id="myAchievements" class="parchment" style="position: relative;">
+          <div class="title">Recent Events</div>
+          <div id="RAAccordion" class="accordion ui-accordion ui-widget ui-helper-reset ui-accordion-icons"
+            role="tablist">
+            <p class="defaultText">This user has not logged any events yet, is this your profile? Get started with setting up a webhook in Dink!</p>
+          </div>
+        </div>
+        <div id="quests">
+          <div class="title">Activities</div>
+          <div class="details title" id="activitydetail">
+            <span id="activity name"></span>
+            <span id="activitycount"></span>
+            <span id="activityrank"></span>
+          </div>
+          <div class="one_col" id="quest_div">
+            <div class="buttonContainer activitycontainer">
+              <div class="spinner"></div>
+            </div>
+          </div>
+        </div>
+        <br class="clear">
       </div>
       <br class="clear">
     </div>
     <br class="clear">
   </div>
 
-  <script>
-    const ws = new WebSocket('ws://localhost:3000');
-
-    function markdownToHtml(markdown) {
-      return markdown.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
-    }
-
-    let lastSource = null;
-    const logs = {};
-
-    ws.addEventListener('message', (event) => {
-      console.log(event.data);
-      const receivedData = JSON.parse(event.data);
-      const logsElement = document.getElementById('RAAccordion');
-
-      receivedData.forEach((data) => {
-        const id = data.id;
-        const titleText = data.titleText;
-        const displayText = data.displayText;
-
-        if (logs[id]) {
-          const headerToUpdate = document.getElementById('A' + id);
-          const bodyToUpdate = document.getElementById('A' + id + 'Body');
-
-          if (headerToUpdate && bodyToUpdate) {
-            headerToUpdate.innerHTML = `<span class="ui-icon ui-icon-triangle-1-e"></span><span class="Title">${titleText}</span>`;
-            bodyToUpdate.innerHTML = `<div class="AMBodyLiner"><p>${displayText}</p></div>`;
-          }
-        } else {
-          const newHeader = document.createElement('a');
-          newHeader.className = 'AMHead ui-accordion-header ui-helper-reset ui-state-default ui-corner-all';
-          newHeader.id = 'A' + id;
-          newHeader.innerHTML = `<span class="ui-icon ui-icon-triangle-1-e"></span><span class="Title">${titleText}</span>`;
-
-          const newBody = document.createElement('div');
-          newBody.className = 'AMBody ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom';
-          newBody.id = 'A' + id + 'Body';
-          newBody.style.height = '0px';
-          newBody.innerHTML = `<div class="AMBodyLiner"><p>${displayText}</p></div>`;
-
-          if (logsElement.firstChild) {
-            logsElement.insertBefore(newBody, logsElement.firstChild);
-            logsElement.insertBefore(newHeader, logsElement.firstChild);
-          } else {
-            logsElement.appendChild(newHeader);
-            logsElement.appendChild(newBody);
-          }
-          expandNewlyAddedElement(newHeader);
-
-          logs[id] = data;
-        }
-      });
-    });
-  </script>
+  <script src="js/client/hiscores.js"></script>
+  <script src="/js/client/websocket.js"></script>
   <script src="/js/client/accordion.js"></script>
-
-
-  <br class="clear">
-</div>
+</body>

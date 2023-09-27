@@ -30,7 +30,6 @@ const collapseAccordion = (header) => {
 };
 
 document.addEventListener('click', (event) => {
-
   if (event.target.closest('#RAAccordion .AMHead')) {
     const RAAccordion = document.querySelector('#RAAccordion');
     const header = event.target.closest('.AMHead');
