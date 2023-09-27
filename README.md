@@ -1,4 +1,5 @@
 # RuneScape Adventurer's Log for OSRS
+![firefox_F7NBRXQF7b](https://github.com/MidgetJake/UniversalDiscordNotifier/assets/18210607/7a8182a2-007d-4f57-9967-7835b9b12249)
 
 ## Overview
 
@@ -6,7 +7,7 @@ This project aims to recreate the RuneScape Adventurer's log for OSRS, mimicking
 
 ## Features
 
-- Leverages the [Dink Runelite](https://github.com/pajlads/DinkPlugin) plugin as a data source
+- Leverages the [Dink](https://github.com/pajlads/DinkPlugin) plugin as a data source
 - Compatible with both OSHD and Runelite's implementations of Dink
 
 ## Installation
@@ -21,5 +22,7 @@ TBD, project is currently work in progress
 ## Acknowledgments
 
 This project makes use of discontinued assets from the old RuneScape website.
-[pajlads](https://github.com/pajlads) for creating Dink.
-[MidgetJake](https://github.com/MidgetJake) for creating UniversalDiscordNotifier that Dink was built on.
+
+- [pajlads](https://github.com/pajlads) for creating `Dink`.
+- [MidgetJake](https://github.com/MidgetJake) for creating `UniversalDiscordNotifier` that Dink was built on.
+- [maxswa](https://github.com/maxswa) for creating `osrs-json-hiscores` which is used for fetching the stat and boss data on the alog page.
