@@ -1,33 +1,13 @@
 <html>
 
 <head>
-
   <link rel="SHORTCUT ICON" href="alog_assets/favicon.ico">
-  <meta http-equiv="X-UA-Compatible" content="IE=8">
-  <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
-  <meta http-equiv="Content-Language" content="en, 
-    English
-    ">
-  <meta name="keywords"
-    content="MMORPG, free RPG games online, online multiplayer, role-playing, massively multiplayer games, mmo, RuneScape, Jagex, java">
-  <meta name="description"
-    content="Play RuneScape for free, and join a global community of millions as you complete quests and win enormous treasures in a 3D world full of magic and monsters.">
-  <meta name="title" content="RuneScape - MMORPG - The No.1 Free Online Multiplayer Game">
   <title>Adventurer's log</title>
   <style type="text/css">
     /*\*/
-    @import url(alog_assets/global-41.css);
+    /* @import url(alog_assets/global-41.css); */
     /**/
   </style>
-  <script type="text/javascript" src="alog_assets/jquery_1_4_2.js"></script>
-  <script type="text/javascript">
-    $(function () {
-
-
-      $("#play, #playExisting, #playBannerNoad").each(function () { this.href += "?j=1"; });
-      $("#menuPlay1,#menuPlay2,#footerPlay,#loginPlay").each(function () { this.href += "&j=1"; })
-    })
-  </script>
 
 
   <style type="text/css">
@@ -35,162 +15,7 @@
     @import url(alog_assets/player_log-4.css);
     /**/
   </style>
-  <link rel="alternate" type="application/rss+xml" title="Recent events for J3 gg"
-    href="https://web.archive.org/web/20110910132542/http://services.runescape.com/m=adventurers-log/rssfeed?searchName=J3 gg">
-  <script type="text/javascript" src="alog_assets/jquery_ui_1_8_2_core_accordion_tabs_effects.js"></script>
-
-  <script type="text/javascript">//<![CDATA[
-
-    class Skill {
-      constructor(name, exp, level, rank) {
-        this.name = name;
-        this.exp = exp;
-        this.level = level;
-        this.rank = rank;
-      }
-    }
-
-    class Activity {
-      constructor(name, count, rank) {
-        this.name = name;
-        this.count = count;
-        this.rank = rank;
-      }
-    }
-
-    var skills = {};
-    var activities = [];
-
-    const getOSRSHiscores = async (username) => {
-      const response = await fetch(`http://localhost:3000/fetchHiscores?player=${username}`);
-      const json = await response.json();
-
-      const mainData = json.main;
-
-      skills = Object.entries(mainData.skills).map(([name, { rank, level, xp }]) => new Skill(name, xp, level, rank));
-
-      for (const [category, data] of Object.entries(mainData)) {
-        if (category === 'skills') continue;
-
-        for (const [name, { rank, score }] of Object.entries(data)) {
-          activities.push(new Activity(name, score, rank));
-        }
-      }
-      populateInitialSkills();
-      return Promise.resolve(activities); 
-      console.log('skills:', skills, 'activities:', activities);
-    }
-
-
-    const updateButtonLevels = () => {
-      const buttons = document.querySelectorAll('.scoreButton');
-      buttons.forEach((button, index) => {
-        if (button.classList.contains('quest')) return;
-        const skill = skills[index];
-        if (button.querySelector('img')) {
-          button.innerHTML = `<img src="alog_assets/skill_icon_${skill.name}.gif" alt="${skill.name}">${skill.level}`;
-        } else {
-          button.textContent = skill.level;
-        }
-      });
-    };
-
-    const populateInitialSkills = () => {
-      const skillLevelElement = document.getElementById('skilllevel');
-      const skillRankElement = document.getElementById('skillrank');
-      const skillXpElement = document.getElementById('skillxp');
-      const skillTitleElement = document.getElementById('skilltitle');
-
-      const totalLevelSkill = skills.find(skill => skill.name === 'overall'); // Find 'Total Level' skill
-
-      if (totalLevelSkill) {
-        skillLevelElement.textContent = totalLevelSkill.level;
-        skillRankElement.textContent = totalLevelSkill.rank;
-        skillXpElement.textContent = totalLevelSkill.exp;
-        skillTitleElement.textContent = 'Total Level';
-      }
-
-      updateButtonLevels();
-
-      const buttonContainer = document.querySelector('.buttonContainer');
-
-      buttonContainer.addEventListener('click', (event) => {
-        let target = event.target;
-        while (target !== buttonContainer) {
-          if (target.classList.contains('scoreButton')) {
-            const skillName = target.getAttribute('data-skill-name');
-            updateSkills(skillName);
-            return;
-          }
-          target = target.parentElement;
-        }
-      });
-    };
-
-
-    const updateSkills = (skillName) => {
-      const skill = skills.find(skill => skill.name === skillName.toLowerCase());
-      if (!skill) return;  // Exit if skill is not found
-
-      const buttons = document.querySelectorAll('.scoreButton');
-      buttons.forEach(button => {
-        if (button.getAttribute('data-skill-name') === skillName.toLowerCase()) {
-          button.classList.add('selected');
-        } else {
-          button.classList.remove('selected');
-        }
-      });
-
-      const skillLevelElement = document.getElementById('skilllevel');
-      const skillRankElement = document.getElementById('skillrank');
-      const skillXpElement = document.getElementById('skillxp');
-      const skillTitleElement = document.getElementById('skilltitle');
-
-      skillLevelElement.textContent = skill.level;
-      skillRankElement.textContent = skill.rank;
-      skillXpElement.textContent = skill.exp;
-      skillTitleElement.textContent = skillName === 'overall' ? 'Total Level' : skillName;
-    };
-
-    // Wrap your logic inside the `.then()` to make sure it executes after your promise resolves.
-    document.addEventListener('DOMContentLoaded', () => {
-      getOSRSHiscores('j3_gg').then((activities) => {
-        populateInitialSkills();
-        console.log('DOM loaded', activities);
-
-        const activityDetail = document.getElementById('activitydetail');
-
-        const updateDetails = (name, count, rank) => {
-          activityDetail.innerHTML = `<span id="activity_name">${name}</span>
-                                <span id="activity_count">${count}</span>
-                                - Rank: <span id="activity_rank">${rank}</span>`;
-        };
-
-        const activityContainer = document.querySelector('.activitycontainer');
-
-        activities.forEach(activity => {
-          const activityName = activity.name;
-          if (activityName === 'score' || activityName === 'rank') {
-            return;
-          }
-          const activityCount = activity.count !== -1 ? activity.count : '0';
-          const activityRank = activity.rank !== -1 ? activity.rank : '0';
-
-          const activityElement = document.createElement('span');
-          activityElement.setAttribute('data-activity-name', activityName);
-          activityElement.innerHTML = `<img src="alog_assets/game_icon_${activityName}.png" alt="${activityName}">${activityCount}`;
-
-          activityElement.addEventListener('click', () => {
-            updateDetails(activityName, activityCount, activityRank);
-          });
-
-          activityContainer.appendChild(activityElement);
-        });
-      });
-    });
-
-  </script>
-
+  <script src="/js/client/hiscores.js"></script>
 </head>
 
 <div id="content">
@@ -239,54 +64,55 @@
         </div>
         <br class="clear">
         <div class="buttonContainer">
-          <button id="skill0" data-skill-name="overall" class="scoreButton selected">2496</button>
+          <button id="skill0" data-skill-name="overall" class="scoreButton selected"></button>
           <button data-skill-name="attack" class="scoreButton "><img src="alog_assets/skill_icon_Attack.gif"
-              alt="Attack">99</button>
+              alt="Attack"></button>
           <button data-skill-name="defence" class="scoreButton "><img src="alog_assets/skill_icon_Defence.gif"
-              alt="Defence">99</button>
+              alt="Defence"></button>
           <button data-skill-name="strength" class="scoreButton "><img src="alog_assets/skill_icon_Strength.gif"
-              alt="Strength">99</button>
+              alt="Strength"></button>
           <button data-skill-name="hitpoints" class="scoreButton "><img src="alog_assets/skill_icon_Hitpoints.gif"
-              alt="Hitpoints">99</button>
+              alt="Hitpoints"></button>
           <button data-skill-name="ranged" class="scoreButton "><img src="alog_assets/skill_icon_Ranged.gif"
-              alt="Ranged">99</button>
+              alt="Ranged"></button>
           <button data-skill-name="prayer" class="scoreButton "><img src="alog_assets/skill_icon_Prayer.gif"
-              alt="Prayer">99</button>
+              alt="Prayer"></button>
           <button data-skill-name="magic" class="scoreButton "><img src="alog_assets/skill_icon_Magic.gif"
-              alt="Magic">99</button>
+              alt="Magic"></button>
           <button data-skill-name="cooking" class="scoreButton "><img src="alog_assets/skill_icon_Cooking.gif"
-              alt="Cooking">99</button>
+              alt="Cooking"></button>
           <button data-skill-name="woodcutting" class="scoreButton "><img src="alog_assets/skill_icon_Woodcutting.gif"
-              alt="Woodcutting">99</button>
+              alt="Woodcutting"></button>
           <button data-skill-name="fletching" class="scoreButton "><img src="alog_assets/skill_icon_Fletching.gif"
-              alt="Fletching">99</button>
+              alt="Fletching"></button>
           <button data-skill-name="fishing" class="scoreButton "><img src="alog_assets/skill_icon_Fishing.gif"
-              alt="Fishing">99</button>
+              alt="Fishing"></button>
           <button data-skill-name="firemaking" class="scoreButton "><img src="alog_assets/skill_icon_Firemaking.gif"
-              alt="Firemaking">99</button>
+              alt="Firemaking"></button>
           <button data-skill-name="crafting" class="scoreButton "><img src="alog_assets/skill_icon_Crafting.gif"
-              alt="Crafting">99</button>
+              alt="Crafting"></button>
           <button data-skill-name="smithing" class="scoreButton "><img src="alog_assets/skill_icon_Smithing.gif"
-              alt="Smithing">99</button>
+              alt="Smithing"></button>
           <button data-skill-name="mining" class="scoreButton "><img src="alog_assets/skill_icon_Mining.gif"
-              alt="Mining">99</button>
+              alt="Mining"></button>
           <button data-skill-name="herblore" class="scoreButton "><img src="alog_assets/skill_icon_Herblore.gif"
-              alt="Herblore">99</button>
+              alt="Herblore"></button>
           <button data-skill-name="agility" class="scoreButton "><img src="alog_assets/skill_icon_Agility.gif"
-              alt="Agility">99</button>
+              alt="Agility"></button>
           <button data-skill-name="thieving" class="scoreButton "><img src="alog_assets/skill_icon_Thieving.gif"
-              alt="Thieving">99</button>
+              alt="Thieving"></button>
           <button data-skill-name="slayer" class="scoreButton "><img src="alog_assets/skill_icon_Slayer.gif"
-              alt="Slayer">99</button>
+              alt="Slayer"></button>
           <button data-skill-name="farming" class="scoreButton "><img src="alog_assets/skill_icon_Farming.gif"
-              alt="Farming">99</button>
+              alt="Farming"></button>
           <button data-skill-name="runecraft" class="scoreButton "><img src="alog_assets/skill_icon_Runecraft.gif"
-              alt="Runecrafting">99</button>
+              alt="Runecrafting"></button>
           <button data-skill-name="hunter" class="scoreButton "><img src="alog_assets/skill_icon_Hunter.gif"
-              alt="Hunter">99</button>
+              alt="Hunter"></button>
           <button data-skill-name="construction" class="scoreButton "><img src="alog_assets/skill_icon_Construction.gif"
-              alt="Construction">99</button>
-          <button disabled class="scoreButton quest"><img src="alog_assets/quest_icon.gif" alt="quest points">300</button>
+              alt="Construction"></button>
+          <button disabled class="scoreButton quest"><img src="alog_assets/quest_icon.gif"
+              alt="quest points">300</button>
           <a href="https://secure.runescape.com/m=hiscore_oldschool/hiscorepersonal?user1=j3_gg" class="compare"
             target="_blank">Compare hiscores</a>
         </div>
@@ -307,7 +133,7 @@
         </div>
         <div class="one_col" id="quest_div">
           <div class="buttonContainer activitycontainer">
-            <!-- Activities will be populated here -->
+            <div class="spinner"></div>
           </div>
         </div>
       </div>
@@ -315,14 +141,6 @@
     </div>
     <br class="clear">
   </div>
-  <script type="text/javascript">
-    $(function () {
-
-
-      $(".AMHead.expanded").removeClass("expanded");
-    })
-  </script>
-
 
   <script>
     const ws = new WebSocket('ws://localhost:3000');
@@ -377,71 +195,7 @@
       });
     });
   </script>
-  <script>
-    let currentIndex = -1;
-
-    const expandAccordion = (header) => {
-      document.querySelectorAll('#RAAccordion .AMHead').forEach(h => {
-        if (h.nextElementSibling.style.height !== '0px' && h !== header) {
-          collapseAccordion(h);
-        }
-      });
-      header.classList.add('selected');
-      const body = header.nextElementSibling;
-      body.style.height = '0';
-      body.style.display = 'block';
-      body.style.overflow = 'hidden';
-      const targetHeight = '59px';
-      body.style.transition = 'height 0.3s ease-out';
-      setTimeout(() => { body.style.height = targetHeight; }, 0);
-    };
-
-    const collapseAccordion = (header) => {
-      const body = header.nextElementSibling;
-      header.classList.remove('selected');
-      body.style.transition = 'height 0.3s ease-out';
-      body.style.height = '0';
-      setTimeout(() => { body.style.display = 'none'; }, 300);
-    };
-
-    document.addEventListener('click', (event) => {
-
-      if (event.target.closest('#RAAccordion .AMHead')) {
-        const RAAccordion = document.querySelector('#RAAccordion');
-        const header = event.target.closest('.AMHead');
-        const index = Array.from(RAAccordion.querySelectorAll('.AMHead')).indexOf(header);
-
-        if (currentIndex !== index) {
-          currentIndex = index;
-          expandAccordion(header);
-        } else {
-          currentIndex = -1;
-          collapseAccordion(header);
-        }
-      }
-
-      if (event.target.closest('#RAAccordion .selected')) {
-        const selected = event.target.closest('.selected');
-        expandAccordion(selected.parentElement);
-        currentIndex = 1;
-      }
-    });
-
-    function expandNewlyAddedElement(newHeader) {
-      // First close all other headers
-      const allHeaders = document.querySelectorAll('.AMHead');
-      allHeaders.forEach(header => {
-        if (header !== newHeader) {
-          // Function to close the accordion item
-          collapseAccordion(header);
-        }
-      });
-
-      // Now open the new header
-      // Function to expand the accordion item
-      expandAccordion(newHeader);
-    }
-  </script>
+  <script src="/js/client/accordion.js"></script>
 
 
   <br class="clear">

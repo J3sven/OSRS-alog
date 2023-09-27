@@ -2,9 +2,21 @@
 
 
 body{
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  font-family: Arial, Helvetica, FreeSans, sans-serif;
+  text-align: center;
+  font-family: Arial, Helvetica, FreeSans, sans-serif;
   background-image: url('../img/background.png');
   background-repeat: no-repeat;
   background-size: cover;
+}
+.clear {
+  clear: both;
+  font-size: 0px;
+  height: 0px;
+  line-height: 0px;
 }
 .bottomrightshad {
  padding:45px 45px;
@@ -172,6 +184,7 @@ body{
  vertical-align: middle;
 }
 .section{
+  text-align: left;
  font-family: Palatino Linotype,Book Antiqua,Palatino,Times New Roman,Times,serif;
  font-variant: small-caps;
 }
@@ -681,6 +694,7 @@ input.go{
 }
 
 .activitycontainer {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(8, 1fr); /* 5 columns per row */
   gap: 3px; /* Gap between grid items */
@@ -688,16 +702,20 @@ input.go{
 
 /* Individual span styling */
 .activitycontainer span {
+  cursor: pointer;
   padding: 2px; /* Padding */
   text-align: center; /* Text alignment */
   max-height: 20px;
+  background-image: url('activity_button.png');
 }
 
-
-
+.activitycontainer span.selected {
+  background-image: url('activity_button_pressed.png');
+}
 #content{
   height: 100%;
   width: 100%;
+  font-size: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -708,4 +726,28 @@ input.go{
 #plog_other {
   background-color: #1c1c1c;
   box-shadow: 0 0 25px 15px #1c1c1c;
+}
+
+
+@keyframes spinner {
+  to {transform: rotate(360deg);}
+}
+ 
+.spinner {
+  background: unset;
+}
+.spinner:before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  border-top-color: #000;
+  animation: spinner .6s linear infinite;
 }
