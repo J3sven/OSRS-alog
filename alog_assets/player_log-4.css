@@ -2,7 +2,9 @@
 
 
 body{
-  background-color: #363636;
+  background-image: url('../img/background.png');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .bottomrightshad {
  padding:45px 45px;
@@ -688,4 +690,22 @@ input.go{
 .activitycontainer span {
   padding: 2px; /* Padding */
   text-align: center; /* Text alignment */
+  max-height: 20px;
+}
+
+
+
+#content{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+}
+
+#plog_other {
+  background-color: #1c1c1c;
+  box-shadow: 0 0 25px 15px #1c1c1c;
 }

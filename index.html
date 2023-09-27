@@ -59,6 +59,7 @@
     }
 
     var skills = {};
+    var activities = [];
 
     const getOSRSHiscores = async (username) => {
       const response = await fetch(`http://localhost:3000/fetchHiscores?player=${username}`);
@@ -68,8 +69,6 @@
 
       skills = Object.entries(mainData.skills).map(([name, { rank, level, xp }]) => new Skill(name, xp, level, rank));
 
-      const activities = [];
-
       for (const [category, data] of Object.entries(mainData)) {
         if (category === 'skills') continue;
 
@@ -78,6 +77,7 @@
         }
       }
       populateInitialSkills();
+      return Promise.resolve(activities); 
       console.log('skills:', skills, 'activities:', activities);
     }
 
@@ -152,16 +152,42 @@
       skillTitleElement.textContent = skillName === 'overall' ? 'Total Level' : skillName;
     };
 
-
-
-
-
+    // Wrap your logic inside the `.then()` to make sure it executes after your promise resolves.
     document.addEventListener('DOMContentLoaded', () => {
-      getOSRSHiscores('j3_gg').then(() => {
+      getOSRSHiscores('j3_gg').then((activities) => {
         populateInitialSkills();
+        console.log('DOM loaded', activities);
+
+        const activityDetail = document.getElementById('activitydetail');
+
+        const updateDetails = (name, count, rank) => {
+          activityDetail.innerHTML = `<span id="activity_name">${name}</span>
+                                <span id="activity_count">${count}</span>
+                                - Rank: <span id="activity_rank">${rank}</span>`;
+        };
+
+        const activityContainer = document.querySelector('.activitycontainer');
+
+        activities.forEach(activity => {
+          const activityName = activity.name;
+          if (activityName === 'score' || activityName === 'rank') {
+            return;
+          }
+          const activityCount = activity.count !== -1 ? activity.count : '0';
+          const activityRank = activity.rank !== -1 ? activity.rank : '0';
+
+          const activityElement = document.createElement('span');
+          activityElement.setAttribute('data-activity-name', activityName);
+          activityElement.innerHTML = `<img src="alog_assets/game_icon_${activityName}.png" alt="${activityName}">${activityCount}`;
+
+          activityElement.addEventListener('click', () => {
+            updateDetails(activityName, activityCount, activityRank);
+          });
+
+          activityContainer.appendChild(activityElement);
+        });
       });
     });
-
 
   </script>
 
@@ -192,17 +218,17 @@
         <img src="img/head.png" class="head" alt="J3 gg avatar head">
         <img src="img/full.png" class="body" alt="J3 gg avatar body">
         <div id="gender" style="text-align: left;"><img src="img/collectionlog.png" class="body"
-            style="height: 20px; width: 20px; padding: 0; margin-right: 25px; border: 0; display: inline;"
+            style="height: 20px; width: 20px; padding: 0; font-size: 1.2rem; margin-right: 25px; border: 0; display: inline;"
             alt="collectionlog">
           498/1477</div>
         <div id="gender" style="text-align: left;"><img src="img/combatachievements.png" class="body"
-            style="height: 20px; width: 20px; padding: 0; margin-right: 25px; border: 0; display: inline;"
-            alt="collectionlog">
-          498/1477</div>
+            style="height: 20px; width: 20px; padding: 0; font-size: 1.2rem; margin-right: 25px; border: 0; display: inline;"
+            alt="combat achievements">
+          112/485</div>
         <div id="gender" style="text-align: left;"><img src="img/diaries.png" class="body"
-            style="height: 20px; width: 20px; padding: 0; margin-right: 25px; border: 0; display: inline;"
-            alt="collectionlog">
-          498/1477</div>
+            style="height: 20px; width: 20px; padding: 0; font-size: 1.2rem; margin-right: 25px; border: 0; display: inline;"
+            alt="Achievement diaries">
+          480/492</div>
       </div>
       <div id="scores" class="logSmallSlate">
         <div class="title" id="skilltitle"></div>
@@ -281,88 +307,7 @@
         </div>
         <div class="one_col" id="quest_div">
           <div class="buttonContainer activitycontainer">
-            <span data-activity-name="hunterV2"><img src="alog_assets/game_icon_hunterV2.png" alt="hunterV2">-1</span>
-            <span data-activity-name="rogueV2"><img src="alog_assets/game_icon_rogueV2.png" alt="rogueV2">-1</span>
-            <span data-activity-name="hunter"><img src="alog_assets/game_icon_hunter.png" alt="hunter">-1</span>
-            <span data-activity-name="rogue"><img src="alog_assets/game_icon_rogue.png" alt="rogue">-1</span>
-            <span data-activity-name="all"><img src="alog_assets/game_icon_all.png" alt="all">236</span>
-            <span data-activity-name="beginner"><img src="alog_assets/game_icon_beginner.png" alt="beginner">-1</span>
-            <span data-activity-name="easy"><img src="alog_assets/game_icon_easy.png" alt="easy">1</span>
-            <span data-activity-name="medium"><img src="alog_assets/game_icon_medium.png" alt="medium">14</span>
-            <span data-activity-name="hard"><img src="alog_assets/game_icon_hard.png" alt="hard">187</span>
-            <span data-activity-name="elite"><img src="alog_assets/game_icon_elite.png" alt="elite">19</span>
-            <span data-activity-name="master"><img src="alog_assets/game_icon_master.png" alt="master">15</span>
-            <span data-activity-name="abyssalSire"><img src="alog_assets/game_icon_abyssalSire.png"
-                alt="abyssalSire">-1</span>
-            <span data-activity-name="alchemicalHydra"><img src="alog_assets/game_icon_alchemicalHydra.png"
-                alt="alchemicalHydra">-1</span>
-            <span data-activity-name="artio"><img src="alog_assets/game_icon_artio.png" alt="artio">-1</span>
-            <span data-activity-name="barrows"><img src="alog_assets/game_icon_barrows.png" alt="barrows">271</span>
-            <span data-activity-name="bryophyta"><img src="alog_assets/game_icon_bryophyta.png" alt="bryophyta">5</span>
-            <span data-activity-name="callisto"><img src="alog_assets/game_icon_callisto.png" alt="callisto">-1</span>
-            <span data-activity-name="calvarion"><img src="alog_assets/game_icon_calvarion.png"
-                alt="calvarion">-1</span>
-            <span data-activity-name="cerberus"><img src="alog_assets/game_icon_cerberus.png" alt="cerberus">-1</span>
-            <span data-activity-name="chambersOfXeric"><img src="alog_assets/game_icon_chambersOfXeric.png"
-                alt="chambersOfXeric">5</span>
-            <span data-activity-name="chaosElemental"><img src="alog_assets/game_icon_chaosElemental.png"
-                alt="chaosElemental">16</span>
-            <span data-activity-name="chaosFanatic"><img src="alog_assets/game_icon_chaosFanatic.png"
-                alt="chaosFanatic">10</span>
-            <span data-activity-name="commanderZilyana"><img src="alog_assets/game_icon_commanderZilyana.png"
-                alt="commanderZilyana">-1</span>
-            <span data-activity-name="corporealBeast"><img src="alog_assets/game_icon_corporealBeast.png"
-                alt="corporealBeast">-1</span>
-            <span data-activity-name="crazyArchaeologist"><img src="alog_assets/game_icon_crazyArchaeologist.png"
-                alt="crazyArchaeologist">10</span>
-            <span data-activity-name="dagannothPrime"><img src="alog_assets/game_icon_dagannothPrime.png"
-                alt="dagannothPrime">155</span>
-            <span data-activity-name="dagannothRex"><img src="alog_assets/game_icon_dagannothRex.png"
-                alt="dagannothRex">293</span>
-            <span data-activity-name="dagannothSupreme"><img src="alog_assets/game_icon_dagannothSupreme.png"
-                alt="dagannothSupreme">162</span>
-            <span data-activity-name="derangedArchaeologist"><img src="alog_assets/game_icon_derangedArchaeologist.png"
-                alt="derangedArchaeologist">25</span>
-            <span data-activity-name="dukeSucellus"><img src="alog_assets/game_icon_dukeSucellus.png"
-                alt="dukeSucellus">-1</span>
-            <span data-activity-name="generalGraardor"><img src="alog_assets/game_icon_generalGraardor.png"
-                alt="generalGraardor">9</span>
-            <span data-activity-name="giantMole"><img src="alog_assets/game_icon_giantMole.png"
-                alt="giantMole">58</span>
-            <span data-activity-name="grotesqueGuardians"><img src="alog_assets/game_icon_grotesqueGuardians.png"
-                alt="grotesqueGuardians">-1</span>
-            <span data-activity-name="hespori"><img src="alog_assets/game_icon_hespori.png" alt="hespori">3</span>
-            <span data-activity-name="kalphiteQueen"><img src="alog_assets/game_icon_kalphiteQueen.png"
-                alt="kalphiteQueen">-1</span>
-            <span data-activity-name="kingBlackDragon"><img src="alog_assets/game_icon_kingBlackDragon.png"
-                alt="kingBlackDragon">-1</span>
-            <span data-activity-name="kraken"><img src="alog_assets/game_icon_kraken.png" alt="kraken">-1</span>
-            <span data-activity-name="kreearra"><img src="alog_assets/game_icon_kreearra.png" alt="kreearra">-1</span>
-            <span data-activity-name="krilTsutsaroth"><img src="alog_assets/game_icon_krilTsutsaroth.png"
-                alt="krilTsutsaroth">-1</span>
-            <span data-activity-name="lizardmanShaman"><img src="alog_assets/game_icon_lizardmanShaman.png"
-                alt="lizardmanShaman">-1</span>
-            <span data-activity-name="nightmare"><img src="alog_assets/game_icon_nightmare.png"
-                alt="nightmare">-1</span>
-            <span data-activity-name="obor"><img src="alog_assets/game_icon_obor.png" alt="obor">-1</span>
-            <span data-activity-name="sarachnis"><img src="alog_assets/game_icon_sarachnis.png"
-                alt="sarachnis">-1</span>
-            <span data-activity-name="scorpia"><img src="alog_assets/game_icon_scorpia.png" alt="scorpia">5</span>
-            <span data-activity-name="skotizo"><img src="alog_assets/game_icon_skotizo.png" alt="skotizo">-1</span>
-            <span data-activity-name="tempoross"><img src="alog_assets/game_icon_tempoross.png"
-                alt="tempoross">-1</span>
-            <span data-activity-name="thermonuclearSmokeDevil"><img
-                src="alog_assets/game_icon_thermonuclearSmokeDevil.png" alt="thermonuclearSmokeDevil">-1</span>
-            <span data-activity-name="tzKalZuk"><img src="alog_assets/game_icon_tzKalZuk.png" alt="tzKalZuk">-1</span>
-            <span data-activity-name="tzTokJad"><img src="alog_assets/game_icon_tzTokJad.png" alt="tzTokJad">-1</span>
-            <span data-activity-name="venenatis"><img src="alog_assets/game_icon_venenatis.png"
-                alt="venenatis">-1</span>
-            <span data-activity-name="vetion"><img src="alog_assets/game_icon_vetion.png" alt="vetion">-1</span>
-            <span data-activity-name="vorkath"><img src="alog_assets/game_icon_vorkath.png" alt="vorkath">3</span>
-            <span data-activity-name="wintertodt"><img src="alog_assets/game_icon_wintertodt.png"
-                alt="wintertodt">9</span>
-            <span data-activity-name="zalcano"><img src="alog_assets/game_icon_zalcano.png" alt="zalcano">-1</span>
-            <span data-activity-name="zulrah"><img src="alog_assets/game_icon_zulrah.png" alt="zulrah">-1</span>
+            <!-- Activities will be populated here -->
           </div>
         </div>
       </div>
@@ -425,6 +370,7 @@
             logsElement.appendChild(newHeader);
             logsElement.appendChild(newBody);
           }
+          expandNewlyAddedElement(newHeader);
 
           logs[id] = data;
         }
@@ -480,12 +426,6 @@
       }
     });
 
-    // Call this function whenever you add dynamic content
-    // const expandNewlyAddedElement = (newHeader) => {
-    //   expandAccordion(newHeader);
-    //   currentIndex = Array.from(document.querySelectorAll('#RAAccordion .AMHead')).indexOf(newHeader);
-    // };
-
     function expandNewlyAddedElement(newHeader) {
       // First close all other headers
       const allHeaders = document.querySelectorAll('.AMHead');
@@ -500,8 +440,6 @@
       // Function to expand the accordion item
       expandAccordion(newHeader);
     }
-
-
   </script>
 
 
