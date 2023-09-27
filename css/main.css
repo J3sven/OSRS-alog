@@ -856,3 +856,20 @@ input.go {
     max-width: 85%;
     margin: 15px auto;
 }
+
+footer{
+    color: #7c7c7c;
+    position: absolute;
+    bottom: 0;
+    width: 100vw;
+    text-align: center;
+    background-color: #000;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    height: unset;
+    box-shadow: 0 0 25px 15px #000;
+}
+
+footer a{
+    color: #7c7c7c;
+}

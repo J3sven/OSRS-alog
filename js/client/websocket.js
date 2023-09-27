@@ -5,6 +5,7 @@ function markdownToHtml(markdown) {
 }
 
 let lastSource = null;
+let firstEvent = true;
 const logs = {};
 
 ws.addEventListener('message', (event) => {
@@ -12,9 +13,10 @@ ws.addEventListener('message', (event) => {
   const receivedData = JSON.parse(event.data);
   const logsElement = document.getElementById('RAAccordion');
 
-  if (!(Array.isArray(receivedData) && receivedData.length === 0)) {
+  if (receivedData.length > 0 && firstEvent) {
     console.log('Clearing logs', receivedData)
     logsElement.innerHTML = '';
+    firstEvent = false;
   }
 
   receivedData.forEach((data) => {

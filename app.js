@@ -2,7 +2,7 @@ const express = require('express');
 const http = require('http');
 const cors = require('cors');
 const webhooks = require('./js/server/webhooks');
-const hiscoresRoute = require('./js/server/hiscores'); // Path to your new hiscoresRoutes.js
+const hiscoresRoute = require('./js/server/hiscores');
 
 const app = express();
 app.use(cors());
@@ -10,7 +10,7 @@ const server = http.createServer(app);
 webhooks.initWebSocket(server);
 
 app.use('/', webhooks.router);
-app.use('/', hiscoresRoute); // Mount hiscores router here
+app.use('/', hiscoresRoute);
 app.use('/img', express.static('img'));
 app.use('/js', express.static('js'));
 app.use('/css', express.static('css'));
