@@ -23,5 +23,6 @@ TBD, project is currently work in progress
 
 This project makes use of discontinued assets from the old RuneScape website.
 
-- [pajlads](https://github.com/pajlads) for creating Dink.
-- [MidgetJake](https://github.com/MidgetJake) for creating UniversalDiscordNotifier that Dink was built on.
+- [pajlads](https://github.com/pajlads) for creating `Dink`.
+- [MidgetJake](https://github.com/MidgetJake) for creating `UniversalDiscordNotifier` that Dink was built on.
+- [maxswa](https://github.com/maxswa) for creating `osrs-json-hiscores` which is used for fetching the stat and boss data on the alog page.
