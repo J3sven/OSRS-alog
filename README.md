@@ -7,7 +7,7 @@ This project aims to recreate the RuneScape Adventurer's log for OSRS, mimicking
 
 ## Features
 
-- Leverages the [Dink Runelite](https://github.com/pajlads/DinkPlugin) plugin as a data source
+- Leverages the [Dink](https://github.com/pajlads/DinkPlugin) plugin as a data source
 - Compatible with both OSHD and Runelite's implementations of Dink
 
 ## Installation
