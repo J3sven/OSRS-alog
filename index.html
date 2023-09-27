@@ -286,7 +286,7 @@
               alt="Hunter">99</button>
           <button data-skill-name="construction" class="scoreButton "><img src="alog_assets/skill_icon_Construction.gif"
               alt="Construction">99</button>
-          <button class="scoreButton quest"><img src="alog_assets/quest_icon.gif" alt="quest points">300</button>
+          <button disabled class="scoreButton quest"><img src="alog_assets/quest_icon.gif" alt="quest points">300</button>
           <a href="https://secure.runescape.com/m=hiscore_oldschool/hiscorepersonal?user1=j3_gg" class="compare"
             target="_blank">Compare hiscores</a>
         </div>
@@ -301,9 +301,9 @@
       <div id="quests">
         <div class="title">Activities</div>
         <div class="details title" id="activitydetail">
-          <span id="activity name">Clue Scrolls (all)</span>
-          <span id="activitycount">292</span>
-          - Rank: <span id="activityrank">234342</span>
+          <span id="activity name"></span>
+          <span id="activitycount"></span>
+          <span id="activityrank"></span>
         </div>
         <div class="one_col" id="quest_div">
           <div class="buttonContainer activitycontainer">
@@ -386,7 +386,7 @@
           collapseAccordion(h);
         }
       });
-
+      header.classList.add('selected');
       const body = header.nextElementSibling;
       body.style.height = '0';
       body.style.display = 'block';
@@ -398,6 +398,7 @@
 
     const collapseAccordion = (header) => {
       const body = header.nextElementSibling;
+      header.classList.remove('selected');
       body.style.transition = 'height 0.3s ease-out';
       body.style.height = '0';
       setTimeout(() => { body.style.display = 'none'; }, 300);
