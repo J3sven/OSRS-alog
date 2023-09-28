@@ -31,8 +31,8 @@ async function fetchAndUpdateLogs(playerName) {
     const logsData = await response.json();
 
     // Sort logsData if necessary
-    logsData.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
-
+    logsData.sort((a, b) => new Date(b.id) - new Date(a.id));
+    
     // Get logsElement
     const logsElement = document.getElementById('RAAccordion');
 
@@ -41,18 +41,32 @@ async function fetchAndUpdateLogs(playerName) {
       isFirstFetch = false;
     }
 
+    // Get the previously most recent log, if any
+    const prevMostRecentLog = logsData.length ? logsData[0] : null;
+
     // Update UI based on logsData
-    logsData.forEach((data, index) => {
+    logsData.reverse().forEach((data, index) => {
       const id = data.id;
       const titleText = data.titleText;
       const displayText = data.displayText;
-    
-      const existingHeader = document.getElementById('A' + id);
-      const existingBody = document.getElementById('A' + id + 'Body');
-    
+
+      // Determine if this is a tally update
+      const isTallyUpdate = prevMostRecentLog && (prevMostRecentLog.currentSource === data.currentSource);
+
+      let existingHeader, existingBody;
+      if (isTallyUpdate) {
+        existingHeader = document.getElementById('A' + prevMostRecentLog.id);
+        existingBody = document.getElementById('A' + prevMostRecentLog.id + 'Body');
+      } else {
+        existingHeader = document.getElementById('A' + id);
+        existingBody = document.getElementById('A' + id + 'Body');
+      }
+
       if (existingHeader && existingBody) {
         // Update existing elements if they exist
+        existingHeader.id = 'A' + id;
         existingHeader.innerHTML = `<span class="ui-icon ui-icon-triangle-1-e"></span><span class="Title">${titleText}</span>`;
+        existingBody.id = 'A' + id + 'Body';
         existingBody.innerHTML = `<div class="AMBodyLiner"><p>${displayText}</p></div>`;
       } else {
         // Create new elements if they don't exist
@@ -75,16 +89,13 @@ async function fetchAndUpdateLogs(playerName) {
           logsElement.appendChild(newHeader);
           logsElement.appendChild(newBody);
         }
-    
-        if (index === 0) {
+
           expandNewlyAddedElement(newHeader);
-        }
       }
-    
+
       logs[id] = data;
     });
     
-
   } catch (error) {
     // Handle errors
     console.error('Failed to fetch and update logs:', error);
