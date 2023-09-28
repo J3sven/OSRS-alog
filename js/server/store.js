@@ -17,19 +17,6 @@ function storePayload(playerName, type, processedData) {
         logData = fileContent ? JSON.parse(fileContent) : [];
     }
 
-    if ('tallyCount' in processedData) {
-        const index = logData.findIndex(
-            item => item.type === type && item.currentSource === processedData.currentSource
-        );
-        if (index !== -1 && logData[index].tallyCount < processedData.tallyCount) {
-            logData.splice(index, 1);
-        }
-    }
-
-    logData.push({ type, ...processedData });
-
-    fs.writeFileSync(logFilePath, JSON.stringify(logData, null, 2));
-
     let existingTypeData = [];
     if (fs.existsSync(typeFilePath)) {
         existingTypeData = JSON.parse(fs.readFileSync(typeFilePath));
@@ -37,9 +24,21 @@ function storePayload(playerName, type, processedData) {
 
     const updatedTypeData = updateData(existingTypeData, processedData);
     fs.writeFileSync(typeFilePath, JSON.stringify(updatedTypeData, null, 2));
+
+    const existingLogIndex = logData.findIndex(
+        item => item.type === type && item.id === processedData.id
+    );
+
+    if (existingLogIndex === -1) {
+        logData.push({ type, ...processedData });
+    } else {
+        logData[existingLogIndex] = { type, ...processedData };
+    }
+
+    fs.writeFileSync(logFilePath, JSON.stringify(logData, null, 2));
 }
 
-function updateData(existingData, newData, type = null) {
+function updateData(existingData, newData) {
     const latestIndex = existingData.length - 1;
 
     if (latestIndex >= 0 && existingData[latestIndex].currentSource === newData.currentSource) {
@@ -54,6 +53,5 @@ function updateData(existingData, newData, type = null) {
 }
 
 module.exports = {
-    storePayload,
-    updateData
+    storePayload
 };
