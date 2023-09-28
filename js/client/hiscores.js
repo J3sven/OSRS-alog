@@ -19,6 +19,11 @@ class Skill {
   var skills = {};
   var activities = [];
 
+  /**
+   * Fetches the hiscores for the given username.
+   * @param {string} username The username.
+   * @returns {Promise} A promise that resolves with the hiscores.
+   */
   const getOSRSHiscores = async (username) => {
     const response = await fetch(`http://localhost:3000/fetchHiscores?player=${username}`);
     const json = await response.json();
@@ -38,7 +43,10 @@ class Skill {
     return Promise.resolve(activities); 
   }
 
-
+  /**
+   * Updates the skill buttons with the current skill levels.
+   * @returns {void}
+   */
   const updateButtonLevels = () => {
     const buttons = document.querySelectorAll('.scoreButton');
     buttons.forEach((button, index) => {
@@ -52,6 +60,10 @@ class Skill {
     });
   };
 
+  /**
+   * Populates the initial skills.
+   * @returns {void}
+   */
   const populateInitialSkills = () => {
     const skillLevelElement = document.getElementById('skilllevel');
     const skillRankElement = document.getElementById('skillrank');
@@ -84,7 +96,11 @@ class Skill {
     });
   };
 
-
+  /**
+   * Updates the skill details.
+   * @param {string} skillName The skill name.
+   * @returns {void}
+   */
   const updateSkills = (skillName) => {
     const skill = skills.find(skill => skill.name === skillName.toLowerCase());
     if (!skill) return;  // Exit if skill is not found
@@ -109,7 +125,6 @@ class Skill {
     skillTitleElement.textContent = skillName === 'overall' ? 'Total Level' : skillName;
   };
 
-  // Wrap your logic inside the `.then()` to make sure it executes after your promise resolves.
   document.addEventListener('DOMContentLoaded', () => {
     getOSRSHiscores('j3_gg').then((activities) => {
       populateInitialSkills();

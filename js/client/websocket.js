@@ -1,5 +1,10 @@
 const ws = new WebSocket('ws://localhost:3000');
 
+/**
+  * Converts a markdown string to HTML.
+  * @param {string} markdown The markdown string to convert.
+  * @returns {string} The HTML string.
+  */
 function markdownToHtml(markdown) {
   return markdown.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
 }
@@ -18,6 +23,11 @@ ws.addEventListener('message', (event) => {
 
 });
 
+/**
+ * Expands the newly added element.
+ * @param {HTMLElement} element The element to expand.
+ * @returns {void}
+ */
 async function fetchAndUpdateLogs(playerName) {
   try {
     // Construct the URL to fetch

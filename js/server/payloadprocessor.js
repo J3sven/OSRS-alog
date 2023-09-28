@@ -4,6 +4,12 @@ let lastId = null;
 let lastSource = null;
 let tallyCount = 0;
 
+/**
+ * Processes the payload by type.
+ * @param {object} payload The payload.
+ * @param {function} storePayload The function to store the payload.
+ * @returns {object} The processed data.
+ */
 function processPayload(payload, storePayload) {
     const type = payload.body.type;
     const playerName = payload.body.playerName;
@@ -25,6 +31,11 @@ function processPayload(payload, storePayload) {
     return processedData;
 }
 
+/**
+ * Processes the payload for loot events.
+ * @param {object} payload The payload.
+ * @returns {object} The processed data.
+ */
 function processLootPayload(payload) {
     const currentSource = payload.extra.source;
     const timestamp = new Date(payload.embeds[0].timestamp).toLocaleString();
@@ -37,7 +48,6 @@ function processLootPayload(payload) {
 
     const titleText = `I killed ${tallyCount} ${pluralize(currentSource, tallyCount)}.`;
     const displayText = `${titleText} (${timestamp})`;
-
     const newId = new Date().toISOString();
 
     lastId = newId;
@@ -53,6 +63,11 @@ function processLootPayload(payload) {
     };
 }
 
+/**
+ * Processes the payload for quest events.
+ * @param {object} payload The payload.
+ * @returns {object} The processed data.
+ */
 function processQuestPayload(payload) {
     const questName = payload.extra.questName;
     const timestamp = new Date(payload.embeds[0].timestamp).toLocaleString();

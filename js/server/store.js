@@ -1,10 +1,21 @@
 const fs = require('fs');
 const path = require('path');
 
+/**
+ * Sanitizes the player name by replacing spaces with underscores.
+ * @param {string} playerName The player name to sanitize.
+ * @returns {string} The sanitized player name.
+ */
 function sanitizePlayerName(playerName) {
     return playerName.replace(/ /g, '_');
 }
 
+/**
+ * Returns the paths to the log and type files.
+ * @param {string} playerName 
+ * @param {string} type 
+ * @returns 
+ */
 function getFilePaths(playerName, type) {
     const folderPath = path.join(__dirname, '..', '..', 'data', playerName);
     const logFilePath = path.join(folderPath, 'log.json');
@@ -12,12 +23,21 @@ function getFilePaths(playerName, type) {
     return { folderPath, logFilePath, typeFilePath };
 }
 
+/**
+ * Ensures that the folder exists.
+ * @param {string} folderPath The path to the folder.
+ */
 function ensureFolderExists(folderPath) {
     if (!fs.existsSync(folderPath)) {
         fs.mkdirSync(folderPath, { recursive: true });
     }
 }
 
+/**
+ * Reads a JSON file.
+ * @param {string} filePath The path to the file.
+ * @returns {object} The JSON object.
+ */
 function readJSONFile(filePath) {
     if (fs.existsSync(filePath)) {
         const fileContent = fs.readFileSync(filePath, 'utf-8');
@@ -26,6 +46,12 @@ function readJSONFile(filePath) {
     return [];
 }
 
+/**
+ * Updates the data, tallying if necessary.
+ * @param {object} existingData The existing data.
+ * @param {object} newData The new data.
+ * @returns {object} The updated data.
+ */
 function updateData(existingData, newData) {
     const latestIndex = existingData.length - 1;
 
@@ -40,6 +66,13 @@ function updateData(existingData, newData) {
     return existingData;
 }
 
+/**
+ * Updates the log data, tallying if necessary.
+ * @param {object} logData The existing log data.
+ * @param {string} type The type of data.
+ * @param {object} processedData The processed data.
+ * @returns {object} The updated log data.
+ */
 function updateLogData(logData, type, processedData) {
     const latestTypeIndex = logData.reduce((acc, curr, idx) => {
         return (curr.type === type) ? idx : acc;
@@ -56,6 +89,12 @@ function updateLogData(logData, type, processedData) {
     return logData;
 }
 
+/**
+ * Stores the payload in the relevant JSON files in the user data directory.
+ * @param {string} playerName The player name.
+ * @param {string} type The type of data.
+ * @param {object} processedData The processed data.
+ */
 function storePayload(playerName, type, processedData) {
     const sanitizedPlayerName = sanitizePlayerName(playerName);
     const { folderPath, logFilePath, typeFilePath } = getFilePaths(sanitizedPlayerName, type);
