@@ -20,17 +20,16 @@ function storePayload(playerName, type, processedData) {
 
   let logData = [];
   if (fs.existsSync(logFilePath)) {
-    logData = JSON.parse(fs.readFileSync(logFilePath));
-  }
+    const fileContent = fs.readFileSync(logFilePath, 'utf-8');
+    logData = fileContent ? JSON.parse(fileContent) : [];
+  }  
 
   if ('tallyCount' in processedData) {
     const index = logData.findIndex(
       item => item.type === type && item.processedData.currentSource === processedData.currentSource
     );
     if (index !== -1) {
-      if (logData[index].processedData.tallyCount < processedData.tallyCount) {
-        logData[index] = { type, processedData };
-      }
+      logData[index].processedData = processedData;
     } else {
       logData.push({ type, processedData });
     }
@@ -38,48 +37,40 @@ function storePayload(playerName, type, processedData) {
     logData.push({ type, processedData });
   }
 
+  // Update log file
+  if (type === 'LOOT') {
+    logData = updateData(logData, { type, processedData }, type);
+  } else {
+    logData = updateData(logData, { type, processedData }, type);
+  }
+  fs.writeFileSync(logFilePath, JSON.stringify(logData, null, 2));
+  
   // Write to type-specific file
   let existingTypeData = [];
   if (fs.existsSync(typeFilePath)) {
     existingTypeData = JSON.parse(fs.readFileSync(typeFilePath));
   }
+
   const updatedTypeData = updateData(existingTypeData, processedData);
   fs.writeFileSync(typeFilePath, JSON.stringify(updatedTypeData, null, 2));
-
-  // Write to log file
-  let existingLogData = [];
-  if (fs.existsSync(logFilePath)) {
-    existingLogData = JSON.parse(fs.readFileSync(logFilePath));
-  }
-  const updatedLogData = updateData([...existingLogData], processedData, type);
-  fs.writeFileSync(logFilePath, JSON.stringify(updatedLogData, null, 2));
 }
 
+
+
 function updateData(existingData, newData, type = null) {
-  const isTally = 'tallyCount' in newData;
-  const findCondition = item =>
-    (type ? item.type === type : true) &&
-    ((item.processedData && item.processedData.currentSource === newData.currentSource) ||
-      (item.currentSource === newData.currentSource));
+  const latestIndex = existingData.length - 1;
 
-  const index = isTally ? existingData.findIndex(findCondition) : -1;
-
-  const dataToPush = type ? { type, processedData: newData } : newData;
-
-  if (index !== -1) {
-    console.log('tally', existingData[index])
-    console.log('processing new tally', newData)
-    
-    // Null check added here
-    if (existingData[index] && existingData[index].processedData && existingData[index].processedData.tallyCount < newData.tallyCount) {
-      existingData[index] = dataToPush;  // Replace the old data with new
-    }
+  if (latestIndex >= 0 && existingData[latestIndex].currentSource === newData.currentSource) {
+    newData.tallyCount = existingData[latestIndex].tallyCount + 1;
+    existingData[latestIndex] = newData;
   } else {
-    existingData.push(dataToPush);  // Push new data if it doesn't exist
+    newData.tallyCount = 1;
+    existingData.push(newData);
   }
 
   return existingData;
 }
+
 
 
 function processPayload(payload) {
@@ -109,20 +100,17 @@ function processLootPayload(payload) {
   const currentSource = payload.extra.source;
   const timestamp = new Date(payload.embeds[0].timestamp).toLocaleString();
 
-  // First, check if the last source and the current source are the same
   if (lastSource === currentSource) {
-    tallyCount++;  // Use global tallyCount
+    tallyCount++;
   } else {
-    tallyCount = 1;  // Reset global tallyCount
+    tallyCount = 1;
   }
 
   const titleText = `I killed ${tallyCount} ${pluralize(currentSource, tallyCount)}.`;
   const displayText = `${titleText} (${timestamp})`;
 
-  // Generate a new ID only if the source has changed or if this is the first entry
-  const newId = (lastSource === currentSource && lastId) ? lastId : new Date().toISOString();
-  
-  // Update lastId and lastSource for future reference
+  const newId = new Date().toISOString();
+
   lastId = newId;
   lastSource = currentSource;
 
@@ -132,7 +120,7 @@ function processLootPayload(payload) {
     timestamp,
     displayText,
     titleText,
-    tallyCount: tallyCount 
+    tallyCount: tallyCount
   };
 }
 
