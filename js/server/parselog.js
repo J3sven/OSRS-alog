@@ -1,10 +1,11 @@
 const WebSocket = require('ws');
+const pluralize = require('pluralize');
 
 let lastId = null;
 let lastSource = null;
 let tallyCount = 0;
 
-function processPayload(payload, id) {
+function processPayload(payload) {
   const currentSource = payload.body.extra.source;
   const timestamp = new Date(payload.body.embeds[0].timestamp).toLocaleString();
 
@@ -16,7 +17,7 @@ function processPayload(payload, id) {
     lastSource = currentSource;
   }
 
-  const titleText = `I killed ${tallyCount} ${currentSource}${tallyCount > 1 ? 's' : ''}.`;
+  const titleText = `I killed ${tallyCount} ${pluralize(currentSource, tallyCount)}.`;
   const displayText = `${titleText} (${timestamp})`;
 
   const newData = {
