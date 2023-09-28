@@ -22,29 +22,24 @@ function storePayload(playerName, type, processedData) {
   if (fs.existsSync(logFilePath)) {
     const fileContent = fs.readFileSync(logFilePath, 'utf-8');
     logData = fileContent ? JSON.parse(fileContent) : [];
-  }  
+  }
 
+  // Remove last entry with same type and currentSource if tallyCount increases
   if ('tallyCount' in processedData) {
     const index = logData.findIndex(
-      item => item.type === type && item.processedData.currentSource === processedData.currentSource
+      item => item.type === type && item.currentSource === processedData.currentSource
     );
-    if (index !== -1) {
-      logData[index].processedData = processedData;
-    } else {
-      logData.push({ type, processedData });
+    if (index !== -1 && logData[index].tallyCount < processedData.tallyCount) {
+      logData.splice(index, 1);
     }
-  } else {
-    logData.push({ type, processedData });
   }
 
+  // Directly push the processedData into logData
+  logData.push({ type, ...processedData });
+
   // Update log file
-  if (type === 'LOOT') {
-    logData = updateData(logData, { type, processedData }, type);
-  } else {
-    logData = updateData(logData, { type, processedData }, type);
-  }
   fs.writeFileSync(logFilePath, JSON.stringify(logData, null, 2));
-  
+
   // Write to type-specific file
   let existingTypeData = [];
   if (fs.existsSync(typeFilePath)) {
@@ -54,7 +49,6 @@ function storePayload(playerName, type, processedData) {
   const updatedTypeData = updateData(existingTypeData, processedData);
   fs.writeFileSync(typeFilePath, JSON.stringify(updatedTypeData, null, 2));
 }
-
 
 
 function updateData(existingData, newData, type = null) {
@@ -70,8 +64,6 @@ function updateData(existingData, newData, type = null) {
 
   return existingData;
 }
-
-
 
 function processPayload(payload) {
   const type = payload.body.type;
