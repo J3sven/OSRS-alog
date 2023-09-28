@@ -61,7 +61,7 @@ router.post('/webhook/:id', upload.any(), (req, res) => {
     return res.status(403).send('Endpoint disabled');
   }
 
-  const newData = processPayload(payload, id);
+  const newData = processPayload(payload);
   receivedData = updateReceivedData(receivedData, newData);
   sendToWebSocketClients(wss, receivedData);
 
