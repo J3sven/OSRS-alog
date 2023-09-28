@@ -13,7 +13,6 @@ function storePayload(playerName, type, processedData) {
   const logFilePath = path.join(folderPath, 'log.json');
   const typeFilePath = path.join(folderPath, `${type.toLowerCase()}.json`);
 
-  // Create folder if it doesn't exist
   if (!fs.existsSync(folderPath)) {
     fs.mkdirSync(folderPath, { recursive: true });
   }
@@ -24,7 +23,6 @@ function storePayload(playerName, type, processedData) {
     logData = fileContent ? JSON.parse(fileContent) : [];
   }
 
-  // Remove last entry with same type and currentSource if tallyCount increases
   if ('tallyCount' in processedData) {
     const index = logData.findIndex(
       item => item.type === type && item.currentSource === processedData.currentSource
@@ -34,13 +32,10 @@ function storePayload(playerName, type, processedData) {
     }
   }
 
-  // Directly push the processedData into logData
   logData.push({ type, ...processedData });
 
-  // Update log file
   fs.writeFileSync(logFilePath, JSON.stringify(logData, null, 2));
 
-  // Write to type-specific file
   let existingTypeData = [];
   if (fs.existsSync(typeFilePath)) {
     existingTypeData = JSON.parse(fs.readFileSync(typeFilePath));
@@ -68,8 +63,6 @@ function updateData(existingData, newData, type = null) {
 function processPayload(payload) {
   const type = payload.body.type;
   const playerName = payload.body.playerName;
-
-  console.log(`payload is ${JSON.stringify(payload)}`);
 
   let processedData;
 

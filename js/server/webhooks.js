@@ -4,7 +4,9 @@ const crypto = require('crypto');
 const express = require('express');
 const multer = require('multer');
 const WebSocket = require('ws');
-const { processPayload, updateReceivedData, sendToWebSocketClients } = require('./parselog');
+const { processPayload } = require('./payloadprocessor');
+const { storePayload, updateData } = require('./store');
+const { sendToWebSocketClients, updateReceivedData } = require('./websockethandler');
 
 const upload = multer();
 const router = express.Router();
@@ -61,8 +63,7 @@ router.post('/webhook/:id', upload.any(), (req, res) => {
     return res.status(403).send('Endpoint disabled');
   }
 
-  const newData = processPayload(payload);
-  // console.log('newData', newData);
+  const newData = processPayload(payload, storePayload);
   receivedData = updateReceivedData(receivedData, newData);
   sendToWebSocketClients(wss, receivedData);
 

@@ -9,12 +9,10 @@ let firstEvent = true;
 const logs = {};
 
 ws.addEventListener('message', (event) => {
-  console.log(event.data);
   const receivedData = JSON.parse(event.data);
   const logsElement = document.getElementById('RAAccordion');
 
   if (receivedData.length > 0 && firstEvent) {
-    console.log('Clearing logs', receivedData)
     logsElement.innerHTML = '';
     firstEvent = false;
   }

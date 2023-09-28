@@ -36,7 +36,6 @@ class Skill {
     }
     populateInitialSkills();
     return Promise.resolve(activities); 
-    console.log('skills:', skills, 'activities:', activities);
   }
 
 
@@ -114,7 +113,6 @@ class Skill {
   document.addEventListener('DOMContentLoaded', () => {
     getOSRSHiscores('j3_gg').then((activities) => {
       populateInitialSkills();
-      console.log('DOM loaded', activities);
 
       const activityDetail = document.getElementById('activitydetail');
 
