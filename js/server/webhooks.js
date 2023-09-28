@@ -62,6 +62,7 @@ router.post('/webhook/:id', upload.any(), (req, res) => {
   }
 
   const newData = processPayload(payload);
+  // console.log('newData', newData);
   receivedData = updateReceivedData(receivedData, newData);
   sendToWebSocketClients(wss, receivedData);
 
