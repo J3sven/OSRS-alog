@@ -5,8 +5,8 @@ const express = require('express');
 const multer = require('multer');
 const WebSocket = require('ws');
 const { processPayload } = require('./payloadprocessor');
-const { storePayload, updateData } = require('./store');
-const { sendToWebSocketClients, updateReceivedData } = require('./websockethandler');
+const { storePayload } = require('./store');
+const { sendToWebSocketClients } = require('./websockethandler');
 
 const upload = multer();
 const router = express.Router();
@@ -55,7 +55,8 @@ router.post('/webhook/:id', upload.any(), (req, res) => {
     files: req.files,
     body: JSON.parse(req.body.payload_json)
   };
-
+  const playerName = payload.body.playerName;
+  const sanitizedPlayerName = playerName.replace(/ /g, '_');
   const id = req.params.id;
   const isEnabled = endpoints.get(id);
 
@@ -63,9 +64,8 @@ router.post('/webhook/:id', upload.any(), (req, res) => {
     return res.status(403).send('Endpoint disabled');
   }
 
-  const newData = processPayload(payload, storePayload);
-  receivedData = updateReceivedData(receivedData, newData);
-  sendToWebSocketClients(wss, receivedData);
+  processPayload(payload, storePayload);
+  sendToWebSocketClients(wss, sanitizedPlayerName);
 
   res.status(200).send('Received');
 });

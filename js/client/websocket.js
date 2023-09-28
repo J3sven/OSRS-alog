@@ -9,28 +9,37 @@ let firstEvent = true;
 const logs = {};
 
 ws.addEventListener('message', (event) => {
-  const receivedData = JSON.parse(event.data);
-  const logsElement = document.getElementById('RAAccordion');
+  const message = JSON.parse(event.data);
 
-  if (receivedData.length > 0 && firstEvent) {
-    logsElement.innerHTML = '';
-    firstEvent = false;
+  if (message.action === 'update') {
+    fetchAndUpdateLogs(message.playerName);
+    return
   }
 
-  receivedData.forEach((data) => {
-    const id = data.id;
-    const titleText = data.titleText;
-    const displayText = data.displayText;
+});
 
-    if (logs[id]) {
-      const headerToUpdate = document.getElementById('A' + id);
-      const bodyToUpdate = document.getElementById('A' + id + 'Body');
+async function fetchAndUpdateLogs(playerName) {
+  try {
+    // Construct the URL to fetch
+    const url = `/data/${playerName}/log.json`;
 
-      if (headerToUpdate && bodyToUpdate) {
-        headerToUpdate.innerHTML = `<span class="ui-icon ui-icon-triangle-1-e"></span><span class="Title">${titleText}</span>`;
-        bodyToUpdate.innerHTML = `<div class="AMBodyLiner"><p>${displayText}</p></div>`;
-      }
-    } else {
+    // Fetch the log.json file
+    const response = await fetch(url);
+
+    // Parse the JSON response
+    const logsData = await response.json();
+
+    // Clear existing logs (if you wish)
+    const logsElement = document.getElementById('RAAccordion');
+    logsElement.innerHTML = '';
+
+    // Update UI based on logsData
+    logsData.forEach((data) => {
+      const id = data.id;
+      const titleText = data.titleText;
+      const displayText = data.displayText;
+
+      // Create new elements for each log entry and append them
       const newHeader = document.createElement('a');
       newHeader.className = 'AMHead ui-accordion-header ui-helper-reset ui-state-default ui-corner-all';
       newHeader.id = 'A' + id;
@@ -42,16 +51,12 @@ ws.addEventListener('message', (event) => {
       newBody.style.height = '0px';
       newBody.innerHTML = `<div class="AMBodyLiner"><p>${displayText}</p></div>`;
 
-      if (logsElement.firstChild) {
-        logsElement.insertBefore(newBody, logsElement.firstChild);
-        logsElement.insertBefore(newHeader, logsElement.firstChild);
-      } else {
-        logsElement.appendChild(newHeader);
-        logsElement.appendChild(newBody);
-      }
-      expandNewlyAddedElement(newHeader);
+      logsElement.appendChild(newHeader);
+      logsElement.appendChild(newBody);
+    });
 
-      logs[id] = data;
-    }
-  });
-});
+  } catch (error) {
+    // Handle errors
+    console.error('Failed to fetch and update logs:', error);
+  }
+}

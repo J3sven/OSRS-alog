@@ -11,6 +11,7 @@ webhooks.initWebSocket(server);
 
 app.use('/', webhooks.router);
 app.use('/', hiscoresRoute);
+app.use('/data', express.static('data'));
 app.use('/img', express.static('img'));
 app.use('/js', express.static('js'));
 app.use('/css', express.static('css'));
