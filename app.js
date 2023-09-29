@@ -24,7 +24,7 @@ app.use('/css', express.static('css'));
 app.use('/alog_assets', express.static('alog_assets'));
 
 app.get('/log', (req, res) => {
-  const player = req.query.player;
+  const { player } = req.query;
   const filePath = path.join(__dirname, 'index.html');
 
   fs.readFile(filePath, 'utf8', (err, data) => {
@@ -34,10 +34,11 @@ app.get('/log', (req, res) => {
 
     const modifiedData = data.replace(/playerName/g, player);
     res.send(modifiedData);
+    return null;
   });
 });
 
-
 server.listen(3000, () => {
+  // eslint-disable-next-line no-console
   console.log('Server started on http://localhost:3000/');
 });
