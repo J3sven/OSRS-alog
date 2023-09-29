@@ -6,13 +6,15 @@
 let currentIndex = -1;
 
 const expandAccordion = (header) => {
+  if (!header || !header.nextElementSibling) return; // Check for null
   document.querySelectorAll('#RAAccordion .AMHead').forEach(h => {
-    if (h.nextElementSibling.style.height !== '0px' && h !== header) {
+    if (h.nextElementSibling && h.nextElementSibling.style.height !== '0px' && h !== header) {
       collapseAccordion(h);
     }
   });
   header.classList.add('selected');
   const body = header.nextElementSibling;
+  if (!body) return; // Check for null
   body.style.height = '0';
   body.style.display = 'block';
   body.style.overflow = 'hidden';
@@ -23,11 +25,13 @@ const expandAccordion = (header) => {
 
 const collapseAccordion = (header) => {
   const body = header.nextElementSibling;
+  if (!body) return; // Check for null
   header.classList.remove('selected');
   body.style.transition = 'height 0.3s ease-out';
   body.style.height = '0';
   setTimeout(() => { body.style.display = 'none'; }, 300);
 };
+
 
 document.addEventListener('click', (event) => {
   if (event.target.closest('#RAAccordion .AMHead')) {

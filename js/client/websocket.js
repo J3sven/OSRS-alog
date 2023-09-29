@@ -69,30 +69,36 @@ async function fetchAndUpdateLogs(playerName) {
     const sanitizedPlayerName = playerName.replace(/ /g, '_');
     const url = `/data/${sanitizedPlayerName}/log.json`;
     
-    const logsData = await fetchLogsData(url);
-    sortLogsData(logsData);
+    const newLogsData = await fetchLogsData(url);
+    sortLogsData(newLogsData);
     
     const logsElement = document.getElementById('RAAccordion');
 
-    if (isFirstFetch && logsData.length > 0) {
+    if (isFirstFetch && newLogsData.length > 0) {
       logsElement.innerHTML = '';
       isFirstFetch = false;
     }
 
-    const prevMostRecentLog = logsData.length ? logsData[0] : null;
+    let prevLog = null;
 
-    logsData.reverse().forEach((data, index) => {
-      const { id, titleText, displayText } = data;
-      const isTallyUpdate = prevMostRecentLog && (prevMostRecentLog.currentSource === data.currentSource);
-
-      let existingHeader, existingBody;
-      if (isTallyUpdate) {
-        existingHeader = document.getElementById('A' + prevMostRecentLog.id);
-        existingBody = document.getElementById('A' + prevMostRecentLog.id + 'Body');
-      } else {
-        existingHeader = document.getElementById('A' + id);
-        existingBody = document.getElementById('A' + id + 'Body');
+    newLogsData.reverse().forEach((currentLog) => {
+      const { id, titleText, displayText } = currentLog;
+      
+      if (prevLog && prevLog.currentSource === currentLog.currentSource) {
+        // If this log is a continuation of a tally, update existing
+        const existingHeader = document.getElementById('A' + prevLog.id);
+        const existingBody = document.getElementById('A' + prevLog.id + 'Body');
+        
+        if (existingHeader && existingBody) {
+          updateExistingElement(existingHeader, existingBody, id, titleText, displayText);
+          logs[id] = currentLog;
+          prevLog = currentLog;
+          return;
+        }
       }
+
+      const existingHeader = document.getElementById('A' + id);
+      const existingBody = document.getElementById('A' + id + 'Body');
 
       if (existingHeader && existingBody) {
         updateExistingElement(existingHeader, existingBody, id, titleText, displayText);
@@ -101,16 +107,14 @@ async function fetchAndUpdateLogs(playerName) {
         insertElementsIntoDOM(newHeader, newBody, logsElement);
         expandNewlyAddedElement(newHeader);
       }
-
-      logs[id] = data;
+      logs[id] = currentLog;
+      prevLog = currentLog;
     });
     
   } catch (error) {
     console.error('Failed to fetch and update logs:', error);
   }
 }
-
-
 window.onload = async function() {
   const playerName = 'J3_gg'; // Replace this with how you get the playerName
   await fetchAndUpdateLogs(playerName);
