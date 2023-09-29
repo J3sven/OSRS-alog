@@ -29,7 +29,7 @@ async function fetchLogsData(url) {
 }
 
 function sortLogsData(logsData) {
-  logsData.sort((a, b) => new Date(b.id) - new Date(a.id));
+  logsData.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
 }
 
 function updateExistingElement(existingHeader, existingBody, id, titleText, displayText) {

@@ -9,11 +9,15 @@ app.use(cors());
 const server = http.createServer(app);
 webhooks.initWebSocket(server);
 
+app.get('/', (req, res) => {
+  res.redirect('/log');
+});
+
 app.use('/', webhooks.router);
 app.use('/', hiscoresRoute);
 app.use('/data', express.static('data'));
 app.use('/img', express.static('img'));
-app.use('/js', express.static('js'));
+app.use('/js/client', express.static('js/client'));
 app.use('/css', express.static('css'));
 app.use('/alog_assets', express.static('alog_assets'));
 

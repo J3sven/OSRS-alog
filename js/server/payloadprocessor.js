@@ -1,4 +1,5 @@
 const pluralize = require('pluralize');
+const crypto = require('crypto');
 
 class PayloadProcessor {
     constructor() {
@@ -12,6 +13,13 @@ class PayloadProcessor {
         this.lastActivity = new Date().getTime();
     }
 
+    generateTimeBasedHash() {
+        const time = Date.now();
+        const hash = crypto.createHash('sha256');
+        hash.update(time.toString());
+        return hash.digest('hex').substring(0, 12);
+    }
+
     /**
      * @description Processes the payload by type and returns the processed data.
      * @param {Object} payload 
@@ -21,63 +29,69 @@ class PayloadProcessor {
     processPayload(payload, storePayload) {
         const type = payload.body.type;
         const playerName = payload.body.playerName;
-
+    
+        const newId = this.generateTimeBasedHash(); 
+        const unixTimestamp = Math.floor(Date.now() / 1000);
+        const humanReadableTimestamp = new Date(unixTimestamp * 1000).toLocaleString();
+    
         let processedData;
-
+    
         switch (type) {
             case "LOOT":
-                processedData = this.processLootPayload(payload.body);
+                processedData = this.processLootPayload(payload.body, newId, unixTimestamp, humanReadableTimestamp);
                 break;
             case "QUEST":
-                processedData = this.processQuestPayload(payload.body);
+                processedData = this.processQuestPayload(payload.body, newId, unixTimestamp, humanReadableTimestamp);
                 break;
             default:
                 return {};
         }
-
+    
         storePayload(playerName, type, processedData);
         return processedData;
     }
+    
+    processLootPayload(payload, newId, unixTimestamp, humanReadableTimestamp) {
 
-    processLootPayload(payload) {
         const currentSource = payload.extra.source;
-        const timestamp = new Date(payload.embeds[0].timestamp).toLocaleString();
-
+        
+        let idToUse = newId; // By default, use the newId
+    
         if (this.lastSource === currentSource) {
             this.tallyCount++;
+            idToUse = this.lastId; // Use the lastId if it's a tally
         } else {
             this.tallyCount = 1;
         }
-
+    
         const titleText = `I killed ${this.tallyCount} ${pluralize(currentSource, this.tallyCount)}.`;
-        const displayText = `${titleText} (${timestamp})`;
-        const newId = new Date().toISOString();
-
-        this.lastId = newId;
+        const displayText = `${titleText} (${humanReadableTimestamp})`;
+    
+        this.lastId = idToUse;
         this.lastSource = currentSource;
-
+    
         return {
-            id: newId,
+            id: idToUse,
             currentSource,
-            timestamp,
+            timestamp: unixTimestamp,
             displayText,
             titleText,
             tallyCount: this.tallyCount
         };
     }
-
-    processQuestPayload(payload) {
+    
+    
+    processQuestPayload(payload, newId, unixTimestamp, humanReadableTimestamp) {
         const questName = payload.extra.questName;
-        const timestamp = new Date(payload.embeds[0].timestamp).toLocaleString();
         const questPoints = payload.extra.questPoints;
-
+    
         const titleText = `I completed the quest ${questName}.`;
-        const displayText = `${titleText} I now have ${questPoints} Quest points. (${timestamp})`;
-
+        const displayText = `${titleText} I now have ${questPoints} Quest points. (${humanReadableTimestamp})`;
+    
         return {
-            id: payload.embeds[0].timestamp,
+            id: newId,
             questName,
-            timestamp,
+            timestamp: unixTimestamp,
             displayText,
             titleText,
             questPoints
