@@ -5,9 +5,18 @@
 
 let currentIndex = -1;
 
+const collapseAccordion = (header) => {
+  const body = header.nextElementSibling;
+  if (!body) return; // Check for null
+  header.classList.remove('selected');
+  body.style.transition = 'height 0.3s ease-out';
+  body.style.height = '0';
+  setTimeout(() => { body.style.display = 'none'; }, 300);
+};
+
 const expandAccordion = (header) => {
   if (!header || !header.nextElementSibling) return; // Check for null
-  document.querySelectorAll('#RAAccordion .AMHead').forEach(h => {
+  document.querySelectorAll('#RAAccordion .AMHead').forEach((h) => {
     if (h.nextElementSibling && h.nextElementSibling.style.height !== '0px' && h !== header) {
       collapseAccordion(h);
     }
@@ -22,16 +31,6 @@ const expandAccordion = (header) => {
   body.style.transition = 'height 0.3s ease-out';
   setTimeout(() => { body.style.height = targetHeight; }, 0);
 };
-
-const collapseAccordion = (header) => {
-  const body = header.nextElementSibling;
-  if (!body) return; // Check for null
-  header.classList.remove('selected');
-  body.style.transition = 'height 0.3s ease-out';
-  body.style.height = '0';
-  setTimeout(() => { body.style.display = 'none'; }, 300);
-};
-
 
 document.addEventListener('click', (event) => {
   if (event.target.closest('#RAAccordion .AMHead')) {
@@ -55,9 +54,11 @@ document.addEventListener('click', (event) => {
   }
 });
 
+// Disabling because the definition of this function makes more sense here (and this is client code)
+// eslint-disable-next-line no-unused-vars
 function expandNewlyAddedElement(newHeader) {
   const allHeaders = document.querySelectorAll('.AMHead');
-  allHeaders.forEach(header => {
+  allHeaders.forEach((header) => {
     if (header !== newHeader) {
       collapseAccordion(header);
     }

@@ -11,9 +11,9 @@ const { sendToWebSocketClients } = require('./websockethandler');
 const upload = multer();
 const router = express.Router();
 const clientProcessors = {};
-const INACTIVITY_TIMEOUT = 60000; 
-
-let receivedData = [];
+const INACTIVITY_TIMEOUT = 60000;
+const allowedIPs = [];
+const receivedData = [];
 let endpoints;
 let wss;
 
@@ -48,18 +48,17 @@ router.get('/generate-endpoint', (req, res) => {
 });
 
 router.post('/webhook/:id', upload.any(), (req, res) => {
-
   if (!req.body || !req.body.payload_json) {
     return res.status(400).send('Invalid request body');
   }
 
   const payload = {
     files: req.files,
-    body: JSON.parse(req.body.payload_json)
+    body: JSON.parse(req.body.payload_json),
   };
-  const playerName = payload.body.playerName;
+  const { playerName } = payload.body;
   const sanitizedPlayerName = playerName.replace(/ /g, '_');
-  const id = req.params.id;
+  const { id } = req.params;
   const isEnabled = endpoints.get(id);
 
   if (!isEnabled) {
@@ -79,10 +78,11 @@ router.post('/webhook/:id', upload.any(), (req, res) => {
   sendToWebSocketClients(wss, sanitizedPlayerName);
 
   res.status(200).send('Received');
+  return null;
 });
 
 router.post('/disable-endpoint/:id', (req, res) => {
-  const id = req.params.id;
+  const { id } = req.params;
   const clientIP = req.ip || req.connection.remoteAddress;
 
   if (!allowedIPs.includes(clientIP)) {
@@ -93,24 +93,25 @@ router.post('/disable-endpoint/:id', (req, res) => {
     endpoints.set(id, false);
     saveEndpoints();
     res.status(200).send('Endpoint disabled');
-  } else {
-    res.status(404).send('Endpoint not found');
+    return null;
   }
+  res.status(404).send('Endpoint not found');
+  return null;
 });
 
-//Keep track of active PayloadProcessor instances and remove them if inactive
+// Keep track of active PayloadProcessor instances and remove them if inactive
 setInterval(() => {
   const now = new Date().getTime();
-  for (const [key, processor] of Object.entries(clientProcessors)) {
+  Object.entries(clientProcessors).forEach(([key, processor]) => {
     if (now - processor.lastActivity > INACTIVITY_TIMEOUT) {
       delete clientProcessors[key];
+      // eslint-disable-next-line no-console
       console.log(`Removed PayloadProcessor for ${key} due to inactivity.`);
     }
-  }
+  });
 }, INACTIVITY_TIMEOUT);
 
-
 module.exports = {
-  router: router,
-  initWebSocket: initWebSocket
+  router,
+  initWebSocket,
 };

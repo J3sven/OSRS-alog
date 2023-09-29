@@ -1,6 +1,8 @@
 const express = require('express');
 const http = require('http');
 const cors = require('cors');
+const path = require('path');
+const fs = require('fs');
 const webhooks = require('./js/server/webhooks');
 const hiscoresRoute = require('./js/server/hiscores');
 
@@ -22,8 +24,19 @@ app.use('/css', express.static('css'));
 app.use('/alog_assets', express.static('alog_assets'));
 
 app.get('/log', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
+  const player = req.query.player;
+  const filePath = path.join(__dirname, 'index.html');
+
+  fs.readFile(filePath, 'utf8', (err, data) => {
+    if (err) {
+      return res.status(500).send('An error occurred while reading the file.');
+    }
+
+    const modifiedData = data.replace(/playerName/g, player);
+    res.send(modifiedData);
+  });
 });
+
 
 server.listen(3000, () => {
   console.log('Server started on http://localhost:3000/');
