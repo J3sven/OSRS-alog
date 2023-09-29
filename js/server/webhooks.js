@@ -4,12 +4,14 @@ const crypto = require('crypto');
 const express = require('express');
 const multer = require('multer');
 const WebSocket = require('ws');
-const { processPayload } = require('./payloadprocessor');
+const PayloadProcessor = require('./payloadprocessor');
 const { storePayload } = require('./store');
 const { sendToWebSocketClients } = require('./websockethandler');
 
 const upload = multer();
 const router = express.Router();
+const clientProcessors = {};
+const INACTIVITY_TIMEOUT = 60000; 
 
 let receivedData = [];
 let endpoints;
@@ -64,7 +66,16 @@ router.post('/webhook/:id', upload.any(), (req, res) => {
     return res.status(403).send('Endpoint disabled');
   }
 
-  processPayload(payload, storePayload);
+  // Get or create a PayloadProcessor instance for this player
+  if (!clientProcessors[sanitizedPlayerName]) {
+    clientProcessors[sanitizedPlayerName] = new PayloadProcessor();
+  }
+
+  // Update lastActivity for this PayloadProcessor instance
+  clientProcessors[sanitizedPlayerName].updateActivity();
+
+  // Process payload using the client's own PayloadProcessor instance
+  clientProcessors[sanitizedPlayerName].processPayload(payload, storePayload);
   sendToWebSocketClients(wss, sanitizedPlayerName);
 
   res.status(200).send('Received');
@@ -86,6 +97,17 @@ router.post('/disable-endpoint/:id', (req, res) => {
     res.status(404).send('Endpoint not found');
   }
 });
+
+//Keep track of active PayloadProcessor instances and remove them if inactive
+setInterval(() => {
+  const now = new Date().getTime();
+  for (const [key, processor] of Object.entries(clientProcessors)) {
+    if (now - processor.lastActivity > INACTIVITY_TIMEOUT) {
+      delete clientProcessors[key];
+      console.log(`Removed PayloadProcessor for ${key} due to inactivity.`);
+    }
+  }
+}, INACTIVITY_TIMEOUT);
 
 
 module.exports = {
