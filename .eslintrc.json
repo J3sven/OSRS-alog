@@ -10,6 +10,7 @@
     },
     "rules": {
         "max-classes-per-file": ["error", 3],
-        "max-len": ["error", { "code": 200 }]
+        "max-len": ["error", { "code": 200 }],
+        "class-methods-use-this": "off"
     }
 }

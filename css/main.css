@@ -857,6 +857,10 @@ input.go {
     margin: 15px auto;
 }
 
+.ui-accordion-header .title{
+    text-align: left;
+}
+
 footer{
     color: #7c7c7c;
     position: absolute;

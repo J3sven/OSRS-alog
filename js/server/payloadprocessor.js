@@ -40,6 +40,9 @@ class PayloadProcessor {
       case 'LOOT':
         processedData = this.processLootPayload(payload.body, newId, unixTimestamp, humanReadableTimestamp);
         break;
+      case 'LEVEL':
+        processedData = this.processLevelPayload(payload.body, newId, unixTimestamp, humanReadableTimestamp);
+        break;
       case 'QUEST':
         processedData = this.processQuestPayload(payload.body, newId, unixTimestamp, humanReadableTimestamp);
         break;
@@ -79,7 +82,7 @@ class PayloadProcessor {
     };
   }
 
-  static processQuestPayload(payload, newId, unixTimestamp, humanReadableTimestamp) {
+  processQuestPayload(payload, newId, unixTimestamp, humanReadableTimestamp) {
     const { questName } = payload.extra;
     const { questPoints } = payload.extra;
 
@@ -93,6 +96,40 @@ class PayloadProcessor {
       displayText,
       titleText,
       questPoints,
+    };
+  }
+
+  processLevelPayload(payload, newId, unixTimestamp, humanReadableTimestamp) {
+    const { levelledSkills, allSkills, combatLevel } = payload.extra;
+
+    // Find the skill with the highest level
+    const [highestSkill, highestLevel] = Object.entries(levelledSkills).reduce((acc, [skill, level]) => ((level > acc[1]) ? [skill, level] : acc), ['', 0]);
+
+    const titleText = `I levelled up ${highestSkill}`;
+
+    // Generating a list of other levelled skills
+    const otherSkillsText = Object.entries(levelledSkills)
+      .filter(([skill]) => skill !== highestSkill)
+      .map(([skill, level]) => `${skill} to ${level}`)
+      .join(', ');
+
+    // Displaying if combat level increased
+    const combatLevelText = combatLevel.increased ? `My combat level increased to ${combatLevel.value}` : '';
+
+    // Create the display text based on conditions
+    let displayText = `I levelled my ${highestSkill} skill, I am now level ${highestLevel}.`;
+    if (otherSkillsText) displayText += ` I also levelled ${otherSkillsText}.`;
+    if (combatLevelText) displayText += ` ${combatLevelText}`;
+    displayText += ` (${humanReadableTimestamp})`;
+
+    return {
+      id: newId,
+      levelledSkills,
+      allSkills,
+      timestamp: unixTimestamp,
+      displayText,
+      titleText,
+      combatLevel: combatLevel.value,
     };
   }
 }
