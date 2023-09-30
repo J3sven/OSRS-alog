@@ -111,9 +111,9 @@ const handleUIUpdates = (fetchedActivities) => {
     const activityCount = activity.count !== -1 ? activity.count : '0';
     const activityRank = activity.rank !== -1 ? activity.rank : '0';
 
-    const activityElement = document.createElement('span');
+    const activityElement = document.createElement('div');
     activityElement.setAttribute('data-activity-name', activityName);
-    activityElement.innerHTML = `<img src="alog_assets/game_icon_${activityName}.png" alt="${activityName}">${activityCount}`;
+    activityElement.innerHTML = `<img src="alog_assets/game_icon_${activityName}.png" alt="${activityName}"><span>${activityCount}</span>`;
 
     activityElement.addEventListener('click', () => {
       const selected = document.querySelector('.activitycontainer .selected');
