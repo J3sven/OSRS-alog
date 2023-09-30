@@ -36,12 +36,17 @@ document.getElementById('generateBtn').addEventListener('click', async () => {
 });
 
 const tooltip = document.getElementById('tooltip');
-document.getElementById('copyBtn').addEventListener('click', () => {
+document.getElementById('copyBtn').addEventListener('click', async () => {
   const textField = document.getElementById('textField');
-  textField.select();
-  document.execCommand('copy');
+  const textToCopy = textField.value;
 
-  tooltip.classList.add('show');
+  try {
+    await navigator.clipboard.writeText(textToCopy);
+    tooltip.classList.add('show');
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error('Failed to copy text: ', err);
+  }
 
   setTimeout(() => {
     tooltip.classList.remove('show');

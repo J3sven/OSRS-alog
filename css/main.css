@@ -659,16 +659,17 @@ input.go {
     min-height: 50vh;
     max-height: 90vh; }
     .modal .modal-content #closeModalBtn {
-      background: none;
-      border: none;
-      color: white;
       position: absolute;
-      top: 0;
-      right: 5px; }
+      top: 5px;
+      right: 5px;
+      background: rgba(96, 95, 95, 0.522);
+      border: none;
+      padding: 6px 11px;
+      border-radius: 6px;
+      color: honeydew;
+      cursor: pointer; }
       .modal .modal-content #closeModalBtn:hover {
-        cursor: pointer;
-        color: var(--alog-active-gold);
-        transform: scale(1.1); }
+        background: rgba(96, 95, 95, 0.9); }
   .modal #textfield {
     width: 415px;
     max-width: 90%;

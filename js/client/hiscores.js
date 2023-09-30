@@ -129,8 +129,9 @@ const handleUIUpdates = (fetchedActivities) => {
 };
 
 const loadProfileFromJSON = async (username) => {
+  const player = username.replace(/ /g, '_');
   try {
-    const response = await fetch(`/data/${username}/profile.json`);
+    const response = await fetch(`/data/${player}/profile.json`);
     if (!response.ok) {
       throw new Error('JSON not found');
     }
@@ -146,9 +147,9 @@ const loadProfileFromJSON = async (username) => {
     return Promise.resolve(activities);
   } catch (error) {
     if (error.message === 'JSON not found') {
-      const updateResponse = await fetch(`/updateProfile/${username}`);
+      const updateResponse = await fetch(`/updateProfile/${player}`);
       if (updateResponse.ok) {
-        return loadProfileFromJSON(username);
+        return loadProfileFromJSON(player);
       }
     }
     return Promise.reject(error);
@@ -157,7 +158,7 @@ const loadProfileFromJSON = async (username) => {
 
 document.addEventListener('DOMContentLoaded', () => {
   const urlParams = new URLSearchParams(window.location.search);
-  const player = urlParams.get('player');
+  const player = urlParams.get('player').replace(/ /g, '_');
 
   loadProfileFromJSON(player)
     .then(handleUIUpdates)
