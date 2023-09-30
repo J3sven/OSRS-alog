@@ -1,10 +1,10 @@
-# RuneScape Adventurer's Log for OSRS
+# RuneScape Adventurer's Log for HDOS
 
 ![firefox_q3aGPxDCkx](https://github.com/J3sven/OSRS-alog/assets/18210607/3c5e432d-963c-468c-ba7a-536ab288b143)
 
 ## Overview
 
-This project aims to recreate the RuneScape Adventurer's log for OSRS, mimicking its visuals from December 2009 to early 2012. But expanding on the original design to better suit current day OSRS gameplay habits.
+This project aims to recreate the RuneScape Adventurer's log for OSRS, mimicking its visuals from December 2009 to early 2012. But expanding on the original design to better suit current day OSRS gameplay habits. This project is currently intended to be implemented in the HDOS website.
 
 ## Features
 
