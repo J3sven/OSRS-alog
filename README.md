@@ -1,5 +1,6 @@
 # RuneScape Adventurer's Log for OSRS
-![firefox_F7NBRXQF7b](https://github.com/MidgetJake/UniversalDiscordNotifier/assets/18210607/7a8182a2-007d-4f57-9967-7835b9b12249)
+
+![firefox_q3aGPxDCkx](https://github.com/J3sven/OSRS-alog/assets/18210607/3c5e432d-963c-468c-ba7a-536ab288b143)
 
 ## Overview
 
