@@ -13,27 +13,76 @@
     transition: opacity 0.3s ease;
     display: none;
     opacity: 0;
-  }
-  .modal.show {
-    opacity: 1;
-  }
-  .modal-content {
-    background-color: #fff;
-    padding: 20px;
-  }
-  #tooltip {
-  position: absolute;
-  background-color: #333;
-  color: white;
-  padding: 5px;
-  border-radius: 3px;
-  font-size: 12px;
-  top: 10px;
-  right: 10px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  }
-  
-  #tooltip.show {
-  opacity: 1;
-  }
+    &.show {
+        opacity: 1;
+    }
+    .modal-content {
+        background-color: #252525;
+        color: white;
+        padding: 20px;
+        position: relative;
+        min-width: 750px;
+        min-height: 50vh;
+        max-height: 90vh;
+        #closeModalBtn{
+            background: none;
+            border: none;
+            color: white;
+            position: absolute;
+            top: 0;
+            right: 5px;
+            &:hover{
+                cursor: pointer;
+                color: var(--alog-active-gold);
+                transform: scale(1.1);
+            }
+        }
+    }
+    #textfield{
+        width: 415px;
+        max-width: 90%;
+        background: rgba(96, 95, 95, 0.522);
+        border: none;
+        padding: 5px;
+        border-radius: 6px;
+        color: rgba(240, 255, 240, 1);
+    }
+    button {
+        background: rgba(96, 95, 95, 0.522);
+        border: none;
+        padding: 5px;
+        border-radius: 6px;
+        color: rgba(240, 255, 240, 1);
+        cursor: pointer;
+    }
+    #generateBtn{
+        &.hidden{
+            display: none;
+        }
+    }
+    #copyBtn{
+        position: relative;
+        display: inline;
+        &.hidden{
+            display: none;
+        }
+    }
+    #tooltip {
+        position: absolute;
+        background-color: #5d8b74;
+        color: white;
+        padding: 5px;
+        border-radius: 3px;
+        font-size: 12px;
+        top: -45px;
+        right: 0;
+        display: none;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        width: 110px;
+        &.show {
+            display: block;
+            opacity: 1;
+        }
+    }
+}

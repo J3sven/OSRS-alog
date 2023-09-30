@@ -6,7 +6,7 @@
     "sass:watch": "node-sass --include-path sass css/main.scss css/main.css --watch",
     "sass:build": "node-sass --include-path sass css/main.scss css/main.css--output-style compressed",
     "start": "node app.js",
-    "start:dev": "npm run sass:watch & nodemon app.js"
+    "dev": "npm run sass:watch & nodemon app.js"
   },
   "dependencies": {
     "body-parser": "^1.20.2",

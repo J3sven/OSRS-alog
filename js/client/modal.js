@@ -27,19 +27,15 @@ document.getElementById('generateBtn').addEventListener('click', async () => {
   const response = await fetch('/generate-endpoint');
   const data = await response.json();
   const textField = document.getElementById('textField');
-  textField.value = data.endpoint;
 
+  const domain = window.location.origin;
+  textField.value = `${domain}${data.endpoint}`;
+
+  document.getElementById('generateBtn').classList.add('hidden');
   document.getElementById('copyBtn').classList.remove('hidden');
 });
 
-document.getElementById('copyBtn').addEventListener('click', () => {
-  const textField = document.getElementById('textField');
-  textField.select();
-  document.execCommand('copy');
-});
-
 const tooltip = document.getElementById('tooltip');
-
 document.getElementById('copyBtn').addEventListener('click', () => {
   const textField = document.getElementById('textField');
   textField.select();

@@ -139,13 +139,15 @@
 
   <div class="modal" id="modal">
     <div class="modal-content">
-      <button id="closeModalBtn">Close</button>
-      <h2>Title</h2>
-      <p>Paragraph</p>
-      <span id="tooltip" class="hidden">Successfully copied</span>
-      <input type="text" id="textField" placeholder="Generated endpoint will appear here" readonly>
+      <button id="closeModalBtn">x</button>
+      <h2>Getting started</h2>
+      <p>Use the generate button below to generate a webhook.</p>
+      <input type="text" id="textField" placeholder="Your generated webhook will appear here" readonly>
       <button id="generateBtn">Generate</button>
-      <button id="copyBtn" class="hidden">Copy</button>
+      <button id="copyBtn" class="hidden">
+        <span id="tooltip">Copied!</span>Copy</button>
+      <p>Then locate your dink plugin inside HDOS and add the webhook url to your Dink webhook URLs</p>
+      <img src="img/hdos_tutorial.gif"/>
     </div>
   </div>
 
