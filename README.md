@@ -1,9 +1,10 @@
-# RuneScape Adventurer's Log for OSRS
-![firefox_F7NBRXQF7b](https://github.com/MidgetJake/UniversalDiscordNotifier/assets/18210607/7a8182a2-007d-4f57-9967-7835b9b12249)
+# RuneScape Adventurer's Log for HDOS
+
+![firefox_q3aGPxDCkx](https://github.com/J3sven/OSRS-alog/assets/18210607/3c5e432d-963c-468c-ba7a-536ab288b143)
 
 ## Overview
 
-This project aims to recreate the RuneScape Adventurer's log for OSRS, mimicking its visuals from December 2009 to early 2012. But expanding on the original design to better suit current day OSRS gameplay habits.
+This project aims to recreate the RuneScape Adventurer's log for OSRS, mimicking its visuals from December 2009 to early 2012. But expanding on the original design to better suit current day OSRS gameplay habits. This project is currently intended to be implemented in the HDOS website.
 
 ## Features
 
