@@ -877,3 +877,8 @@ footer{
 footer a{
     color: #7c7c7c;
 }
+
+.hdos_logo {
+    position: absolute;
+    top: 0;
+}
