@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get('/updateProfile/:player', async (req, res) => {
   const { player } = req.params;
-  const profilePath = path.join(__dirname, `/data/${player}/profile.json`);
+  const profilePath = path.join(__dirname, '..', '..', `data/${player}/profile.json`);
   let existingData = {};
 
   if (fs.existsSync(profilePath)) {
@@ -28,9 +28,7 @@ router.get('/updateProfile/:player', async (req, res) => {
       },
       Activities: {
         soulWarsZeal: hiscoreData.main.soulWarsZeal,
-        pvpArena: hiscoreData.main.pvpArena,
         riftsClosed: hiscoreData.main.riftsClosed,
-        lastManStanding: hiscoreData.main.lastManStanding,
         ...hiscoreData.main.bountyHunter,
         ...hiscoreData.main.clues,
         ...hiscoreData.main.bosses,

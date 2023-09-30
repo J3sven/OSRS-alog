@@ -18,10 +18,6 @@ class Activity {
 let skills = {};
 const activities = [];
 
-/**
-   * Updates the skill buttons with the current skill levels.
-   * @returns {void}
-   */
 const updateButtonLevels = () => {
   const buttons = document.querySelectorAll('.scoreButton');
   buttons.forEach((buttonElem, index) => {
@@ -36,11 +32,6 @@ const updateButtonLevels = () => {
   });
 };
 
-/**
-   * Updates the skill details.
-   * @param {string} skillName The skill name.
-   * @returns {void}
-   */
 const updateSkills = (targetSkillName) => {
   const targetSkill = skills.find((skillItem) => skillItem.name === targetSkillName.toLowerCase());
   if (!targetSkill) return;
@@ -65,10 +56,6 @@ const updateSkills = (targetSkillName) => {
   skillTitleElement.textContent = targetSkillName === 'overall' ? 'Total Level' : targetSkillName;
 };
 
-/**
-   * Populates the initial skills.
-   * @returns {void}
-   */
 const populateInitialSkills = () => {
   const skillLevelElement = document.getElementById('skilllevel');
   const skillRankElement = document.getElementById('skillrank');
@@ -101,70 +88,94 @@ const populateInitialSkills = () => {
   });
 };
 
-/**
-   * Fetches the hiscores for the given username.
-   * @param {string} username The username.
-   * @returns {Promise} A promise that resolves with the hiscores.
-   */
-const getOSRSHiscores = async (username) => {
-  const response = await fetch(`http://localhost:3000/fetchHiscores?player=${username}`);
-  const json = await response.json();
+const handleUIUpdates = (fetchedActivities) => {
+  populateInitialSkills();
+  populateInitialSkills();
 
-  const mainData = json.main;
+  const activityDetail = document.getElementById('activitydetail');
 
-  skills = Object.entries(mainData.skills).map(([name, { rank, level, xp }]) => new Skill(name, xp, level, rank));
+  const updateDetails = (name, count, rank) => {
+    activityDetail.innerHTML = `<span id="activity_name">${name}</span>
+                            <span id="activity_count">${count}</span>
+                            - Rank: <span id="activity_rank">${rank}</span>`;
+  };
 
-  Object.entries(mainData).forEach(([category, data]) => {
-    if (category === 'skills') return;
+  const activityContainer = document.querySelector('.activitycontainer');
+  activityContainer.innerHTML = '';
 
-    Object.entries(data).forEach(([name, { rank, score }]) => {
+  fetchedActivities.forEach((activity) => {
+    const activityName = activity.name;
+    if (activityName === 'score' || activityName === 'rank') {
+      return;
+    }
+    const activityCount = activity.count !== -1 ? activity.count : '0';
+    const activityRank = activity.rank !== -1 ? activity.rank : '0';
+
+    const activityElement = document.createElement('span');
+    activityElement.setAttribute('data-activity-name', activityName);
+    activityElement.innerHTML = `<img src="alog_assets/game_icon_${activityName}.png" alt="${activityName}">${activityCount}`;
+
+    activityElement.addEventListener('click', () => {
+      const selected = document.querySelector('.activitycontainer .selected');
+      if (selected) {
+        selected.classList.remove('selected');
+      }
+      activityElement.classList.add('selected');
+      updateDetails(activityName, activityCount, activityRank);
+    });
+
+    activityContainer.appendChild(activityElement);
+  });
+};
+
+const loadProfileFromJSON = async (username) => {
+  try {
+    const response = await fetch(`/data/${username}/profile.json`);
+    if (!response.ok) {
+      throw new Error('JSON not found');
+    }
+    const json = await response.json();
+
+    skills = Object.entries(json.Skills).map(([name, { rank, level, xp }]) => new Skill(name, xp, level, rank));
+    activities.length = 0; // Clear existing activities
+    Object.entries(json.Activities).forEach(([name, { rank, score }]) => {
       activities.push(new Activity(name, score, rank));
     });
-  });
 
-  populateInitialSkills();
-  return Promise.resolve(activities);
+    populateInitialSkills();
+    return Promise.resolve(activities);
+  } catch (error) {
+    if (error.message === 'JSON not found') {
+      const updateResponse = await fetch(`/updateProfile/${username}`);
+      if (updateResponse.ok) {
+        return loadProfileFromJSON(username);
+      }
+    }
+    return Promise.reject(error);
+  }
 };
 
 document.addEventListener('DOMContentLoaded', () => {
   const urlParams = new URLSearchParams(window.location.search);
   const player = urlParams.get('player');
-  getOSRSHiscores(player).then((fetchedActivities) => {
-    populateInitialSkills();
 
-    const activityDetail = document.getElementById('activitydetail');
-
-    const updateDetails = (name, count, rank) => {
-      activityDetail.innerHTML = `<span id="activity_name">${name}</span>
-                              <span id="activity_count">${count}</span>
-                              - Rank: <span id="activity_rank">${rank}</span>`;
-    };
-
-    const activityContainer = document.querySelector('.activitycontainer');
-    activityContainer.innerHTML = '';
-
-    fetchedActivities.forEach((activity) => {
-      const activityName = activity.name;
-      if (activityName === 'score' || activityName === 'rank') {
-        return;
-      }
-      const activityCount = activity.count !== -1 ? activity.count : '0';
-      const activityRank = activity.rank !== -1 ? activity.rank : '0';
-
-      const activityElement = document.createElement('span');
-      activityElement.setAttribute('data-activity-name', activityName);
-      activityElement.innerHTML = `<img src="alog_assets/game_icon_${activityName}.png" alt="${activityName}">${activityCount}`;
-
-      activityElement.addEventListener('click', () => {
-        const selected = document.querySelector('.activitycontainer .selected');
-        if (selected) {
-          selected.classList.remove('selected');
-        }
-        activityElement.classList.add('selected');
-        updateDetails(activityName, activityCount, activityRank);
-      });
-
-      activityContainer.appendChild(activityElement);
+  loadProfileFromJSON(player)
+    .then(handleUIUpdates)
+    .catch((error) => {
+      // eslint-disable-next-line no-console
+      console.error('Failed to load initial profile:', error);
     });
-  });
+  fetch(`/updateProfile/${player}`)
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error('Failed to update profile');
+    })
+    .then(() => loadProfileFromJSON(player))
+    .then(handleUIUpdates)
+    .catch((error) => {
+      // eslint-disable-next-line no-console
+      console.error('Failed to update profile:', error);
+    });
 });
