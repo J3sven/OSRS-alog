@@ -1,0 +1,96 @@
+
+
+.panel_header {
+    font-family: Palatino Linotype, Book Antiqua, Palatino, Times New Roman, Times, serif;
+    font-variant: small-caps;
+    font-size: 14px;
+}
+
+.panel_189 {
+    background: url('../alog_assets/panel_189.jpg') transparent no-repeat;
+    width: 728px;
+    height: 189px;
+    margin: 8px auto;
+    padding: 3px 0 0;
+    position: relative;
+}
+
+#homepanel.panel_189 {
+    background: url('../alog_assets/panel_189_home.jpg') transparent no-repeat;
+}
+
+.subpanel {
+    padding: 40px 10px 0;
+    width: 320px;
+    height: 147px;
+    position: absolute;
+    top: 11px;
+    text-align: center;
+}
+
+.panel_189 {
+    background: url('../alog_assets/panel_189.jpg') transparent no-repeat;
+    width: 728px;
+    height: 189px;
+    margin: 8px auto;
+    padding: 3px 0 0;
+    position: relative;
+        
+    .header {
+        background: url('../alog_assets/panel_header.jpg') transparent no-repeat;
+        width: 721px;
+        height: 27px;
+        margin: 0px auto;
+        text-align: center;
+        color: #E8E8E8;
+        font-size: 18px;
+        font-weight: bold;
+        line-height: 26px;
+    }
+
+    .content {
+        color: #E8E8E8;
+        font-family: Arial, Helvetica, FreeSans, sans-serif;
+        font-variant: normal;
+        font-weight: bold;
+        font-size: 12px;
+        padding: 0 10px 10px;
+    }
+
+    button {
+        border: 0;
+        font-size: 14px;
+        font-weight: bold;
+        font-family: Palatino Linotype, Book Antiqua, Palatino, Times New Roman, Times, serif;
+        font-variant: small-caps;
+        color: #A9A9A9;
+        vertical-align: middle;
+    }
+
+    label {
+        vertical-align: middle;
+    }
+}
+
+#homepanel.panel_189 {
+    background: url('../alog_assets/panel_189_home.jpg') transparent no-repeat;
+}
+
+.subpanel {
+    padding: 40px 10px 0;
+    width: 320px;
+    height: 147px;
+    position: absolute;
+    top: 11px;
+    text-align: center;
+}
+
+
+.logSmallSlate {
+    width: 361px;
+    height: 159px;
+    margin-top: 9px;
+    color: #b6b6b5;
+    font-weight: bold;
+    font-size: 16px;
+  }

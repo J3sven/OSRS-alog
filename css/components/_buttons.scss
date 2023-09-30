@@ -1,0 +1,165 @@
+
+.buttonContainer{
+    a.compare {
+        background: url('../alog_assets/compare_with_friends.jpg') transparent no-repeat left top;
+        float: left;
+        font-size: 15px;
+        height: 25px;
+        line-height: 25px;
+        margin-left: 45px;
+        margin-top: 1px;
+        width: 263px;
+        text-decoration: none;
+        display: inline;
+    }
+    .scoreButton {
+        border: none;
+        margin-left: 1px;
+        margin-top: 1px;
+        padding-top: 6px;
+        width: 43px;
+        height: 25px;
+        line-height: 12px;
+        float: left;
+        text-decoration: none;
+        font-size: 12px;
+        font-weight: bold;
+        font-family: arial;
+        color: var(--alog-font-score);
+        cursor: pointer;
+        background: url('../alog_assets/score_button.jpg') transparent no-repeat;
+        text-align: center;
+        display: inline;
+        img {
+            border: none;
+            width: 16px;
+            height: 16px;
+            margin-left: 1px;
+            margin-top: -2px;
+            vertical-align: middle;
+            margin-right: 1px;
+        }
+        &.selected {
+            color: var(--alog-active-gold);
+            background: url('../alog_assets/score_button_press.jpg') transparent no-repeat;
+            width: 43px;
+        }
+    }
+    #skill0 {
+        background: url('../alog_assets/score_button_total.jpg') transparent no-repeat;
+        text-align: center;
+        height: 24px;
+        padding-top: 11px;
+        vertical-align: bottom;
+        &.selected {
+            background: url('../alog_assets/score_button_total_press.jpg') transparent no-repeat;
+        }
+    }
+}
+#logHeader_buttonless a.profile:hover,
+#logHeader a.profile:hover,
+#avatar a.privacy:hover,
+.buttonContainer a.compare:hover {
+    color: #c0b679;
+    font-weight: bold;
+}
+
+.buttonContainer .scoreButton:hover {
+    color: #C0B679;
+}
+
+.buttonContainer a.compare:hover,
+#avatar a.privacy:hover {
+    background-position: left -25px;
+}
+
+#logHeader a.profile:hover,
+#logHeader_buttonless a.profile:hover {
+    background: url('../alog_assets/profile_hover.jpg') transparent no-repeat;
+}
+
+#logHeader a.profile:active,
+#logHeader_buttonless a.profile:active,
+#avatar a.privacy:active,
+#scores .buttonContainer a.compare:active {
+    padding-left: 1px;
+}
+
+#logHeader a.profile:active,
+#logHeader_buttonless a.profile:active {
+    background: url('../alog_assets/profile_press.jpg') transparent no-repeat;
+}
+
+#avatar a.privacy:active,
+#scores .buttonContainer a.compare:active {
+    background-position: left bottom;
+}
+
+#scores .buttonContainer .scoreButton.total:active {
+    background: url('../alog_assets/score_button_total_press.jpg') transparent no-repeat;
+    width: 43px;
+}
+
+#scores .buttonContainer .scoreButton:active {
+    background: url('../alog_assets/score_button_press.jpg') transparent no-repeat;
+    width: 43px;
+    color: #C0B679;
+}
+
+.plog_button {
+    height: 23px;
+    line-height: 23px;
+    background-image: url('../alog_assets/rounded_button.png');
+    float: left;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    cursor: pointer;
+    outline: none;
+}
+
+.plog_button:hover {
+    color: #c0b679;
+}
+
+.plog_button_back {
+    cursor: pointer;
+    background-position: center -23px;
+    background-repeat: repeat-x;
+}
+
+.plog_buttonL {
+    background-position: left top;
+    float: left;
+}
+
+.plog_buttonR {
+    background-position: right -46px;
+    float: left;
+    padding: 0 5px;
+    margin: 0px;
+    border: 0px;
+}
+
+.plog_button_back:hover {
+    background-position: center -92px;
+}
+
+.plog_buttonL:hover {
+    background-position: left -69px;
+}
+
+.plog_buttonR:hover {
+    background-position: right -115px;
+}
+
+.plog_button_back:active {
+    background-position: center -161px;
+}
+
+.plog_buttonL:active {
+    background-position: left -138px;
+}
+
+.plog_buttonR:active {
+    background-position: right -184px;
+}

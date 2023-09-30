@@ -1,0 +1,109 @@
+
+
+
+#searchPanel {
+    float: right;
+    display: inline;
+    margin-right: -2px;
+    margin-top: 9px;
+    font-size: 14px;
+    text-decoration: none;
+    width: 185px;
+    line-height: 20px;
+    height: 20px;
+    text-align: center;
+    color: #a4a4a4;
+}
+
+#logTitle {
+    vertical-align: middle;
+    height: 35px;
+    text-align: center;
+    margin: auto;
+
+    width: 348px;
+
+    line-height: 32px;
+    font-weight: bold;
+    font-size: 18px;
+    color: #4c3209;
+}
+
+#greyBack {
+    border: 4px solid #363636;
+    background-color: #1c1c1c;
+    height: 1%;
+}
+#logHeader {
+    text-align: center;
+    height: 35px;
+    background: url('../alog_assets/log_header_wide.jpg') no-repeat;
+  
+    #searchPanel {
+        float: right;
+        display: inline;
+        margin-right: -2px;
+        margin-top: 9px;
+        font-size: 14px;
+        text-decoration: none;
+        width: 185px;
+        line-height: 20px;
+        height: 20px;
+        text-align: center;
+        color: #a4a4a4;
+    }
+    
+    #logTitle {
+        vertical-align: middle;
+        height: 35px;
+        text-align: center;
+        margin: auto;
+        width: 348px;
+        line-height: 32px;
+        font-weight: bold;
+        font-size: 18px;
+        color: var(--alog-font-brown);
+    }
+}
+
+#logHeader_buttonless a.profile,
+#logHeader_buttonless span.profile,
+#logHeader a.profile,
+#avatar a.privacy {
+    float: left;
+    margin-left: 4px;
+    margin-top: 11px;
+    font-size: 14px;
+    width: 185px;
+    line-height: 20px;
+    height: 20px;
+    display: inline;
+}
+
+#scores .buttonContainer a.compare,
+#logHeader_buttonless a.profile,
+#logHeader a.profile,
+#avatar a.privacy {
+    color: #a9a9a9;
+    text-decoration: none;
+    text-align: center;
+    font-weight: bold;
+    display: block;
+}
+
+#logHeader a.profile:hover,
+#logHeader_buttonless a.profile:hover {
+  background: url('../alog_assets/profile_hover.jpg') transparent no-repeat;
+}
+
+#logHeader a.profile:active,
+#logHeader_buttonless a.profile:active,
+#avatar a.privacy:active,
+#scores .buttonContainer a.compare:active {
+  padding-left: 1px;
+}
+
+#logHeader a.profile:active,
+#logHeader_buttonless a.profile:active {
+  background: url('../alog_assets/profile_press.jpg') transparent no-repeat;
+}

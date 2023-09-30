@@ -1,41 +1,98 @@
 body {
-    padding: 0;
-    margin: 0;
-    text-align: center;
-    font-family: Arial, Helvetica, FreeSans, sans-serif;
-    text-align: center;
-    font-family: Arial, Helvetica, FreeSans, sans-serif;
-    background-image: url('../img/background.png');
-    background-repeat: no-repeat;
-    background-size: cover;
-}
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  font-family: Arial, Helvetica, FreeSans, sans-serif;
+  text-align: center;
+  font-family: Arial, Helvetica, FreeSans, sans-serif;
+  background-image: url("../img/background.png");
+  background-repeat: no-repeat;
+  background-size: cover; }
 
 .clear {
-    clear: both;
-    font-size: 0px;
-    height: 0px;
-    line-height: 0px;
-}
+  clear: both;
+  font-size: 0px;
+  height: 0px;
+  line-height: 0px; }
 
-.bottomrightshad {
-    padding: 45px 45px;
-}
+#content {
+  height: 100%;
+  width: 100%;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0; }
 
-#logHeader {
-    text-align: center;
-    height: 35px;
+.section {
+  text-align: left;
+  font-family: Palatino Linotype, Book Antiqua, Palatino, Times New Roman, Times, serif;
+  font-variant: small-caps; }
 
-    background: url('../alog_assets/log_header_wide.jpg') no-repeat;
+footer {
+  color: #7c7c7c;
+  position: absolute;
+  bottom: 0;
+  width: 100vw;
+  text-align: center;
+  background-color: #000;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  height: unset;
+  box-shadow: 0 0 25px 15px #000; }
 
-}
+footer a {
+  color: #7c7c7c; }
 
-#greyBack {
-    border: 4px solid #363636;
-    background-color: #1c1c1c;
-    height: 1%;
-}
+.hdos_logo {
+  position: absolute;
+  top: 0; }
+
+:root {
+  --alog-title-color: #e8e8e8;
+  --alog-img-border-grey: #707070;
+  --alog-font-score: #a9a9a9;
+  --alog-font-brown: #4c3209;
+  --alog-color-log-font-brown: #43392d;
+  --alog-color-font-accordion: #3d281d;
+  --alog-color-accordion-border: #292926;
+  --alog-active-gold: #C0B679; }
 
 #searchPanel {
+  float: right;
+  display: inline;
+  margin-right: -2px;
+  margin-top: 9px;
+  font-size: 14px;
+  text-decoration: none;
+  width: 185px;
+  line-height: 20px;
+  height: 20px;
+  text-align: center;
+  color: #a4a4a4; }
+
+#logTitle {
+  vertical-align: middle;
+  height: 35px;
+  text-align: center;
+  margin: auto;
+  width: 348px;
+  line-height: 32px;
+  font-weight: bold;
+  font-size: 18px;
+  color: #4c3209; }
+
+#greyBack {
+  border: 4px solid #363636;
+  background-color: #1c1c1c;
+  height: 1%; }
+
+#logHeader {
+  text-align: center;
+  height: 35px;
+  background: url("../alog_assets/log_header_wide.jpg") no-repeat; }
+  #logHeader #searchPanel {
     float: right;
     display: inline;
     margin-right: -2px;
@@ -46,140 +103,174 @@ body {
     line-height: 20px;
     height: 20px;
     text-align: center;
-    color: #a4a4a4;
-}
-
-#logTitle {
+    color: #a4a4a4; }
+  #logHeader #logTitle {
     vertical-align: middle;
     height: 35px;
     text-align: center;
     margin: auto;
-
     width: 348px;
-
     line-height: 32px;
     font-weight: bold;
     font-size: 18px;
-    color: #4c3209;
-}
+    color: var(--alog-font-brown); }
 
-.panel_189 {
-    background: url('../alog_assets/panel_189.jpg') transparent no-repeat;
-    width: 728px;
-    height: 189px;
-    margin: 8px auto;
-    padding: 3px 0 0;
-    position: relative;
-}
+#logHeader_buttonless a.profile,
+#logHeader_buttonless span.profile,
+#logHeader a.profile,
+#avatar a.privacy {
+  float: left;
+  margin-left: 4px;
+  margin-top: 11px;
+  font-size: 14px;
+  width: 185px;
+  line-height: 20px;
+  height: 20px;
+  display: inline; }
 
-#homepanel.panel_189 {
-    background: url('../alog_assets/panel_189_home.jpg') transparent no-repeat;
-}
+#scores .buttonContainer a.compare,
+#logHeader_buttonless a.profile,
+#logHeader a.profile,
+#avatar a.privacy {
+  color: #a9a9a9;
+  text-decoration: none;
+  text-align: center;
+  font-weight: bold;
+  display: block; }
 
-.subpanel {
-    padding: 40px 10px 0;
-    width: 320px;
-    height: 147px;
-    position: absolute;
-    top: 11px;
+#logHeader a.profile:hover,
+#logHeader_buttonless a.profile:hover {
+  background: url("../alog_assets/profile_hover.jpg") transparent no-repeat; }
+
+#logHeader a.profile:active,
+#logHeader_buttonless a.profile:active,
+#avatar a.privacy:active,
+#scores .buttonContainer a.compare:active {
+  padding-left: 1px; }
+
+#logHeader a.profile:active,
+#logHeader_buttonless a.profile:active {
+  background: url("../alog_assets/profile_press.jpg") transparent no-repeat; }
+
+#avatar .title {
+  width: 345px;
+  height: 34px;
+  margin-left: 8px;
+  margin-top: 8px;
+  float: left;
+  text-align: center;
+  color: var(--alog-font-brown);
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 31px;
+  display: inline; }
+
+#avatar img.body, #avatar img.head {
+  border: 1px solid var(--alog-img-border-grey);
+  height: 100px;
+  margin-top: 8px;
+  margin-left: 8px;
+  float: left;
+  display: inline; }
+
+#avatar img.body {
+  width: 60px; }
+
+#avatar img.head {
+  width: 100px; }
+
+#avatar .achievement-tile {
+  margin-left: 7px;
+  margin-top: 8px;
+  width: 168px;
+  height: 27px;
+  float: left;
+  text-align: left;
+  line-height: 27px;
+  display: inline; }
+  #avatar .achievement-tile img {
+    height: 20px;
+    width: 20px;
+    padding: 0;
+    font-size: 1.2rem;
+    margin-right: 25px;
+    margin-top: 8px;
+    margin-left: 8px;
+    float: left;
+    border: 0;
+    display: inline; }
+
+#plog_other #avatar {
+  margin-left: 9px;
+  float: left;
+  display: inline; }
+
+#plog_other #avatar.private {
+  background: url("../alog_assets/avatar_back_other_private2.jpg");
+  margin-left: 9px;
+  float: left;
+  display: inline; }
+
+#scores {
+  margin-right: 9px;
+  float: right;
+  background: url("../alog_assets/score_back.jpg") transparent no-repeat;
+  display: inline; }
+  #scores .details, #scores .title {
+    width: 345px;
+    height: 20px;
+    margin-left: 8px;
+    margin-top: 8px;
+    float: left;
     text-align: center;
-}
-
-#plog_login {
-    left: 12px;
-}
-
-#plog_search {
-    left: 376px;
-}
-
-#input_bit {
-    margin: 24px 0 0;
-}
-
-#input_bit_left {
-    float: left;
-    display: inline;
-    margin: 0 0 0 37px;
-    text-align: left;
-}
-
-#input_bit_right {
-    float: left;
-    display: inline;
-    margin: 14px 0 0 8px;
-}
-
-#plog_search input {
-    width: 160px;
-}
+    color: var(--alog-title-color);
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 18px;
+    display: inline; }
+  #scores .details {
+    font-size: 14px;
+    margin-top: 0px; }
+  #scores .buttonContainer {
+    margin-left: 3px;
+    width: 355px;
+    height: 105px;
+    overflow: hidden;
+    margin-top: 2px; }
 
 .panel_header {
-    font-family: Palatino Linotype, Book Antiqua, Palatino, Times New Roman, Times, serif;
-    font-variant: small-caps;
-    font-size: 14px;
-}
+  font-family: Palatino Linotype, Book Antiqua, Palatino, Times New Roman, Times, serif;
+  font-variant: small-caps;
+  font-size: 14px; }
 
-.plog_button {
-    height: 23px;
-    line-height: 23px;
-    background-image: url('../alog_assets/rounded_button.png');
-    float: left;
-    background-repeat: no-repeat;
-    background-color: transparent;
-    cursor: pointer;
-    outline: none;
-}
+.panel_189 {
+  background: url("../alog_assets/panel_189.jpg") transparent no-repeat;
+  width: 728px;
+  height: 189px;
+  margin: 8px auto;
+  padding: 3px 0 0;
+  position: relative; }
 
-.plog_button:hover {
-    color: #c0b679;
-}
+#homepanel.panel_189 {
+  background: url("../alog_assets/panel_189_home.jpg") transparent no-repeat; }
 
-.plog_button_back {
-    cursor: pointer;
-    background-position: center -23px;
-    background-repeat: repeat-x;
-}
+.subpanel {
+  padding: 40px 10px 0;
+  width: 320px;
+  height: 147px;
+  position: absolute;
+  top: 11px;
+  text-align: center; }
 
-.plog_buttonL {
-    background-position: left top;
-    float: left;
-}
-
-.plog_buttonR {
-    background-position: right -46px;
-    float: left;
-    padding: 0 5px;
-    margin: 0px;
-    border: 0px;
-}
-
-.plog_button_back:hover {
-    background-position: center -92px;
-}
-
-.plog_buttonL:hover {
-    background-position: left -69px;
-}
-
-.plog_buttonR:hover {
-    background-position: right -115px;
-}
-
-.plog_button_back:active {
-    background-position: center -161px;
-}
-
-.plog_buttonL:active {
-    background-position: left -138px;
-}
-
-.plog_buttonR:active {
-    background-position: right -184px;
-}
-
-.panel_189 .header {
-    background: url('../alog_assets/panel_header.jpg') transparent no-repeat;
+.panel_189 {
+  background: url("../alog_assets/panel_189.jpg") transparent no-repeat;
+  width: 728px;
+  height: 189px;
+  margin: 8px auto;
+  padding: 3px 0 0;
+  position: relative; }
+  .panel_189 .header {
+    background: url("../alog_assets/panel_header.jpg") transparent no-repeat;
     width: 721px;
     height: 27px;
     margin: 0px auto;
@@ -187,741 +278,385 @@ body {
     color: #E8E8E8;
     font-size: 18px;
     font-weight: bold;
-    line-height: 26px;
-}
-
-.panel_189 .content {
+    line-height: 26px; }
+  .panel_189 .content {
     color: #E8E8E8;
     font-family: Arial, Helvetica, FreeSans, sans-serif;
     font-variant: normal;
     font-weight: bold;
     font-size: 12px;
-    padding: 0 10px 10px;
-}
-
-.panel_189 button {
+    padding: 0 10px 10px; }
+  .panel_189 button {
     border: 0;
     font-size: 14px;
     font-weight: bold;
     font-family: Palatino Linotype, Book Antiqua, Palatino, Times New Roman, Times, serif;
     font-variant: small-caps;
     color: #A9A9A9;
-    vertical-align: middle;
-}
+    vertical-align: middle; }
+  .panel_189 label {
+    vertical-align: middle; }
 
-.panel_189 label {
-    vertical-align: middle;
-}
+#homepanel.panel_189 {
+  background: url("../alog_assets/panel_189_home.jpg") transparent no-repeat; }
 
-.section {
-    text-align: left;
-    font-family: Palatino Linotype, Book Antiqua, Palatino, Times New Roman, Times, serif;
-    font-variant: small-caps;
-}
-
-input.go {
-    font-family: Palatino Linotype, Book Antiqua, Palatino, Times New Roman, Times, serif;
-    font-variant: small-caps;
-    border: none;
-    font-size: 13px;
-    font-weight: bold;
-    line-height: 15px;
-    float: right;
-    width: 33px;
-    height: 20px;
-    color: #a9a9a9;
-    background: transparent;
-    font-weight: bold;
-    display: inline;
-    cursor: pointer;
-    padding: 0;
-    margin: 0;
-}
-
-#searchBox {
-    background: white;
-    border: none;
-    float: left;
-    height: 15px;
-    margin-left: 2px;
-    margin-top: 4px;
-    padding-left: 6px;
-    width: 140px;
-    display: inline;
-    font-size: 12px;
-}
+.subpanel {
+  padding: 40px 10px 0;
+  width: 320px;
+  height: 147px;
+  position: absolute;
+  top: 11px;
+  text-align: center; }
 
 .logSmallSlate {
-    width: 361px;
-    height: 159px;
-    margin-top: 9px;
-    color: #b6b6b5;
-    font-weight: bold;
-    font-size: 16px;
-}
+  width: 361px;
+  height: 159px;
+  margin-top: 9px;
+  color: #b6b6b5;
+  font-weight: bold;
+  font-size: 16px; }
 
-#plog_self #avatar {
-    margin-left: 9px;
-    float: left;
-    display: inline;
-}
+#plog_other #quests {
+  background: url("../alog_assets/quests_back_large.jpg") transparent no-repeat;
+  margin: 8px 0 7px 3px;
+  float: left;
+  height: 361px;
+  width: 361px;
+  display: inline; }
 
-#plog_other #avatar {
-    margin-left: 9px;
-    float: left;
-    display: inline;
-}
+#quests a {
+  color: #e8e8e8;
+  text-decoration: none; }
 
-#plog_other #avatar.private {
-    background: url('../alog_assets/avatar_back_other_private2.jpg');
-    margin-left: 9px;
-    float: left;
-    display: inline;
-}
+#quests a:hover {
+  color: #f8f8f8; }
 
-#gender {
-    margin-left: 7px;
-    margin-top: 8px;
-    width: 168px;
-    height: 27px;
-    float: left;
-    text-align: center;
-    line-height: 27px;
-    display: inline;
-}
+#quests .title {
+  height: 33px;
+  margin: auto;
+  text-align: center;
+  color: #4c3209;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 32px;
+  color: #e8e8e8; }
 
-#timePlayed {
-    margin-left: 7px;
-    margin-top: 1px;
-    width: 168px;
-    height: 41px;
-    float: left;
-    text-align: center;
-    line-height: 16px;
-    padding-top: 3px;
-    display: inline;
-}
+#quests .buttonContainer {
+  margin: 9px auto 0px auto;
+  width: 336px;
+  height: 17px;
+  text-align: center; }
 
-#avatar .title {
-    width: 345px;
-    height: 34px;
-    margin-left: 8px;
-    margin-top: 8px;
-    float: left;
-    text-align: center;
-    color: #4c3209;
-    font-weight: bold;
-    font-size: 18px;
-    line-height: 31px;
-    display: inline;
-}
+#plog_other #quests .one_col {
+  height: 258px;
+  margin: auto;
+  margin: 10px 0px 0px 0px; }
 
-#avatar img {
-    border: 1px solid #707070;
-}
+#quests .one_col ul {
+  float: left;
+  line-height: 17px;
+  width: 165px;
+  list-style: none;
+  padding: 2px 0px 0px 12px;
+  margin: 0px;
+  list-style: none;
+  color: #e8e8e8;
+  font-weight: bold;
+  font-variant: normal;
+  display: inline; }
 
-#avatar .body,
-#avatar .head {
-    height: 100px;
-    margin-top: 8px;
-    margin-left: 8px;
-    float: left;
-    display: inline;
-}
+#quests .one_col li,
+#quests .one_col li {
+  height: 17px;
+  overflow: hidden; }
 
-#avatar .head {
-    width: 100px;
-}
+#quests .one_col ul {
+  width: 337px; }
 
-#avatar .body {
-    width: 60px;
-}
+.activitycontainer {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 3px; }
 
-#scores {
-    margin-right: 9px;
-    float: right;
-    background: url('../alog_assets/score_back.jpg') transparent no-repeat;
-    display: inline;
-}
+.activitycontainer div {
+  cursor: pointer;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 2px;
+  height: 21px;
+  background-image: url("../alog_assets/activity_button.png");
+  background-repeat: no-repeat;
+  position: relative; }
 
-#scores .details,
-#scores .title {
-    width: 345px;
-    height: 20px;
-    margin-left: 8px;
-    margin-top: 8px;
-    float: left;
-    text-align: center;
-    color: #e8e8e8;
-    font-weight: bold;
-    font-size: 18px;
-    line-height: 18px;
-    display: inline;
-}
+.activitycontainer div.selected {
+  background-image: url("../alog_assets/activity_button_pressed.png"); }
 
-#scores .details {
-    font-size: 14px;
-    margin-top: 0px;
-}
+.activitycontainer div span {
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  bottom: 0px; }
 
-#scores .buttonContainer {
-    margin-left: 3px;
-    width: 355px;
-    height: 105px;
-    overflow: hidden;
-    margin-top: 2px;
-}
+.activitycontainer div img {
+  max-width: 11px;
+  max-height: 11px;
+  object-fit: contain;
+  position: absolute;
+  top: 3px; }
 
-.parchment {
-    width: 367px;
-    height: 372px;
-    background: url('../alog_assets/parchment_left.jpg') no-repeat;
-    margin-top: 0px;
-}
+#content {
+  height: 100%;
+  width: 100%;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0; }
 
-#myAchievements.parchment {
-    margin-left: 6px;
-    float: left;
-    display: inline;
-}
+#plog_other {
+  background-color: #1c1c1c;
+  box-shadow: 0 0 25px 15px #1c1c1c; }
 
-.parchment .title {
-    color: #43392d;
-    font-size: 19px;
-    height: 38px;
-    line-height: 42px;
-    margin: 6px auto auto;
-    text-align: center;
-    width: 300px;
-}
+@keyframes spinner {
+  to {
+    transform: rotate(360deg); } }
 
-.accordion {
-    font-family: Arial, Helvetica, FreeSans, sans-serif;
-    width: 347px;
-    height: 307px;
-    margin: auto;
-    margin-top: 0px;
-    font-variant: normal;
-    color: #3d281d;
-    overflow: hidden;
-}
+.spinner {
+  background: unset; }
 
-.AMHead,
-.AMHead.expanded {
-    width: 347px;
-    height: 24px;
-    background: url('../alog_assets/bar.gif') no-repeat;
-    display: block;
-    overflow: hidden;
-    text-align: left;
-    text-decoration: none;
-}
-
-.AMHead.expanded,
-.AMHead.selected {
-    background: url('../alog_assets/bar_selected.gif') no-repeat;
-}
-
-.AMHead span,
-.AMHead.expanded span {
-    float: left;
-    text-align: left;
-    cursor: pointer;
-    display: inline;
-}
-
-.AMHead span.Title,
-.AMHead.expanded span.Title {
-    margin-top: 2px;
-    float: left;
-    margin-left: 22px;
-    width: 324px;
-    font-size: 11px;
-    font-weight: bold;
-    color: #3d281d;
-    height: 20px;
-    line-height: 18px;
-    display: inline;
-}
-
-.AMBody,
-.AMBody.expanded {
-    border-left: 1px solid #292926;
-    border-right: 1px solid #292926;
-    overflow-y: hidden;
-    background: url('../alog_assets/brown_pixel.gif') repeat-x bottom;
-    font-size: 0.9em;
-    color: #3d281d;
-    height: 59px;
-    display: none;
-    width: 345px;
-}
-
-.AMBody.expanded,
-.AMBody.selected {
-    display: block;
-}
-
-.AMBody p,
-.AMBody.expanded p {
-    margin: 0px;
-}
-
-.AMBodyLiner {
-    margin: 2px 7px;
-}
-
-.AMBodyLiner a {
-    color: black;
-}
-
-#scores .buttonContainer a.compare,
-#logHeader_buttonless a.profile,
-#logHeader a.profile,
-#avatar a.privacy {
-    color: #a9a9a9;
-    text-decoration: none;
-    text-align: center;
-    font-weight: bold;
-    display: block;
-}
-
-#logHeader_buttonless a.profile,
-#logHeader_buttonless span.profile,
-#logHeader a.profile,
-#avatar a.privacy {
-    float: left;
-    margin-left: 4px;
-    margin-top: 11px;
-    font-size: 14px;
-    width: 185px;
-    line-height: 20px;
-    height: 20px;
-    display: inline;
-}
-
-#avatar a.privacy {
-    background: url('../alog_assets/privacy.jpg') transparent no-repeat left top;
-    margin-left: 4px;
-    margin-top: 5px;
-    width: 171px;
-    height: 25px;
-    line-height: 25px;
-}
+.spinner:before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  border-top-color: #000;
+  animation: spinner .6s linear infinite; }
 
 .buttonContainer a.compare {
-    background: url('../alog_assets/compare_with_friends.jpg') transparent no-repeat left top;
-    float: left;
-    font-size: 15px;
-    height: 25px;
-    line-height: 25px;
-    margin-left: 45px;
-    margin-top: 1px;
-    width: 263px;
-    text-decoration: none;
-    display: inline;
-}
+  background: url("../alog_assets/compare_with_friends.jpg") transparent no-repeat left top;
+  float: left;
+  font-size: 15px;
+  height: 25px;
+  line-height: 25px;
+  margin-left: 45px;
+  margin-top: 1px;
+  width: 263px;
+  text-decoration: none;
+  display: inline; }
 
 .buttonContainer .scoreButton {
-    background: none;
-    border: none;
-    padding: 0;
-    margin: 0;
-    cursor: pointer;
-    color: inherit;
-    font: inherit;
-    text-align: left;
-}
-
-.buttonContainer .scoreButton {
-    margin-left: 1px;
-    margin-top: 1px;
-    padding-top: 6px;
-    width: 43px;
-    height: 25px;
-    line-height: 12px;
-    float: left;
-    text-decoration: none;
-    font-size: 12px;
-    font-weight: bold;
-    font-family: arial;
-    color: #a9a9a9;
-    cursor: pointer;
-    background: url('../alog_assets/score_button.jpg?2') transparent no-repeat;
-    text-align: center;
-    display: inline;
-}
-
-.buttonContainer .scoreButton img {
+  border: none;
+  margin-left: 1px;
+  margin-top: 1px;
+  padding-top: 6px;
+  width: 43px;
+  height: 25px;
+  line-height: 12px;
+  float: left;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: bold;
+  font-family: arial;
+  color: var(--alog-font-score);
+  cursor: pointer;
+  background: url("../alog_assets/score_button.jpg") transparent no-repeat;
+  text-align: center;
+  display: inline; }
+  .buttonContainer .scoreButton img {
     border: none;
     width: 16px;
     height: 16px;
     margin-left: 1px;
     margin-top: -2px;
     vertical-align: middle;
-    margin-right: 1px;
-}
+    margin-right: 1px; }
+  .buttonContainer .scoreButton.selected {
+    color: var(--alog-active-gold);
+    background: url("../alog_assets/score_button_press.jpg") transparent no-repeat;
+    width: 43px; }
 
 .buttonContainer #skill0 {
-    background: url('../alog_assets/score_button_total.jpg') transparent no-repeat;
-    text-align: center;
-    height: 24px;
-    padding-top: 11px;
-    vertical-align: bottom;
-}
-
-.buttonContainer #skill0.selected {
-    background: url('../alog_assets/score_button_total_press.jpg') transparent no-repeat;
-}
-
-.buttonContainer .scoreButton.selected {
-    color: #C0B679;
-    background: url('../alog_assets/score_button_press.jpg') transparent no-repeat;
-    width: 43px;
-}
+  background: url("../alog_assets/score_button_total.jpg") transparent no-repeat;
+  text-align: center;
+  height: 24px;
+  padding-top: 11px;
+  vertical-align: bottom; }
+  .buttonContainer #skill0.selected {
+    background: url("../alog_assets/score_button_total_press.jpg") transparent no-repeat; }
 
 #logHeader_buttonless a.profile:hover,
 #logHeader a.profile:hover,
 #avatar a.privacy:hover,
 .buttonContainer a.compare:hover {
-    color: #c0b679;
-    font-weight: bold;
-}
+  color: #c0b679;
+  font-weight: bold; }
 
 .buttonContainer .scoreButton:hover {
-    color: #C0B679;
-}
+  color: #C0B679; }
 
 .buttonContainer a.compare:hover,
 #avatar a.privacy:hover {
-    background-position: left -25px;
-}
+  background-position: left -25px; }
 
 #logHeader a.profile:hover,
 #logHeader_buttonless a.profile:hover {
-    background: url('../alog_assets/profile_hover.jpg') transparent no-repeat;
-}
+  background: url("../alog_assets/profile_hover.jpg") transparent no-repeat; }
 
 #logHeader a.profile:active,
 #logHeader_buttonless a.profile:active,
 #avatar a.privacy:active,
 #scores .buttonContainer a.compare:active {
-    padding-left: 1px;
-}
+  padding-left: 1px; }
 
 #logHeader a.profile:active,
 #logHeader_buttonless a.profile:active {
-    background: url('../alog_assets/profile_press.jpg') transparent no-repeat;
-}
+  background: url("../alog_assets/profile_press.jpg") transparent no-repeat; }
 
 #avatar a.privacy:active,
 #scores .buttonContainer a.compare:active {
-    background-position: left bottom;
-}
+  background-position: left bottom; }
 
 #scores .buttonContainer .scoreButton.total:active {
-    background: url('../alog_assets/score_button_total_press.jpg') transparent no-repeat;
-    width: 43px;
-}
+  background: url("../alog_assets/score_button_total_press.jpg") transparent no-repeat;
+  width: 43px; }
 
 #scores .buttonContainer .scoreButton:active {
-    background: url('../alog_assets/score_button_press.jpg') transparent no-repeat;
-    width: 43px;
-    color: #C0B679;
-}
+  background: url("../alog_assets/score_button_press.jpg") transparent no-repeat;
+  width: 43px;
+  color: #C0B679; }
 
-#plog_other #quests {
-    background: url('../alog_assets/quests_back_large.jpg') transparent no-repeat;
-    margin: 8px 0 7px 3px;
-    float: left;
-    height: 361px;
-    width: 361px;
-    display: inline;
-}
+.plog_button {
+  height: 23px;
+  line-height: 23px;
+  background-image: url("../alog_assets/rounded_button.png");
+  float: left;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  cursor: pointer;
+  outline: none; }
 
-#friends a,
-#quests a {
-    color: #e8e8e8;
-    text-decoration: none;
-}
+.plog_button:hover {
+  color: #c0b679; }
 
-#friends a:hover,
-#quests a:hover {
-    color: #f8f8f8;
-}
+.plog_button_back {
+  cursor: pointer;
+  background-position: center -23px;
+  background-repeat: repeat-x; }
 
-#quests .title,
-#friends .title {
-    height: 33px;
-    margin: auto;
-    text-align: center;
-    color: #4c3209;
-    font-weight: bold;
-    font-size: 18px;
-    line-height: 32px;
-    color: #e8e8e8;
-}
+.plog_buttonL {
+  background-position: left top;
+  float: left; }
 
-#quests .buttonContainer {
-    margin: 9px auto 0px auto;
-    width: 336px;
-    height: 17px;
-    text-align: center;
-}
+.plog_buttonR {
+  background-position: right -46px;
+  float: left;
+  padding: 0 5px;
+  margin: 0px;
+  border: 0px; }
 
-#quests a#completed,
-#quests a#started,
-#quests a#uninitiated {
-    color: #e8e8e8;
-    float: left;
-    display: inline;
-    height: 15px;
-    line-height: 15px;
-    text-decoration: none;
-    margin: 1px 0px 1px 1px;
-    font-size: 12px;
-    cursor: pointer;
-}
+.plog_button_back:hover {
+  background-position: center -92px; }
 
-#quests a#completed {
-    width: 113px;
-}
+.plog_buttonL:hover {
+  background-position: left -69px; }
 
-#quests a#started {
-    width: 98px;
-}
+.plog_buttonR:hover {
+  background-position: right -115px; }
 
-#quests a#uninitiated {
-    width: 120px;
-}
+.plog_button_back:active {
+  background-position: center -161px; }
 
-#quests a#completed:hover,
-#quests a#started:hover,
-#quests a#uninitiated:hover {
-    color: #C0B679;
-}
+.plog_buttonL:active {
+  background-position: left -138px; }
 
-#quests a#completed:active,
-#quests a#started:active,
-#quests a#uninitiated:active,
-#quests a#completed.selected,
-#quests a#started.selected,
-#quests a#uninitiated.selected {
-    padding-left: 1px;
-    color: #C0B679;
-}
+.plog_buttonR:active {
+  background-position: right -184px; }
 
-#quests a#completed:active,
-#quests a#completed.selected {
-    width: 112px;
-    background: url('../alog_assets/quests_press.jpg') transparent no-repeat;
-}
+input.go {
+  font-family: Palatino Linotype, Book Antiqua, Palatino, Times New Roman, Times, serif;
+  font-variant: small-caps;
+  border: none;
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 15px;
+  float: right;
+  width: 33px;
+  height: 20px;
+  color: #a9a9a9;
+  background: transparent;
+  font-weight: bold;
+  display: inline;
+  cursor: pointer;
+  padding: 0;
+  margin: 0; }
 
-#quests a#started:active,
-#quests a#started.selected {
-    width: 97px;
-    background: url('../alog_assets/quests_press.jpg') transparent no-repeat;
-}
+#searchBox {
+  background: white;
+  border: none;
+  float: left;
+  height: 15px;
+  margin-left: 2px;
+  margin-top: 4px;
+  padding-left: 6px;
+  width: 140px;
+  display: inline;
+  font-size: 12px; }
 
-#quests a#uninitiated:active,
-#quests a#uninitiated.selected {
-    width: 119px;
-    background: url('../alog_assets/quests_press.jpg') transparent no-repeat;
-}
+#plog_login {
+  left: 12px; }
 
-#friends .two_col,
-#plog_self #quests .two_col,
-#plog_self #quests .one_col {
-    height: 140px;
-    margin: auto;
-    margin: 10px 0px 0px 0px;
-}
+#plog_search {
+  left: 376px; }
 
-#plog_other #quests .two_col,
-#plog_other #quests .one_col {
-    height: 258px;
-    margin: auto;
-    margin: 10px 0px 0px 0px;
-}
+#input_bit {
+  margin: 24px 0 0; }
 
-#friends .two_col,
-#friends .one_col {
-    height: 176px;
-    margin: auto;
-    margin: 0px 0px 0px 0px;
-}
+#input_bit_left {
+  float: left;
+  display: inline;
+  margin: 0 0 0 37px;
+  text-align: left; }
 
-#friends .two_col ul,
-#quests .two_col ul,
-#friends .one_col ul,
-#quests .one_col ul {
-    float: left;
-    line-height: 17px;
-    width: 165px;
-    list-style: none;
-    padding: 2px 0px 0px 12px;
-    margin: 0px;
-    list-style: none;
-    color: #e8e8e8;
-    font-weight: bold;
-    font-variant: normal;
-    display: inline;
-}
+#input_bit_right {
+  float: left;
+  display: inline;
+  margin: 14px 0 0 8px; }
 
-#friends .one_col li,
-#quests .one_col li,
-#friends .one_col li,
-#quests .one_col li {
-    height: 17px;
-    overflow: hidden;
-}
-
-#friends .one_col ul,
-#quests .one_col ul {
-    width: 337px;
-}
-
-#pageinfo {
-    display: block;
-    float: left;
-    width: 100px;
-    text-align: center;
-}
-
-.activitycontainer {
-    position: relative;
-    display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    gap: 3px;
-}
-
-
-.activitycontainer div {
-    cursor: pointer;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 2px;
-    height: 21px;
-    background-image: url('../alog_assets/activity_button.png');
-    background-repeat: no-repeat;
-    position: relative;
-}
-
-.activitycontainer div.selected {
-    background-image: url('../alog_assets/activity_button_pressed.png');
-}
-.activitycontainer div span{
-    width: 100%;
-    text-align: center;
-    position: absolute;
-    bottom: 0px;
-}
-.activitycontainer div img{
-    max-width: 11px;
-    max-height: 11px;
-    object-fit: contain;
-    position: absolute;
-    top: 3px;
-}
-
-#content {
-    height: 100%;
-    width: 100%;
-    font-size: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    margin: 0;
-}
-
-#plog_other {
-    background-color: #1c1c1c;
-    box-shadow: 0 0 25px 15px #1c1c1c;
-}
-
-
-@keyframes spinner {
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-.spinner {
-    background: unset;
-}
-
-.spinner:before {
-    content: '';
-    box-sizing: border-box;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 20px;
-    height: 20px;
-    margin-top: -10px;
-    margin-left: -10px;
-    border-radius: 50%;
-    border: 2px solid #ccc;
-    border-top-color: #000;
-    animation: spinner .6s linear infinite;
-}
-
-#RAAccordion p.defaultText{
-    text-align: center;
-    max-width: 85%;
-    margin: 15px auto;
-}
-
-.ui-accordion-header .title{
-    text-align: left;
-}
-
-footer{
-    color: #7c7c7c;
-    position: absolute;
-    bottom: 0;
-    width: 100vw;
-    text-align: center;
-    background-color: #000;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    height: unset;
-    box-shadow: 0 0 25px 15px #000;
-}
-
-footer a{
-    color: #7c7c7c;
-}
-
-.hdos_logo {
-    position: absolute;
-    top: 0;
-}
+#plog_search input {
+  width: 160px; }
 
 .modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.8);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: opacity 0.3s ease;
-    display: none;
-    opacity: 0;
-  }
-  .modal.show {
-    opacity: 1;
-  }
-  .modal-content {
-    background-color: #fff;
-    padding: 20px;
-  }
-  #tooltip {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s ease;
+  display: none;
+  opacity: 0; }
+
+.modal.show {
+  opacity: 1; }
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px; }
+
+#tooltip {
   position: absolute;
   background-color: #333;
   color: white;
@@ -931,9 +666,93 @@ footer a{
   top: 10px;
   right: 10px;
   opacity: 0;
-  transition: opacity 0.3s ease;
-}
+  transition: opacity 0.3s ease; }
 
 #tooltip.show {
-  opacity: 1;
-}
+  opacity: 1; }
+
+#myAchievements.parchment {
+  width: 367px;
+  height: 372px;
+  background: url("../alog_assets/parchment_left.jpg") no-repeat;
+  margin-top: 0px;
+  margin-left: 6px;
+  float: left;
+  display: inline; }
+
+.parchment .title {
+  color: var(--alog-color-log-font-brown);
+  font-size: 19px;
+  height: 38px;
+  line-height: 42px;
+  margin: 6px auto auto;
+  text-align: center;
+  width: 300px; }
+
+.parchment .accordion {
+  font-family: Arial, Helvetica, FreeSans, sans-serif;
+  width: 347px;
+  height: 307px;
+  margin: auto;
+  margin-top: 0px;
+  font-variant: normal;
+  color: var(--alog-color-font-accordion);
+  overflow: hidden; }
+  .parchment .accordion .AMHead,
+  .parchment .accordion .AMHead.expanded {
+    width: 347px;
+    height: 24px;
+    background: url("../alog_assets/bar.gif") no-repeat;
+    display: block;
+    overflow: hidden;
+    text-align: left;
+    text-decoration: none; }
+  .parchment .accordion .AMHead.expanded, .parchment .accordion .AMHead.selected {
+    background: url("../alog_assets/bar_selected.gif") no-repeat; }
+  .parchment .accordion .AMHead.expanded span, .parchment .accordion .AMHead span {
+    float: left;
+    text-align: left;
+    cursor: pointer;
+    display: inline; }
+    .parchment .accordion .AMHead.expanded span.Title, .parchment .accordion .AMHead span.Title {
+      margin-top: 2px;
+      float: left;
+      margin-left: 22px;
+      width: 324px;
+      font-size: 11px;
+      font-weight: bold;
+      color: var(--alog-font-accordion);
+      height: 20px;
+      line-height: 18px;
+      display: inline; }
+  .parchment .accordion .AMBody,
+  .parchment .accordion .AMBody.expanded {
+    border-left: 1px solid var(--alog-color-accordion-border);
+    border-right: 1px solid var(--alog-color-accordion-border);
+    overflow-y: hidden;
+    background: url("../alog_assets/brown_pixel.gif") repeat-x bottom;
+    font-size: 0.9em;
+    color: var(--alog-font-accordion);
+    height: 59px;
+    display: none;
+    width: 345px; }
+    .parchment .accordion .AMBody .AMBodyLiner,
+    .parchment .accordion .AMBody.expanded .AMBodyLiner {
+      margin: 2px 7px; }
+      .parchment .accordion .AMBody .AMBodyLiner p,
+      .parchment .accordion .AMBody.expanded .AMBodyLiner p {
+        margin: 0px; }
+      .parchment .accordion .AMBody .AMBodyLiner a,
+      .parchment .accordion .AMBody.expanded .AMBodyLiner a {
+        color: black; }
+  .parchment .accordion .AMBody.expanded,
+  .parchment .accordion .AMBody.selected {
+    display: block; }
+
+#RAAccordion p.defaultText {
+  text-align: center;
+  max-width: 85%;
+  margin: 15px auto; }
+
+.ui-accordion-header .title {
+  text-align: left; }

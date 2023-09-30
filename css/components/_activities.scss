@@ -1,0 +1,146 @@
+
+#plog_other #quests {
+    background: url('../alog_assets/quests_back_large.jpg') transparent no-repeat;
+    margin: 8px 0 7px 3px;
+    float: left;
+    height: 361px;
+    width: 361px;
+    display: inline;
+  }
+
+#quests a {
+    color: #e8e8e8;
+    text-decoration: none;
+}
+
+#quests a:hover {
+    color: #f8f8f8;
+}
+
+#quests .title{
+    height: 33px;
+    margin: auto;
+    text-align: center;
+    color: #4c3209;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 32px;
+    color: #e8e8e8;
+}
+
+#quests .buttonContainer {
+    margin: 9px auto 0px auto;
+    width: 336px;
+    height: 17px;
+    text-align: center;
+}
+
+#plog_other #quests .one_col {
+    height: 258px;
+    margin: auto;
+    margin: 10px 0px 0px 0px;
+}
+
+#quests .one_col ul {
+    float: left;
+    line-height: 17px;
+    width: 165px;
+    list-style: none;
+    padding: 2px 0px 0px 12px;
+    margin: 0px;
+    list-style: none;
+    color: #e8e8e8;
+    font-weight: bold;
+    font-variant: normal;
+    display: inline;
+}
+
+#quests .one_col li,
+#quests .one_col li {
+    height: 17px;
+    overflow: hidden;
+}
+
+#quests .one_col ul {
+    width: 337px;
+}
+
+.activitycontainer {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 3px;
+}
+
+
+.activitycontainer div {
+    cursor: pointer;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 2px;
+    height: 21px;
+    background-image: url('../alog_assets/activity_button.png');
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+.activitycontainer div.selected {
+    background-image: url('../alog_assets/activity_button_pressed.png');
+}
+.activitycontainer div span{
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    bottom: 0px;
+}
+.activitycontainer div img{
+    max-width: 11px;
+    max-height: 11px;
+    object-fit: contain;
+    position: absolute;
+    top: 3px;
+}
+
+#content {
+    height: 100%;
+    width: 100%;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+}
+
+#plog_other {
+    background-color: #1c1c1c;
+    box-shadow: 0 0 25px 15px #1c1c1c;
+}
+
+
+@keyframes spinner {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.spinner {
+    background: unset;
+}
+
+.spinner:before {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    margin-left: -10px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    border-top-color: #000;
+    animation: spinner .6s linear infinite;
+}

@@ -1,0 +1,102 @@
+#myAchievements{
+    &.parchment {
+        width: 367px;
+        height: 372px;
+        background: url('../alog_assets/parchment_left.jpg') no-repeat;
+        margin-top: 0px;
+        margin-left: 6px;
+        float: left;
+        display: inline;
+    }
+
+}
+.parchment{
+    .title{
+        color: var(--alog-color-log-font-brown);
+        font-size: 19px;
+        height: 38px;
+        line-height: 42px;
+        margin: 6px auto auto;
+        text-align: center;
+        width: 300px;
+    }
+    .accordion {
+        font-family: Arial, Helvetica, FreeSans, sans-serif;
+        width: 347px;
+        height: 307px;
+        margin: auto;
+        margin-top: 0px;
+        font-variant: normal;
+        color: var(--alog-color-font-accordion);
+        overflow: hidden;
+        .AMHead,
+        .AMHead.expanded {
+            width: 347px;
+            height: 24px;
+            background: url('../alog_assets/bar.gif') no-repeat;
+            display: block;
+            overflow: hidden;
+            text-align: left;
+            text-decoration: none;
+        }
+
+        .AMHead{
+            &.expanded, &.selected {
+                background: url('../alog_assets/bar_selected.gif') no-repeat;
+            }
+            &.expanded span, span {
+                float: left;
+                text-align: left;
+                cursor: pointer;
+                display: inline;
+                &.Title {
+                    margin-top: 2px;
+                    float: left;
+                    margin-left: 22px;
+                    width: 324px;
+                    font-size: 11px;
+                    font-weight: bold;
+                    color: var(--alog-font-accordion);
+                    height: 20px;
+                    line-height: 18px;
+                    display: inline;
+                }
+            }
+        }
+        .AMBody,
+        .AMBody.expanded {
+            border-left: 1px solid var(--alog-color-accordion-border);
+            border-right: 1px solid var(--alog-color-accordion-border);
+            overflow-y: hidden;
+            background: url('../alog_assets/brown_pixel.gif') repeat-x bottom;
+            font-size: 0.9em;
+            color: var(--alog-font-accordion);
+            height: 59px;
+            display: none;
+            width: 345px;
+            .AMBodyLiner {
+                margin: 2px 7px;
+                p {
+                    margin: 0px;
+                }
+                a {
+                    color: black;
+                }
+            }
+        }
+        .AMBody.expanded,
+        .AMBody.selected {
+            display: block;
+        }
+    }
+}
+
+#RAAccordion p.defaultText{
+    text-align: center;
+    max-width: 85%;
+    margin: 15px auto;
+}
+
+.ui-accordion-header .title{
+    text-align: left;
+}

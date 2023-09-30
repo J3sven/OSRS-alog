@@ -1,0 +1,30 @@
+#scores {
+    margin-right: 9px;
+    float: right;
+    background: url('../alog_assets/score_back.jpg') transparent no-repeat;
+    display: inline;
+    .details, .title {
+        width: 345px;
+        height: 20px;
+        margin-left: 8px;
+        margin-top: 8px;
+        float: left;
+        text-align: center;
+        color: var(--alog-title-color);
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 18px;
+        display: inline;
+    }
+    .details {
+        font-size: 14px;
+        margin-top: 0px;
+    }
+    .buttonContainer {
+        margin-left: 3px;
+        width: 355px;
+        height: 105px;
+        overflow: hidden;
+        margin-top: 2px;
+    }
+}

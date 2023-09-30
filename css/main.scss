@@ -1,0 +1,69 @@
+body {
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    font-family: Arial, Helvetica, FreeSans, sans-serif;
+    text-align: center;
+    font-family: Arial, Helvetica, FreeSans, sans-serif;
+    background-image: url('../img/background.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.clear {
+    clear: both;
+    font-size: 0px;
+    height: 0px;
+    line-height: 0px;
+}
+#content {
+    height: 100%;
+    width: 100%;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+}
+
+.section {
+    text-align: left;
+    font-family: Palatino Linotype, Book Antiqua, Palatino, Times New Roman, Times, serif;
+    font-variant: small-caps;
+}
+
+
+footer{
+    color: #7c7c7c;
+    position: absolute;
+    bottom: 0;
+    width: 100vw;
+    text-align: center;
+    background-color: #000;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    height: unset;
+    box-shadow: 0 0 25px 15px #000;
+}
+
+footer a{
+    color: #7c7c7c;
+}
+
+.hdos_logo {
+    position: absolute;
+    top: 0;
+}
+
+@import "vars/_color.scss";
+
+@import "components/_logheader.scss";
+@import "components/_avatar.scss";
+@import "components/_scores.scss";
+@import "components/_panels.scss";
+@import "components/_activities.scss";
+@import "components/_buttons.scss";
+@import "components/_forms.scss";
+@import "components/_modal.scss";
+@import "components/_eventlog.scss";

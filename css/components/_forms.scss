@@ -1,0 +1,62 @@
+
+input.go {
+    font-family: Palatino Linotype, Book Antiqua, Palatino, Times New Roman, Times, serif;
+    font-variant: small-caps;
+    border: none;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 15px;
+    float: right;
+    width: 33px;
+    height: 20px;
+    color: #a9a9a9;
+    background: transparent;
+    font-weight: bold;
+    display: inline;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+}
+
+#searchBox {
+    background: white;
+    border: none;
+    float: left;
+    height: 15px;
+    margin-left: 2px;
+    margin-top: 4px;
+    padding-left: 6px;
+    width: 140px;
+    display: inline;
+    font-size: 12px;
+}
+
+
+#plog_login {
+    left: 12px;
+}
+
+#plog_search {
+    left: 376px;
+}
+
+#input_bit {
+    margin: 24px 0 0;
+}
+
+#input_bit_left {
+    float: left;
+    display: inline;
+    margin: 0 0 0 37px;
+    text-align: left;
+}
+
+#input_bit_right {
+    float: left;
+    display: inline;
+    margin: 14px 0 0 8px;
+}
+
+#plog_search input {
+    width: 160px;
+}
