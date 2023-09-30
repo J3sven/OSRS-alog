@@ -1,5 +1,6 @@
 const pluralize = require('pluralize');
 const crypto = require('crypto');
+const { updateQuestPointsInProfile } = require('./updateprofile.js');
 
 class PayloadProcessor {
   constructor() {
@@ -83,11 +84,13 @@ class PayloadProcessor {
   }
 
   processQuestPayload(payload, newId, unixTimestamp, humanReadableTimestamp) {
-    const { questName } = payload.extra;
-    const { questPoints } = payload.extra;
+    const { questName, questPoints } = payload.extra;
+    const sanitizedPlayerName = payload.playerName.replace(/ /g, '_');
 
     const titleText = `I completed the quest ${questName}.`;
     const displayText = `${titleText} I now have ${questPoints} Quest points. (${humanReadableTimestamp})`;
+
+    updateQuestPointsInProfile(sanitizedPlayerName, questPoints);
 
     return {
       id: newId,

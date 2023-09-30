@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 class Skill {
   constructor(name, exp, level, rank) {
     this.name = name;
@@ -44,16 +45,18 @@ const updateSkills = (targetSkillName) => {
       button.classList.remove('selected');
     }
   });
+};
 
-  const skillLevelElement = document.getElementById('skilllevel');
-  const skillRankElement = document.getElementById('skillrank');
-  const skillXpElement = document.getElementById('skillxp');
-  const skillTitleElement = document.getElementById('skilltitle');
+const updateAchievements = (questPoints, combatTasks, achievements, collectionLog) => {
+  const questPointsElement = document.getElementById('questpoints');
+  const combatTasksElement = document.getElementById('combattasks');
+  const achievementsElement = document.getElementById('achievements');
+  const collectionLogElement = document.getElementById('collectionlog');
 
-  skillLevelElement.textContent = targetSkill.level;
-  skillRankElement.textContent = targetSkill.rank;
-  skillXpElement.textContent = targetSkill.exp;
-  skillTitleElement.textContent = targetSkillName === 'overall' ? 'Total Level' : targetSkillName;
+  questPointsElement.textContent = questPoints;
+  combatTasksElement.textContent = combatTasks || 'no data';
+  achievementsElement.textContent = achievements || 'no data';
+  collectionLogElement.textContent = collectionLog || 'no data';
 };
 
 const populateInitialSkills = () => {
@@ -89,7 +92,6 @@ const populateInitialSkills = () => {
 };
 
 const handleUIUpdates = (fetchedActivities) => {
-  populateInitialSkills();
   populateInitialSkills();
 
   const activityDetail = document.getElementById('activitydetail');
@@ -144,6 +146,7 @@ const loadProfileFromJSON = async (username) => {
     });
 
     populateInitialSkills();
+    updateAchievements(json.questpoints, json.combatachievements, json.achievements, json.collectionLog);
     return Promise.resolve(activities);
   } catch (error) {
     if (error.message === 'JSON not found') {

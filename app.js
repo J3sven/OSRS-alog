@@ -5,7 +5,7 @@ const path = require('path');
 const fs = require('fs');
 const webhooks = require('./js/server/webhooks');
 const hiscoresRoute = require('./js/server/hiscores');
-const updateProfileRoute = require('./js/server/updateprofile');
+const { router: updateProfileRouter } = require('./js/server/updateprofile');
 
 const app = express();
 app.use(cors());
@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/', webhooks.router);
-app.use('/', updateProfileRoute);
+app.use('/', updateProfileRouter);
 app.use('/', hiscoresRoute);
 app.use('/data', express.static('data'));
 app.use('/img', express.static('img'));

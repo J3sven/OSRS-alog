@@ -50,4 +50,21 @@ router.get('/updateProfile/:player', async (req, res) => {
   }
 });
 
-module.exports = router;
+const updateQuestPointsInProfile = (player, questPoints) => {
+  const profilePath = path.join(__dirname, '..', '..', `data/${player}/profile.json`);
+  console.log('profilePath', profilePath);
+
+  if (fs.existsSync(profilePath)) {
+    const rawExistingData = fs.readFileSync(profilePath, 'utf8');
+    const existingData = JSON.parse(rawExistingData);
+
+    existingData.questpoints = questPoints;
+
+    fs.writeFileSync(profilePath, JSON.stringify(existingData), 'utf8');
+  }
+};
+
+module.exports = {
+  router,
+  updateQuestPointsInProfile,
+};

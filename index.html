@@ -38,11 +38,11 @@
           <img src="alog_assets/default_chat.png" class="head" alt="playerName avatar head">
           <img src="alog_assets/default_full.png" class="body" alt="playerName avatar body">
           <div class="achievement-tile"><img src="img/collectionlog.png" alt="collectionlog">
-            No data</div>
-          <div class="achievement-tile"><img src="img/combatachievements.png" alt="combat achievements">
-            No data</div>
+            <span id="collectionlog">No data</span></div>
+          <div class="achievement-tile"><img src="img/combatachievements.png" alt="combat tasks">
+            <span id="combattasks">No data</span></div>
           <div class="achievement-tile"><img src="img/diaries.png" alt="Achievement diaries">
-            No data</div>
+            <span id="achievements">No data</span></div>
         </div>
         <div id="scores" class="logSmallSlate">
           <div class="title" id="skilltitle"></div>
@@ -100,8 +100,7 @@
                 alt="Hunter"></button>
             <button data-skill-name="construction" class="scoreButton "><img src="alog_assets/skill_icon_Construction.gif"
                 alt="Construction"></button>
-            <button disabled class="scoreButton quest"><img src="alog_assets/quest_icon.gif"
-                alt="quest points">0</button>
+            <button disabled class="scoreButton quest"><img src="alog_assets/quest_icon.gif" alt="quest points"/><span id="questpoints">0</span></button>
             <a href="https://secure.runescape.com/m=hiscore_oldschool/hiscorepersonal?user1=playerName" class="compare"
               target="_blank">Compare hiscores</a>
           </div>

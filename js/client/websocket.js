@@ -66,7 +66,9 @@ async function fetchAndUpdateLogs(playerName) {
     let prevLog = null;
 
     newLogsData.reverse().forEach((currentLog) => {
-      const { id, titleText, displayText } = currentLog;
+      const {
+        type, id, titleText, displayText,
+      } = currentLog;
 
       if (prevLog && prevLog.currentSource === currentLog.currentSource) {
         // If this log is a continuation of a tally, update existing
@@ -79,6 +81,13 @@ async function fetchAndUpdateLogs(playerName) {
           prevLog = currentLog;
           return;
         }
+      }
+
+      if (type === 'QUEST' && !logs[id]) {
+        const { newHeader, newBody } = createNewElement(id, titleText, displayText);
+        insertElementsIntoDOM(newHeader, newBody, logsElement);
+        logs[id] = currentLog;
+        return;
       }
 
       const existingHeader = document.getElementById(`A${id}`);
