@@ -44,7 +44,6 @@ document.getElementById('copyBtn').addEventListener('click', async () => {
     await navigator.clipboard.writeText(textToCopy);
     tooltip.classList.add('show');
   } catch (err) {
-    // eslint-disable-next-line no-console
     console.error('Failed to copy text: ', err);
   }
 

@@ -1,6 +1,6 @@
 const pluralize = require('pluralize');
 const crypto = require('crypto');
-const { updateQuestPointsInProfile } = require('./updateprofile.js');
+const { updatePointsInProfile } = require('./updateprofile');
 
 class PayloadProcessor {
   constructor() {
@@ -47,6 +47,12 @@ class PayloadProcessor {
       case 'QUEST':
         processedData = this.processQuestPayload(payload.body, newId, unixTimestamp, humanReadableTimestamp);
         break;
+      case 'ACHIEVEMENT_DIARY':
+        processedData = this.processAchievementDiaryPayload(payload.body, newId, unixTimestamp, humanReadableTimestamp);
+        break;
+      case 'COMBAT_ACHIEVEMENT':
+        processedData = this.processCombatAchievementPayload(payload.body, newId, unixTimestamp, humanReadableTimestamp);
+        break;
       default:
         return {};
     }
@@ -90,7 +96,7 @@ class PayloadProcessor {
     const titleText = `I completed the quest ${questName}.`;
     const displayText = `${titleText} I now have ${questPoints} Quest points. (${humanReadableTimestamp})`;
 
-    updateQuestPointsInProfile(sanitizedPlayerName, questPoints);
+    updatePointsInProfile(sanitizedPlayerName, questPoints, 'questpoints');
 
     return {
       id: newId,
@@ -133,6 +139,62 @@ class PayloadProcessor {
       displayText,
       titleText,
       combatLevel: combatLevel.value,
+    };
+  }
+
+  processAchievementDiaryPayload(payload, newId, unixTimestamp, humanReadableTimestamp) {
+    const { area, difficulty, total } = payload.extra;
+    const sanitizedPlayerName = payload.playerName.replace(/ /g, '_');
+
+    const titleText = `I have completed the ${difficulty} ${area} Achievement Diary.`;
+    const displayText = `After completing all the ${difficulty} tasks in the ${area} region I have completed the ${difficulty} Achievement Diary tier for ${area}. (${humanReadableTimestamp})`;
+
+    updatePointsInProfile(sanitizedPlayerName, total, 'achievements');
+
+    return {
+      id: newId,
+      area,
+      difficulty,
+      total,
+      timestamp: unixTimestamp,
+      displayText,
+      titleText,
+    };
+  }
+
+  // Then add the new processor function
+  processCombatAchievementPayload(payload, newId, unixTimestamp, humanReadableTimestamp) {
+    const {
+      tier, task, taskPoints, totalPoints, tierProgress, tierTotalPoints, justCompletedTier,
+    } = payload.extra;
+    const sanitizedPlayerName = payload.playerName.replace(/ /g, '_');
+
+    let titleText = '';
+    let displayText = '';
+
+    if (justCompletedTier) {
+      titleText = `I have completed the ${justCompletedTier} tier.`;
+      displayText = `${titleText} By completing the combat task: ${task}, I have unlocked rewards for the ${justCompletedTier} tier. 
+      I now have ${totalPoints} total points. (${humanReadableTimestamp})`;
+    } else {
+      titleText = `I have completed the ${task} ${tier} combat task.`;
+      displayText = `${titleText} I earned ${taskPoints} points for a total of ${totalPoints}. (${humanReadableTimestamp})`;
+    }
+
+    updatePointsInProfile(sanitizedPlayerName, totalPoints, 'combatachievements');
+
+    return {
+      id: newId,
+      tier,
+      task,
+      taskPoints,
+      totalPoints,
+      tierProgress,
+      tierTotalPoints,
+      justCompletedTier,
+      timestamp: unixTimestamp,
+      displayText,
+      titleText,
     };
   }
 }

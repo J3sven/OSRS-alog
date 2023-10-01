@@ -166,7 +166,6 @@ document.addEventListener('DOMContentLoaded', () => {
   loadProfileFromJSON(player)
     .then(handleUIUpdates)
     .catch((error) => {
-      // eslint-disable-next-line no-console
       console.error('Failed to load initial profile:', error);
     });
   fetch(`/updateProfile/${player}`)
@@ -179,7 +178,6 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(() => loadProfileFromJSON(player))
     .then(handleUIUpdates)
     .catch((error) => {
-      // eslint-disable-next-line no-console
       console.error('Failed to update profile:', error);
     });
 });

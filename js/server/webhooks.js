@@ -105,7 +105,7 @@ setInterval(() => {
   Object.entries(clientProcessors).forEach(([key, processor]) => {
     if (now - processor.lastActivity > INACTIVITY_TIMEOUT) {
       delete clientProcessors[key];
-      // eslint-disable-next-line no-console
+      
       console.log(`Removed PayloadProcessor for ${key} due to inactivity.`);
     }
   });

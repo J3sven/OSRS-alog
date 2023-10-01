@@ -44,13 +44,12 @@ router.get('/updateProfile/:player', async (req, res) => {
 
     res.status(200).send({ message: 'Profile updated successfully' });
   } catch (error) {
-    // eslint-disable-next-line no-console
     console.log('Error fetching and updating profile:', error);
     res.status(500).send({ message: 'Error fetching and updating profile' });
   }
 });
 
-const updateQuestPointsInProfile = (player, questPoints) => {
+const updatePointsInProfile = (player, points, key) => {
   const profilePath = path.join(__dirname, '..', '..', `data/${player}/profile.json`);
   console.log('profilePath', profilePath);
 
@@ -58,13 +57,14 @@ const updateQuestPointsInProfile = (player, questPoints) => {
     const rawExistingData = fs.readFileSync(profilePath, 'utf8');
     const existingData = JSON.parse(rawExistingData);
 
-    existingData.questpoints = questPoints;
+    existingData[key] = points;
 
     fs.writeFileSync(profilePath, JSON.stringify(existingData), 'utf8');
   }
 };
 
+
 module.exports = {
   router,
-  updateQuestPointsInProfile,
+  updatePointsInProfile,
 };

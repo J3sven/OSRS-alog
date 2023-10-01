@@ -105,7 +105,6 @@ async function fetchAndUpdateLogs(playerName) {
       prevLog = currentLog;
     });
   } catch (error) {
-    // eslint-disable-next-line no-console
     console.error('Failed to fetch and update logs:', error);
   }
 }

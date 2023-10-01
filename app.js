@@ -41,6 +41,5 @@ app.get('/log', (req, res) => {
 });
 
 server.listen(3000, () => {
-  // eslint-disable-next-line no-console
   console.log('Server started on http://localhost:3000/');
 });
