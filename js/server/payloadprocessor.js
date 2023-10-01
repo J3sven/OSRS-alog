@@ -6,16 +6,18 @@ const { updatePointsInProfile } = require('./updateprofile');
 class PayloadProcessor {
   constructor() {
     this.lastId = null;
-    // this.lastSource = null;
-    // this.tallyCount = 0;
     this.lastActivity = new Date().getTime();
     this.methodNameCache = {};
 
     try {
-      this.excludedItemIds = JSON.parse(fs.readFileSync(path.join(__dirname, './raredrops.json'), 'utf8'));
+      const processorData = JSON.parse(fs.readFileSync(path.join(__dirname, './processorData.json'), 'utf8'));
+      const { raredrops, allbosses } = processorData;
+      this.excludedItemIds = raredrops;
+      this.allbosses = allbosses;
     } catch (err) {
-      console.error('Error reading raredrops.json:', err);
+      console.error('Error reading processorData.json:', err);
       this.excludedItemIds = [];
+      this.allbosses = [];
     }
 
     this.hash = crypto.createHash('sha256');
@@ -57,18 +59,49 @@ class PayloadProcessor {
       const processedData = this[processorMethod](payload.body, newId, unixTimestamp);
       if (processedData !== null) {
         storePayload(playerName, type, processedData);
-        return processedData;
       }
+
+      // Check for bosses in loot payload and generate boss kill payload if applicable
+      if (type === 'LOOT' && this.allbosses.includes(payload.body.extra.source)) {
+        console.log('boss kill payload check');
+        const bossKillPayload = this.processBossKillPayload(payload.body, newId, unixTimestamp);
+        if (bossKillPayload !== null) {
+          storePayload(playerName, 'bosskill', bossKillPayload);
+        }
+      }
+
+      return processedData;
     }
     return {};
   }
 
+  convertUnixToHumanReadable(unixTimestamp) {
+    const date = new Date(unixTimestamp * 1000);
+    const day = date.getDate();
+    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const month = monthNames[date.getMonth()];
+    const year = date.getFullYear();
+
+    let suffix = 'th';
+    if (day === 1 || day === 21 || day === 31) {
+      suffix = 'st';
+    } else if (day === 2 || day === 22) {
+      suffix = 'nd';
+    } else if (day === 3 || day === 23) {
+      suffix = 'rd';
+    }
+
+    return `${day}${suffix} ${month} ${year}`;
+  }
+
   processPayloadCommon(payload, newId, unixTimestamp) {
     const sanitizedPlayerName = payload.playerName.replace(/[^a-zA-Z0-9]/g, '_');
+    const humanReadableTimestamp = this.convertUnixToHumanReadable(unixTimestamp);
+
     return {
       id: newId,
       ...payload.extra,
-      timestamp: unixTimestamp,
+      timestamp: humanReadableTimestamp,
       sanitizedPlayerName,
     };
   }
@@ -109,6 +142,17 @@ class PayloadProcessor {
       commonData,
       `I found ${this.formatItemList(expensiveItemNames)}`,
       `After killing ${this.chooseArticle(source)} ${source}, it dropped ${this.formatItemList(expensiveItemNames)}`,
+    );
+  }
+
+  processBossKillPayload(payload, newId, unixTimestamp) {
+    console.log('boss kill payload invoked', payload);
+    const commonData = this.processPayloadCommon(payload, newId, unixTimestamp);
+    const { source } = payload.extra;
+    return this.formatDisplayText(
+      commonData,
+      `I killed ${source}`,
+      `I killed 1 ${source}`,
     );
   }
 
@@ -164,8 +208,8 @@ class PayloadProcessor {
     const { boss, count } = payload.extra;
     return this.formatDisplayText(
       commonData,
-      `I have defeated ${boss}.`,
-      `I have defeated ${boss} with a completion count of ${count}.`,
+      `I killed ${boss}.`,
+      `I have defeated ${boss} for a total lifetime killcount of ${count}.`,
     );
   }
 
