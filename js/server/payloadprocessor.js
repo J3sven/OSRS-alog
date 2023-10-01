@@ -29,8 +29,6 @@ class PayloadProcessor {
     const humanReadableTimestamp = new Date(unixTimestamp * 1000).toLocaleString();
     const processorMethod = `process${type.charAt(0) + type.substring(1).toLowerCase().replace(/_([a-z])/g, (match, p1) => p1.toUpperCase())}Payload`;
 
-    console.log('Checking if this method exists:', processorMethod, typeof this[processorMethod]);
-
     if (this[processorMethod]) {
       const processedData = this[processorMethod](payload.body, newId, unixTimestamp, humanReadableTimestamp);
       if (processedData !== null) {
@@ -168,6 +166,82 @@ class PayloadProcessor {
       ...commonData,
       displayText,
       titleText,
+    };
+  }
+
+  processCluePayload(payload, newId, unixTimestamp, humanReadableTimestamp) {
+    const commonData = this.processPayloadCommon(payload, newId, unixTimestamp);
+    const { clueType, numberCompleted, items } = payload.extra;
+    const article = this.chooseArticle(clueType);
+
+    const titleText = `I have completed ${article} ${clueType} treasure trail.`;
+    const itemNames = items.map((item) => `${item.name} x${item.quantity}`).join(', ');
+    const displayText = `${titleText} I've completed ${numberCompleted} in total. I obtained: ${itemNames}. (${humanReadableTimestamp})`;
+
+    return {
+      ...commonData,
+      displayText,
+      titleText,
+      clueType,
+      numberCompleted,
+      items,
+    };
+  }
+
+  processKillCountPayload(payload, newId, unixTimestamp, humanReadableTimestamp) {
+    const commonData = this.processPayloadCommon(payload, newId, unixTimestamp);
+    const { boss, count, gameMessage } = payload.extra;
+
+    const titleText = `I have defeated ${boss}.`;
+    const displayText = `I have defeated ${boss} with a completion count of ${count}. (${humanReadableTimestamp})`;
+
+    return {
+      ...commonData,
+      displayText,
+      titleText,
+      boss,
+      count,
+      gameMessage,
+    };
+  }
+
+  processSpeedrunPayload(payload, newId, unixTimestamp, humanReadableTimestamp) {
+    const commonData = this.processPayloadCommon(payload, newId, unixTimestamp);
+    const { questName, personalBest, currentTime } = payload.extra;
+
+    const titleText = `I beat my ${questName} speedrun record.`;
+    const displayText = `I just beat my personal best in a speedrun of ${questName} with a time of ${currentTime}. (${humanReadableTimestamp})`;
+
+    return {
+      ...commonData,
+      displayText,
+      titleText,
+      questName,
+      personalBest,
+      currentTime,
+    };
+  }
+
+  processCollectionPayload(payload, newId, unixTimestamp, humanReadableTimestamp) {
+    const commonData = this.processPayloadCommon(payload, newId, unixTimestamp);
+    const {
+      itemName, itemId, price, completedEntries, totalEntries,
+    } = payload.extra;
+
+    const titleText = `I added ${itemName} to my collection log.`;
+    const displayText = `I have added ${itemName} to my collection log. I have ${completedEntries} out of ${totalEntries} entries in the collection log. (${humanReadableTimestamp})`;
+
+    updatePointsInProfile(commonData.sanitizedPlayerName, completedEntries, 'collectionLog');
+
+    return {
+      ...commonData,
+      displayText,
+      titleText,
+      itemName,
+      itemId,
+      price,
+      completedEntries,
+      totalEntries,
     };
   }
 

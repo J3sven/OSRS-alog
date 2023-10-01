@@ -51,7 +51,6 @@ router.get('/updateProfile/:player', async (req, res) => {
 
 const updatePointsInProfile = (player, points, key) => {
   const profilePath = path.join(__dirname, '..', '..', `data/${player}/profile.json`);
-  console.log('profilePath', profilePath);
 
   if (fs.existsSync(profilePath)) {
     const rawExistingData = fs.readFileSync(profilePath, 'utf8');
@@ -62,7 +61,6 @@ const updatePointsInProfile = (player, points, key) => {
     fs.writeFileSync(profilePath, JSON.stringify(existingData), 'utf8');
   }
 };
-
 
 module.exports = {
   router,

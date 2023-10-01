@@ -98,7 +98,6 @@ function updateLogData(logData, type, processedData) {
 function storePayload(playerName, type, processedData) {
   const sanitizedPlayerName = sanitizePlayerName(playerName);
   const { folderPath, logFilePath, typeFilePath } = getFilePaths(sanitizedPlayerName, type);
-  console.log('Storing payload with:', processedData);
 
   ensureFolderExists(folderPath);
 
