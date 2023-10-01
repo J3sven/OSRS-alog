@@ -1,5 +1,6 @@
-const pluralize = require('pluralize');
 const crypto = require('crypto');
+const fs = require('fs');
+const path = require('path');
 const { updatePointsInProfile } = require('./updateprofile');
 
 class PayloadProcessor {
@@ -32,8 +33,10 @@ class PayloadProcessor {
 
     if (this[processorMethod]) {
       const processedData = this[processorMethod](payload.body, newId, unixTimestamp, humanReadableTimestamp);
-      storePayload(playerName, type, processedData);
-      return processedData;
+      if (processedData !== null) {
+        storePayload(playerName, type, processedData);
+        return processedData;
+      }
     }
 
     return {};
@@ -64,21 +67,49 @@ class PayloadProcessor {
     return idToUse;
   }
 
+  formatItemList(items) {
+    if (items.length === 0) return '';
+    if (items.length === 1) return items[0];
+    return `${items.slice(0, -1).join(', ')} and ${items.slice(-1)}`;
+  }
+
+  chooseArticle(word) {
+    return ['a', 'e', 'i', 'o', 'u'].includes(word[0].toLowerCase()) ? 'an' : 'a';
+  }
+
   processLootPayload(payload, newId, unixTimestamp, humanReadableTimestamp) {
     const commonData = this.processPayloadCommon(payload, newId, unixTimestamp, humanReadableTimestamp);
-    const { source } = payload.extra;
+    const { source, items, category } = payload.extra;
 
-    const idToUse = this.updateTally(source, newId);
+    // fetch a list of rare untradable drops
+    let excludedItemIds = [];
+    try {
+      excludedItemIds = JSON.parse(fs.readFileSync(path.join(__dirname, './raredrops.json'), 'utf8'));
+    } catch (err) {
+      console.error('Error reading raredrops.json:', err);
+    }
 
-    const titleText = `I killed ${this.tallyCount} ${pluralize(source, this.tallyCount)}.`;
-    const displayText = `${titleText} (${humanReadableTimestamp})`;
+    const expensiveOrExcludedItems = items.filter((item) => item.priceEach >= 250000 || excludedItemIds.includes(item.id));
+
+    if (expensiveOrExcludedItems.length === 0 || category === 'CLUE') {
+      console.log('Either no expensive or excluded items found or category is CLUE');
+      return null;
+    }
+
+    const idToUse = newId;
+
+    const expensiveItemNames = expensiveOrExcludedItems.map((item) => item.name);
+    const joinedNames = this.formatItemList(expensiveItemNames);
+
+    const article = this.chooseArticle(source);
+    const titleText = `I found ${expensiveItemNames.length > 1 ? 'items' : 'item'}: ${joinedNames}`;
+    const displayText = `After killing ${article} ${source}, it dropped ${expensiveItemNames.length > 1 ? 'items' : 'an item'}: ${joinedNames}. (${humanReadableTimestamp}`;
 
     return {
       ...commonData,
       id: idToUse,
       displayText,
       titleText,
-      tallyCount: this.tallyCount,
     };
   }
 
@@ -154,8 +185,8 @@ class PayloadProcessor {
       displayText = `By completing the combat task: ${task}, I have earned enough points to unlock the rewards for the ${justCompletedTier.toLowerCase()} tier. 
       I now have ${totalPoints} total points. (${humanReadableTimestamp})`;
     } else {
-      titleText = `I have completed the ${task} ${tier.toLowerCase()} combat task.`;
-      displayText = `${titleText} I earned ${taskPoints} points for a total of ${totalPoints}. (${humanReadableTimestamp})`;
+      titleText = `I have completed an ${tier.toLowerCase()} combat task.`;
+      displayText = `I completed the ${task} ${tier.toLowerCase()} combat task. I earned ${taskPoints} points for a total of ${totalPoints}. (${humanReadableTimestamp})`;
     }
 
     updatePointsInProfile(commonData.sanitizedPlayerName, totalPoints, 'combatachievements');
