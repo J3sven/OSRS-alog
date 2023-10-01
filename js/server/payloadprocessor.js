@@ -173,11 +173,11 @@ class PayloadProcessor {
     let displayText = '';
 
     if (justCompletedTier) {
-      titleText = `I have completed the ${justCompletedTier} tier.`;
-      displayText = `${titleText} By completing the combat task: ${task}, I have unlocked rewards for the ${justCompletedTier} tier. 
+      titleText = `I have completed the ${justCompletedTier.toLowerCase()} easy combat tasks tier.`;
+      displayText = `By completing the combat task: ${task}, I have earned enough points to unlock the rewards for the ${justCompletedTier.toLowerCase()} tier. 
       I now have ${totalPoints} total points. (${humanReadableTimestamp})`;
     } else {
-      titleText = `I have completed the ${task} ${tier} combat task.`;
+      titleText = `I have completed the ${task} ${tier.toLowerCase()} combat task.`;
       displayText = `${titleText} I earned ${taskPoints} points for a total of ${totalPoints}. (${humanReadableTimestamp})`;
     }
 
