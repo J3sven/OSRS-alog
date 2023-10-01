@@ -21,68 +21,61 @@ class PayloadProcessor {
     return hash.digest('hex').substring(0, 12);
   }
 
-  /**
-     * @description Processes the payload by type and returns the processed data.
-     * @param {Object} payload
-     * @param {Object} storePayload
-     * @returns {Object} processedData
-     */
   processPayload(payload, storePayload) {
-    const { type } = payload.body;
-    const { playerName } = payload.body;
-
+    const { type, playerName } = payload.body;
     const newId = PayloadProcessor.generateTimeBasedHash();
     const unixTimestamp = Math.floor(Date.now() / 1000);
     const humanReadableTimestamp = new Date(unixTimestamp * 1000).toLocaleString();
+    const processorMethod = `process${type.charAt(0) + type.substring(1).toLowerCase().replace(/_([a-z])/g, (match, p1) => p1.toUpperCase())}Payload`;
 
-    let processedData;
+    console.log('Checking if this method exists:', processorMethod, typeof this[processorMethod]);
 
-    switch (type) {
-      case 'LOOT':
-        processedData = this.processLootPayload(payload.body, newId, unixTimestamp, humanReadableTimestamp);
-        break;
-      case 'LEVEL':
-        processedData = this.processLevelPayload(payload.body, newId, unixTimestamp, humanReadableTimestamp);
-        break;
-      case 'QUEST':
-        processedData = this.processQuestPayload(payload.body, newId, unixTimestamp, humanReadableTimestamp);
-        break;
-      case 'ACHIEVEMENT_DIARY':
-        processedData = this.processAchievementDiaryPayload(payload.body, newId, unixTimestamp, humanReadableTimestamp);
-        break;
-      case 'COMBAT_ACHIEVEMENT':
-        processedData = this.processCombatAchievementPayload(payload.body, newId, unixTimestamp, humanReadableTimestamp);
-        break;
-      default:
-        return {};
+    if (this[processorMethod]) {
+      const processedData = this[processorMethod](payload.body, newId, unixTimestamp, humanReadableTimestamp);
+      storePayload(playerName, type, processedData);
+      return processedData;
     }
 
-    storePayload(playerName, type, processedData);
-    return processedData;
+    return {};
   }
 
-  processLootPayload(payload, newId, unixTimestamp, humanReadableTimestamp) {
-    const currentSource = payload.extra.source;
+  processPayloadCommon(payload, newId, unixTimestamp) {
+    const { extra, playerName } = payload;
+    const sanitizedPlayerName = playerName.replace(/ /g, '_');
 
-    let idToUse = newId; // By default, use the newId
+    return {
+      id: newId,
+      ...extra,
+      timestamp: unixTimestamp,
+      sanitizedPlayerName,
+    };
+  }
 
+  updateTally(currentSource, newId) {
+    let idToUse = newId;
     if (this.lastSource === currentSource) {
       this.tallyCount += 1;
-      idToUse = this.lastId; // Use the lastId if it's a tally
+      idToUse = this.lastId;
     } else {
       this.tallyCount = 1;
     }
-
-    const titleText = `I killed ${this.tallyCount} ${pluralize(currentSource, this.tallyCount)}.`;
-    const displayText = `${titleText} (${humanReadableTimestamp})`;
-
     this.lastId = idToUse;
     this.lastSource = currentSource;
+    return idToUse;
+  }
+
+  processLootPayload(payload, newId, unixTimestamp, humanReadableTimestamp) {
+    const commonData = this.processPayloadCommon(payload, newId, unixTimestamp, humanReadableTimestamp);
+    const { source } = payload.extra;
+
+    const idToUse = this.updateTally(source, newId);
+
+    const titleText = `I killed ${this.tallyCount} ${pluralize(source, this.tallyCount)}.`;
+    const displayText = `${titleText} (${humanReadableTimestamp})`;
 
     return {
+      ...commonData,
       id: idToUse,
-      currentSource,
-      timestamp: unixTimestamp,
       displayText,
       titleText,
       tallyCount: this.tallyCount,
@@ -90,18 +83,16 @@ class PayloadProcessor {
   }
 
   processQuestPayload(payload, newId, unixTimestamp, humanReadableTimestamp) {
+    const commonData = this.processPayloadCommon(payload, newId, unixTimestamp, humanReadableTimestamp);
     const { questName, questPoints } = payload.extra;
-    const sanitizedPlayerName = payload.playerName.replace(/ /g, '_');
 
     const titleText = `I completed the quest ${questName}.`;
     const displayText = `${titleText} I now have ${questPoints} Quest points. (${humanReadableTimestamp})`;
 
-    updatePointsInProfile(sanitizedPlayerName, questPoints, 'questpoints');
+    updatePointsInProfile(commonData.sanitizedPlayerName, questPoints, 'questpoints');
 
     return {
-      id: newId,
-      questName,
-      timestamp: unixTimestamp,
+      ...commonData,
       displayText,
       titleText,
       questPoints,
@@ -109,71 +100,57 @@ class PayloadProcessor {
   }
 
   processLevelPayload(payload, newId, unixTimestamp, humanReadableTimestamp) {
+    const commonData = this.processPayloadCommon(payload, newId, unixTimestamp, humanReadableTimestamp);
     const { levelledSkills, allSkills, combatLevel } = payload.extra;
 
-    // Find the skill with the highest level
     const [highestSkill, highestLevel] = Object.entries(levelledSkills).reduce((acc, [skill, level]) => ((level > acc[1]) ? [skill, level] : acc), ['', 0]);
-
     const titleText = `I levelled up ${highestSkill}`;
 
-    // Generating a list of other levelled skills
-    const otherSkillsText = Object.entries(levelledSkills)
-      .filter(([skill]) => skill !== highestSkill)
-      .map(([skill, level]) => `${skill} to ${level}`)
-      .join(', ');
-
-    // Displaying if combat level increased
+    let displayText = `I levelled my ${highestSkill} skill, I am now level ${highestLevel}.`;
+    const otherSkillsText = Object.entries(levelledSkills).filter(([skill]) => skill !== highestSkill).map(([skill, level]) => `${skill} to ${level}`).join(', ');
     const combatLevelText = combatLevel.increased ? `My combat level increased to ${combatLevel.value}` : '';
 
-    // Create the display text based on conditions
-    let displayText = `I levelled my ${highestSkill} skill, I am now level ${highestLevel}.`;
     if (otherSkillsText) displayText += ` I also levelled ${otherSkillsText}.`;
     if (combatLevelText) displayText += ` ${combatLevelText}`;
     displayText += ` (${humanReadableTimestamp})`;
 
     return {
-      id: newId,
-      levelledSkills,
-      allSkills,
-      timestamp: unixTimestamp,
+      ...commonData,
       displayText,
       titleText,
+      levelledSkills,
+      allSkills,
       combatLevel: combatLevel.value,
     };
   }
 
   processAchievementDiaryPayload(payload, newId, unixTimestamp, humanReadableTimestamp) {
+    const commonData = this.processPayloadCommon(payload, newId, unixTimestamp, humanReadableTimestamp);
     const { area, difficulty, total } = payload.extra;
-    const sanitizedPlayerName = payload.playerName.replace(/ /g, '_');
 
     const titleText = `I have completed the ${difficulty} ${area} Achievement Diary.`;
     const displayText = `After completing all the ${difficulty} tasks in the ${area} region I have completed the ${difficulty} Achievement Diary tier for ${area}. (${humanReadableTimestamp})`;
 
-    updatePointsInProfile(sanitizedPlayerName, total, 'achievements');
+    updatePointsInProfile(commonData.sanitizedPlayerName, total, 'achievements');
 
     return {
-      id: newId,
-      area,
-      difficulty,
-      total,
-      timestamp: unixTimestamp,
+      ...commonData,
       displayText,
       titleText,
     };
   }
 
-  // Then add the new processor function
   processCombatAchievementPayload(payload, newId, unixTimestamp, humanReadableTimestamp) {
+    const commonData = this.processPayloadCommon(payload, newId, unixTimestamp, humanReadableTimestamp);
     const {
       tier, task, taskPoints, totalPoints, tierProgress, tierTotalPoints, justCompletedTier,
     } = payload.extra;
-    const sanitizedPlayerName = payload.playerName.replace(/ /g, '_');
 
     let titleText = '';
     let displayText = '';
 
     if (justCompletedTier) {
-      titleText = `I have completed the ${justCompletedTier.toLowerCase()} easy combat tasks tier.`;
+      titleText = `I have unlocked the ${justCompletedTier.toLowerCase()} combat task rewards.`;
       displayText = `By completing the combat task: ${task}, I have earned enough points to unlock the rewards for the ${justCompletedTier.toLowerCase()} tier. 
       I now have ${totalPoints} total points. (${humanReadableTimestamp})`;
     } else {
@@ -181,20 +158,17 @@ class PayloadProcessor {
       displayText = `${titleText} I earned ${taskPoints} points for a total of ${totalPoints}. (${humanReadableTimestamp})`;
     }
 
-    updatePointsInProfile(sanitizedPlayerName, totalPoints, 'combatachievements');
+    updatePointsInProfile(commonData.sanitizedPlayerName, totalPoints, 'combatachievements');
 
     return {
-      id: newId,
-      tier,
-      task,
+      ...commonData,
+      displayText,
+      titleText,
       taskPoints,
       totalPoints,
       tierProgress,
       tierTotalPoints,
       justCompletedTier,
-      timestamp: unixTimestamp,
-      displayText,
-      titleText,
     };
   }
 }
