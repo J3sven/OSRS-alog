@@ -82,16 +82,34 @@ function updateData(existingData, newData) {
  * @returns {object} The updated log data.
  */
 function updateLogData(logData, type, processedData) {
-  const latestTypeIndex = logData.reduce((acc, curr, idx) => ((curr.type === type) ? idx : acc), -1);
   const updatedLogData = [...logData]; // Clone logData
 
-  if (latestTypeIndex >= 0 && logData[latestTypeIndex].currentSource === processedData.currentSource) {
-    const updatedProcessedData = { ...processedData, tallyCount: logData[latestTypeIndex].tallyCount + 1 };
-    updatedLogData[latestTypeIndex] = { type, ...updatedProcessedData };
+  // Initialize or read existing tallyCount and lastBoss
+  let { tallyCount, lastBoss } = logData.length > 0 ? logData[logData.length - 1] : { tallyCount: 0, lastBoss: null };
+
+  // Initialize newLogEntry without tallyCount and lastBoss
+  const newLogEntry = { type, ...processedData };
+
+  // Update the tally count based on the type and boss name
+  if (type === 'bosskill') {
+    console.log('bosskill', processedData);
+    if (lastBoss === processedData.source) {
+      tallyCount += 1;
+    } else {
+      tallyCount = 1;
+      lastBoss = processedData.source;
+    }
+
+    // Add tallyCount and lastBoss only if type is 'bossKill'
+    newLogEntry.tallyCount = tallyCount;
+    newLogEntry.lastBoss = lastBoss;
   } else {
-    const updatedProcessedData = { ...processedData, tallyCount: 1 };
-    updatedLogData.push({ type, ...updatedProcessedData });
+    console.log('not bosskill');
+    tallyCount = 0;
+    lastBoss = null;
   }
+
+  updatedLogData.push(newLogEntry);
 
   return updatedLogData;
 }

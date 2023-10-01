@@ -65,7 +65,7 @@ async function fetchAndUpdateLogs(playerName) {
 
     // const prevLog = null;
 
-    newLogsData.reverse().forEach((currentLog) => {
+    newLogsData.forEach((currentLog) => {
       const {
         type, id, titleText, displayText,
       } = currentLog;

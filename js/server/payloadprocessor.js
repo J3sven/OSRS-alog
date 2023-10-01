@@ -6,6 +6,8 @@ const { updatePointsInProfile } = require('./updateprofile');
 class PayloadProcessor {
   constructor() {
     this.lastId = null;
+    // this.lastSource = null;
+    // this.tallyCount = 0;
     this.lastActivity = new Date().getTime();
     this.methodNameCache = {};
 
@@ -81,6 +83,18 @@ class PayloadProcessor {
     const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     const month = monthNames[date.getMonth()];
     const year = date.getFullYear();
+    let hours = date.getHours();
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+
+    let ampm = 'AM';
+    if (hours >= 12) {
+      ampm = 'PM';
+      if (hours > 12) {
+        hours -= 12;
+      }
+    } else if (hours === 0) {
+      hours = 12;
+    }
 
     let suffix = 'th';
     if (day === 1 || day === 21 || day === 31) {
@@ -91,7 +105,7 @@ class PayloadProcessor {
       suffix = 'rd';
     }
 
-    return `${day}${suffix} ${month} ${year}`;
+    return `${day}${suffix} ${month} ${year}, ${hours}:${minutes} ${ampm}`;
   }
 
   processPayloadCommon(payload, newId, unixTimestamp) {
@@ -149,6 +163,7 @@ class PayloadProcessor {
     console.log('boss kill payload invoked', payload);
     const commonData = this.processPayloadCommon(payload, newId, unixTimestamp);
     const { source } = payload.extra;
+    commonData.type = 'bosskill';
     return this.formatDisplayText(
       commonData,
       `I killed ${source}`,
