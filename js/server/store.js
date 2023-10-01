@@ -52,18 +52,25 @@ function readJSONFile(filePath) {
  * @param {object} newData The new data.
  * @returns {object} The updated data.
  */
+
+// TODO: revisit tally logic
+// function updateData(existingData, newData) {
+//   const latestIndex = existingData.length - 1;
+//   const updatedData = [...existingData]; // Clone existingData
+
+//   if (latestIndex >= 0 && existingData[latestIndex].currentSource === newData.currentSource) {
+//     const updatedNewData = { ...newData, tallyCount: existingData[latestIndex].tallyCount + 1 };
+//     updatedData[latestIndex] = updatedNewData;
+//   } else {
+//     const updatedNewData = { ...newData, tallyCount: 1 };
+//     updatedData.push(updatedNewData);
+//   }
+
+//   return updatedData;
+// }
+
 function updateData(existingData, newData) {
-  const latestIndex = existingData.length - 1;
-  const updatedData = [...existingData]; // Clone existingData
-
-  if (latestIndex >= 0 && existingData[latestIndex].currentSource === newData.currentSource) {
-    const updatedNewData = { ...newData, tallyCount: existingData[latestIndex].tallyCount + 1 };
-    updatedData[latestIndex] = updatedNewData;
-  } else {
-    const updatedNewData = { ...newData, tallyCount: 1 };
-    updatedData.push(updatedNewData);
-  }
-
+  const updatedData = [...existingData, newData];
   return updatedData;
 }
 

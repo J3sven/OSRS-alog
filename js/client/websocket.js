@@ -63,25 +63,25 @@ async function fetchAndUpdateLogs(playerName) {
       isFirstFetch = false;
     }
 
-    let prevLog = null;
+    // const prevLog = null;
 
     newLogsData.reverse().forEach((currentLog) => {
       const {
         type, id, titleText, displayText,
       } = currentLog;
 
-      if (prevLog && prevLog.currentSource === currentLog.currentSource) {
-        // If this log is a continuation of a tally, update existing
-        const existingHeader = document.getElementById(`A${prevLog.id}`);
-        const existingBody = document.getElementById(`A${prevLog.id}Body`);
+      // if (prevLog && prevLog.currentSource === currentLog.currentSource) {
+      //   // If this log is a continuation of a tally, update existing
+      //   const existingHeader = document.getElementById(`A${prevLog.id}`);
+      //   const existingBody = document.getElementById(`A${prevLog.id}Body`);
 
-        if (existingHeader && existingBody) {
-          updateExistingElement(existingHeader, existingBody, id, titleText, displayText);
-          logs[id] = currentLog;
-          prevLog = currentLog;
-          return;
-        }
-      }
+      //   if (existingHeader && existingBody) {
+      //     updateExistingElement(existingHeader, existingBody, id, titleText, displayText);
+      //     logs[id] = currentLog;
+      //     prevLog = currentLog;
+      //     return;
+      //   }
+      // }
 
       if (type === 'QUEST' && !logs[id]) {
         const { newHeader, newBody } = createNewElement(id, titleText, displayText);
@@ -102,7 +102,7 @@ async function fetchAndUpdateLogs(playerName) {
         expandNewlyAddedElement(newHeader);
       }
       logs[id] = currentLog;
-      prevLog = currentLog;
+      // prevLog = currentLog;
     });
   } catch (error) {
     console.error('Failed to fetch and update logs:', error);
