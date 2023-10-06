@@ -55,6 +55,7 @@ class PayloadProcessor {
     const unixTimestamp = Math.floor(Date.now() / 1000);
     const { type, playerName } = payload.body;
     const newId = PayloadProcessor.generateTimeBasedHash(this.hash);
+    console.log('payload receiver from: ', playerName);
 
     const processorMethod = this.getMethodName(type);
     if (this[processorMethod]) {

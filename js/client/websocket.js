@@ -112,16 +112,23 @@ async function fetchAndUpdateLogs(playerName) {
 ws.addEventListener('message', (event) => {
   const message = JSON.parse(event.data);
 
-  if (message.action === 'update') {
+  if (message.action === 'update' && message.playerName) {
     fetchAndUpdateLogs(message.playerName);
+  } else {
+    console.error('Player name missing in WebSocket message.');
   }
 });
 
 window.onload = async function handleOnLoad() {
   const urlParams = new URLSearchParams(window.location.search);
   const playerName = urlParams.get('player');
+
+  if (!playerName) {
+    return;
+  }
+
   const sanitizedPlayerName = playerName.replace(/ /g, '_');
-  await fetchAndUpdateLogs(playerName);
+  await fetchAndUpdateLogs(sanitizedPlayerName);
 
   function imageExists(url, callback) {
     const img = new Image();

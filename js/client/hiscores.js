@@ -106,7 +106,7 @@ const handleUIUpdates = (fetchedActivities) => {
   activityContainer.innerHTML = '';
 
   fetchedActivities.forEach((activity) => {
-    const activityName = activity.name;
+    const activityName = activity.name.toLowerCase();
     if (activityName === 'score' || activityName === 'rank') {
       return;
     }
@@ -115,7 +115,7 @@ const handleUIUpdates = (fetchedActivities) => {
 
     const activityElement = document.createElement('div');
     activityElement.setAttribute('data-activity-name', activityName);
-    activityElement.innerHTML = `<img src="alog_assets/game_icon_${activityName}.png" alt="${activityName}"><span>${activityCount}</span>`;
+    activityElement.innerHTML = `<img src="alog_assets/game_icon_${activityName.toLowerCase()}.png" alt="${activityName}"><span>${activityCount}</span>`;
 
     activityElement.addEventListener('click', () => {
       const selected = document.querySelector('.activitycontainer .selected');
@@ -131,7 +131,10 @@ const handleUIUpdates = (fetchedActivities) => {
 };
 
 const loadProfileFromJSON = async (username) => {
-  const player = username.replace(/ /g, '_');
+  const activityContainer = document.querySelector('.activitycontainer');
+  activityContainer.innerHTML = '<span class="spinner"></span>';
+
+  const player = username.replace(/ /g, '_').toLowerCase();
   try {
     const response = await fetch(`/data/${player}/profile.json`);
     if (!response.ok) {
@@ -150,7 +153,7 @@ const loadProfileFromJSON = async (username) => {
     return Promise.resolve(activities);
   } catch (error) {
     if (error.message === 'JSON not found') {
-      const updateResponse = await fetch(`/updateProfile/${player}`);
+      const updateResponse = await fetch(`/updateProfile/${player.toLowerCase()}`);
       if (updateResponse.ok) {
         return loadProfileFromJSON(player);
       }
@@ -161,21 +164,30 @@ const loadProfileFromJSON = async (username) => {
 
 document.addEventListener('DOMContentLoaded', () => {
   const urlParams = new URLSearchParams(window.location.search);
-  const player = urlParams.get('player').replace(/ /g, '_');
+  const player = urlParams.get('player');
+  const activityContainer = document.querySelector('.activitycontainer');
 
-  loadProfileFromJSON(player)
+  if (!player) {
+    activityContainer.innerHTML = '';
+    return;
+  }
+
+  const sanitizedPlayer = player.replace(/ /g, '_').toLowerCase();
+
+  loadProfileFromJSON(sanitizedPlayer)
     .then(handleUIUpdates)
     .catch((error) => {
       console.error('Failed to load initial profile:', error);
     });
-  fetch(`/updateProfile/${player}`)
+
+  fetch(`/updateProfile/${sanitizedPlayer}`)
     .then((response) => {
       if (response.ok) {
         return response.json();
       }
       throw new Error('Failed to update profile');
     })
-    .then(() => loadProfileFromJSON(player))
+    .then(() => loadProfileFromJSON(sanitizedPlayer))
     .then(handleUIUpdates)
     .catch((error) => {
       console.error('Failed to update profile:', error);
