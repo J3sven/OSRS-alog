@@ -6,6 +6,10 @@
     height: 361px;
     width: 361px;
     display: inline;
+    @media (max-width: 747px) {
+        max-width: 361px;
+        margin: 0 auto;
+    } 
   }
 
 #quests a {
@@ -107,20 +111,11 @@
     top: 3px;
 }
 
-#content {
-    height: 100%;
-    width: 100%;
-    font-size: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    margin: 0;
-}
-
 #plog_other {
     background-color: #1c1c1c;
     box-shadow: 0 0 25px 15px #1c1c1c;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 

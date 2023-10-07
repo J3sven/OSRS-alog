@@ -38,6 +38,8 @@ document.addEventListener('click', (event) => {
     const header = event.target.closest('.AMHead');
     const index = Array.from(RAAccordion.querySelectorAll('.AMHead')).indexOf(header);
 
+    if (header.classList.contains('selected')) return;
+
     if (currentIndex !== index) {
       currentIndex = index;
       expandAccordion(header);

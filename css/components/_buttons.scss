@@ -39,6 +39,19 @@
             vertical-align: middle;
             margin-right: 1px;
         }
+        &.quest {
+            position: relative;
+            img{
+                position: absolute;
+                left: 2px;
+                bottom: 4px;
+            }
+            span {
+                position: absolute;
+                bottom: 5px;
+                right: 5px;
+            }
+        }
         &.selected {
             color: var(--alog-active-gold);
             background: url('../alog_assets/score_button_press.jpg') transparent no-repeat;

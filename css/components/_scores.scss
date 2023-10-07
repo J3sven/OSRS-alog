@@ -3,6 +3,11 @@
     float: right;
     background: url('../alog_assets/score_back.jpg') transparent no-repeat;
     display: inline;
+    @media (max-width: 747px) {
+        float: none;
+        max-width: 363px;
+        margin: 0 auto;
+    } 
     .details, .title {
         width: 345px;
         height: 20px;
@@ -15,6 +20,10 @@
         font-size: 18px;
         line-height: 18px;
         display: inline;
+        @media (max-width: 747px) {
+            width: 100%;
+            background-repeat: no-repeat;
+        } 
     }
     .details {
         font-size: 14px;
@@ -26,5 +35,9 @@
         height: 105px;
         overflow: hidden;
         margin-top: 2px;
+        @media (max-width: 747px) {
+            width: 100%;
+            background-repeat: no-repeat;
+        } 
     }
 }

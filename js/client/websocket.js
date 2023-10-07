@@ -50,10 +50,11 @@ function insertElementsIntoDOM(newHeader, newBody, logsElement) {
 
 async function fetchAndUpdateLogs(playerName) {
   try {
-    const sanitizedPlayerName = playerName.replace(/ /g, '_');
-    const url = `/data/${sanitizedPlayerName}/log.json`;
+    const url = `/data/${playerName}/log.json`;
+    console.log('url', url);
 
     const newLogsData = await fetchLogsData(url);
+    console.log('newLogsData', newLogsData);
     sortLogsData(newLogsData);
 
     const logsElement = document.getElementById('RAAccordion');
@@ -103,6 +104,9 @@ async function fetchAndUpdateLogs(playerName) {
       }
       logs[id] = currentLog;
       // prevLog = currentLog;
+      setTimeout(() => {
+        document.getElementById('RAAccordion').classList.add('ready');
+      }, 300);
     });
   } catch (error) {
     console.error('Failed to fetch and update logs:', error);
@@ -111,6 +115,7 @@ async function fetchAndUpdateLogs(playerName) {
 
 ws.addEventListener('message', (event) => {
   const message = JSON.parse(event.data);
+  console.log('message', message);
 
   if (message.action === 'update' && message.playerName) {
     fetchAndUpdateLogs(message.playerName);
@@ -122,12 +127,14 @@ ws.addEventListener('message', (event) => {
 window.onload = async function handleOnLoad() {
   const urlParams = new URLSearchParams(window.location.search);
   const playerName = urlParams.get('player');
+  console.log('playerName', playerName);
 
   if (!playerName) {
     return;
   }
 
   const sanitizedPlayerName = playerName.replace(/ /g, '_');
+  console.log('sanitizedPlayerName', sanitizedPlayerName);
   await fetchAndUpdateLogs(sanitizedPlayerName);
 
   function imageExists(url, callback) {

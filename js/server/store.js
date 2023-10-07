@@ -17,7 +17,6 @@ function sanitizePlayerName(playerName) {
  * @returns
  */
 function getFilePaths(playerName, type) {
-  console.log('getFilePaths playerName: ', playerName); // Debug line
   const folderPath = path.join(__dirname, '..', '..', 'data', playerName);
   const logFilePath = path.join(folderPath, 'log.json');
   const typeFilePath = path.join(folderPath, `${type.toLowerCase()}.json`);
@@ -29,7 +28,6 @@ function getFilePaths(playerName, type) {
  * @param {string} folderPath The path to the folder.
  */
 function ensureFolderExists(folderPath) {
-  console.log('ensureFolderExists folderPath: ', folderPath); // Debug line
   const lowerCaseFolderPath = folderPath.toLowerCase();
   if (!fs.existsSync(lowerCaseFolderPath)) {
     fs.mkdirSync(lowerCaseFolderPath, { recursive: true });
@@ -125,14 +123,12 @@ function updateLogData(logData, type, processedData) {
  */
 function storePayload(playerName, type, processedData) {
   const sanitizedPlayerName = sanitizePlayerName(playerName).toLowerCase();
-  console.log('sanitizedPlayerName: ', sanitizedPlayerName);
   const { folderPath, logFilePath, typeFilePath } = getFilePaths(sanitizedPlayerName, type);
-  console.log('folderPath: ', folderPath); // Debug line
 
   ensureFolderExists(folderPath);
 
-  const logData = readJSONFile(logFilePath.toLowerCase()); // Here too
-  const existingTypeData = readJSONFile(typeFilePath.toLowerCase()); // And here
+  const logData = readJSONFile(logFilePath);
+  const existingTypeData = readJSONFile(typeFilePath.toLowerCase());
 
   const updatedTypeData = updateData(existingTypeData, processedData);
   fs.writeFileSync(typeFilePath, JSON.stringify(updatedTypeData, null, 2));

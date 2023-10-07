@@ -7,6 +7,13 @@
         margin-left: 6px;
         float: left;
         display: inline;
+        
+        
+        @media (max-width: 747px) {
+            max-width: 367px;
+            margin: 0 auto;
+            background-repeat: no-repeat;
+        } 
     }
 
 }
@@ -15,34 +22,65 @@
         color: var(--alog-color-log-font-brown);
         font-size: 19px;
         height: 38px;
-        line-height: 42px;
-        margin: 6px auto auto;
-        text-align: center;
+        line-height: 55px;
         width: 300px;
+        text-align: center;
+        width: 100%;
+        @media (max-width: 747px) {
+            width: 100%;
+            background-repeat: no-repeat;
+        } 
     }
     .accordion {
         font-family: Arial, Helvetica, FreeSans, sans-serif;
-        width: 347px;
+        max-width: 95%;
         height: 307px;
         margin: auto;
         margin-top: 0px;
         font-variant: normal;
         color: var(--alog-color-font-accordion);
         overflow: hidden;
+        @media (max-width: 747px) {
+            max-width: 95%;
+            background-repeat: no-repeat;
+        } 
         .AMHead,
         .AMHead.expanded {
-            width: 347px;
-            height: 24px;
-            background: url('../alog_assets/bar.gif') no-repeat;
+            width: 99%;
+            height: 21px;
+            // background: url('../alog_assets/bar.gif') no-repeat;
+            background: rgb(166,125,78);
+            background: linear-gradient(180deg, rgba(166,125,78,1) 0%, rgba(173,131,82,1) 49%, rgba(183,146,93,1) 100%);
             display: block;
             overflow: hidden;
             text-align: left;
             text-decoration: none;
+            border: 1px solid var(--alog-color-accordion-border);
+            margin-bottom: 2px;
+            position: relative;
+            &:not(:first-child) {
+                margin-top: -1px;
+                // margin-top: -2px;
+            }
+            background-color: rgb(116, 108, 85);
+            @media (max-width: 747px) {
+                max-width: 100%;
+                background-repeat: no-repeat;
+            } 
+            
         }
 
         .AMHead{
             &.expanded, &.selected {
-                background: url('../alog_assets/bar_selected.gif') no-repeat;
+                // background: url('../alog_assets/bar_selected.gif') no-repeat;
+                background: rgb(166,125,78);
+                background: linear-gradient(180deg, rgba(166,125,78,1) 0%, rgba(173,131,82,1) 49%, rgba(183,146,93,1) 100%);
+                margin-bottom: 0px;
+                .ui-icon{
+                    rotate: 90deg;
+                    left: 3px;
+                    top: 0;
+                }
             }
             &.expanded span, span {
                 float: left;
@@ -50,7 +88,6 @@
                 cursor: pointer;
                 display: inline;
                 &.Title {
-                    margin-top: 2px;
                     float: left;
                     margin-left: 22px;
                     width: 324px;
@@ -60,6 +97,19 @@
                     height: 20px;
                     line-height: 18px;
                     display: inline;
+                    @media (max-width: 747px) {
+                        max-width: 100%;
+                        background-repeat: no-repeat;
+                    } 
+                }
+                &.ui-icon{
+                    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='18' height='18'%3E%3Cpath d='M16 12L10 18V6L16 12Z' fill='rgba(61,40,29,1)'%3E%3C/path%3E%3C/svg%3E");
+                    height: 18px;
+                    width: 18px;
+                    background-size: contain;
+                    position: absolute;
+                    left: 2px;
+                    top: 2px;
                 }
             }
         }
@@ -67,13 +117,20 @@
         .AMBody.expanded {
             border-left: 1px solid var(--alog-color-accordion-border);
             border-right: 1px solid var(--alog-color-accordion-border);
+            border-bottom: 1px solid var(--alog-color-accordion-border);
             overflow-y: hidden;
-            background: url('../alog_assets/brown_pixel.gif') repeat-x bottom;
+            // background: url('../alog_assets/brown_pixel.gif') repeat-x bottom;
             font-size: 0.9em;
             color: var(--alog-font-accordion);
             height: 59px;
             display: none;
             width: 345px;
+            background-color: #d1b26f;
+            margin-bottom: 2px;
+            @media (max-width: 747px) {
+                max-width: 100%;
+                background-repeat: no-repeat;
+            } 
             .AMBodyLiner {
                 margin: 2px 7px;
                 p {
@@ -99,4 +156,12 @@
 
 .ui-accordion-header .title{
     text-align: left;
+}
+
+#RAAccordion{
+    display: none;
+}
+
+#RAAccordion.ready {
+    display: block;
 }

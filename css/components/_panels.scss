@@ -93,4 +93,10 @@
     color: #b6b6b5;
     font-weight: bold;
     font-size: 16px;
+    @media (max-width: 747px) {
+        float: none;
+        width: 100%;
+        background-repeat: no-repeat;
+        display: flex;
+    }      
   }
