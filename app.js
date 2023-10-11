@@ -12,10 +12,6 @@ app.use(cors());
 const server = http.createServer(app);
 webhooks.initWebSocket(server);
 
-app.get('/', (req, res) => {
-  res.redirect('/log');
-});
-
 app.use('/', webhooks.router);
 app.use('/', updateProfileRouter);
 app.use('/', hiscoresRoute);
@@ -25,9 +21,20 @@ app.use('/js/client', express.static('js/client'));
 app.use('/css', express.static('css'));
 app.use('/alog_assets', express.static('alog_assets'));
 
+app.get('/', (req, res) => {
+  const filePath = path.join(__dirname, 'index.html');
+
+  fs.readFile(filePath, 'utf8', (err, data) => {
+    if (err) {
+      return res.status(500).send('An error occurred while reading the file.');
+    }
+    res.send(data);
+  });
+});
+
 app.get('/log', (req, res) => {
   const { player } = req.query;
-  const filePath = path.join(__dirname, 'index.html');
+  const filePath = path.join(__dirname, 'log.html');
 
   fs.readFile(filePath, 'utf8', (err, data) => {
     if (err) {

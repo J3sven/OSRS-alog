@@ -9,6 +9,28 @@
 </head>
 
 <body class="adventurerslog">
+  <style>
+          .video-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        overflow: hidden;
+      }
+      .video-background video {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+      }
+    </style>
+  </style>
+  <div class="video-background">
+    <video autoplay loop muted controlsList="nodownload nofullscreen noremoteplayback">
+      <source src="img/bg.webm" type="video/webm">
+    </video>
+  </div>
   <div class="container">
     <section class="header">
       <img class="hdos_logo" src="/img/hdos_logo.png" alt="">
@@ -35,107 +57,7 @@
           <div id="logTitle">Adventurer's Log</div>
         </div>
         <div id="greyBack">
-          <div id="avatar" class="logSmallSlate private">
-            <div class="title">playerName</div>
-            <br class="clear">
-            <div class="avatar-wrapper">
-              <div class="profile-pics">
-                <img src="alog_assets/default_chat.png" class="head" alt="playerName avatar head">
-                <img src="alog_assets/default_full.png" class="body" alt="playerName avatar body">
-              </div>
-              <div class="achievement-details">
-                <div class="achievement-tile"><img src="img/collectionlog.png" alt="collectionlog">
-                  <span id="collectionlog">No data</span>
-                </div>
-                <div class="achievement-tile"><img src="img/combatachievements.png" alt="combat tasks">
-                  <span id="combattasks">No data</span>
-                </div>
-                <div class="achievement-tile"><img src="img/diaries.png" alt="Achievement diaries">
-                  <span id="achievements">No data</span>
-                </div>
-            </div>
-            </div>
-          </div>
-          <div id="scores" class="logSmallSlate">
-            <div class="title" id="skilltitle"></div>
-            <div class="details" id="skillsdetail">
-              Level: <span id="skilllevel"></span>
-              - Rank: <span id="skillrank"></span>
-              - XP: <span id="skillxp"></span>
-            </div>
-            <div class="buttonContainer">
-              <button id="skill0" data-skill-name="overall" class="scoreButton selected"></button>
-              <button data-skill-name="attack" class="scoreButton "><img src="alog_assets/skill_icon_attack.gif"
-                  alt="Attack"></button>
-              <button data-skill-name="defence" class="scoreButton "><img src="alog_assets/skill_icon_defence.gif"
-                  alt="Defence"></button>
-              <button data-skill-name="strength" class="scoreButton "><img src="alog_assets/skill_icon_strength.gif"
-                  alt="Strength"></button>
-              <button data-skill-name="hitpoints" class="scoreButton "><img src="alog_assets/skill_icon_hitpoints.gif"
-                  alt="Hitpoints"></button>
-              <button data-skill-name="ranged" class="scoreButton "><img src="alog_assets/skill_icon_ranged.gif"
-                  alt="Ranged"></button>
-              <button data-skill-name="prayer" class="scoreButton "><img src="alog_assets/skill_icon_prayer.gif"
-                  alt="Prayer"></button>
-              <button data-skill-name="magic" class="scoreButton "><img src="alog_assets/skill_icon_magic.gif"
-                  alt="Magic"></button>
-              <button data-skill-name="cooking" class="scoreButton "><img src="alog_assets/skill_icon_cooking.gif"
-                  alt="Cooking"></button>
-              <button data-skill-name="woodcutting" class="scoreButton "><img src="alog_assets/skill_icon_woodcutting.gif"
-                  alt="Woodcutting"></button>
-              <button data-skill-name="fletching" class="scoreButton "><img src="alog_assets/skill_icon_fletching.gif"
-                  alt="Fletching"></button>
-              <button data-skill-name="fishing" class="scoreButton "><img src="alog_assets/skill_icon_fishing.gif"
-                  alt="Fishing"></button>
-              <button data-skill-name="firemaking" class="scoreButton "><img src="alog_assets/skill_icon_firemaking.gif"
-                  alt="Firemaking"></button>
-              <button data-skill-name="crafting" class="scoreButton "><img src="alog_assets/skill_icon_crafting.gif"
-                  alt="Crafting"></button>
-              <button data-skill-name="smithing" class="scoreButton "><img src="alog_assets/skill_icon_smithing.gif"
-                  alt="Smithing"></button>
-              <button data-skill-name="mining" class="scoreButton "><img src="alog_assets/skill_icon_mining.gif"
-                  alt="Mining"></button>
-              <button data-skill-name="herblore" class="scoreButton "><img src="alog_assets/skill_icon_herblore.gif"
-                  alt="Herblore"></button>
-              <button data-skill-name="agility" class="scoreButton "><img src="alog_assets/skill_icon_agility.gif"
-                  alt="Agility"></button>
-              <button data-skill-name="thieving" class="scoreButton "><img src="alog_assets/skill_icon_thieving.gif"
-                  alt="Thieving"></button>
-              <button data-skill-name="slayer" class="scoreButton "><img src="alog_assets/skill_icon_slayer.gif"
-                  alt="Slayer"></button>
-              <button data-skill-name="farming" class="scoreButton "><img src="alog_assets/skill_icon_farming.gif"
-                  alt="Farming"></button>
-              <button data-skill-name="runecraft" class="scoreButton "><img src="alog_assets/skill_icon_runecraft.gif"
-                  alt="Runecrafting"></button>
-              <button data-skill-name="hunter" class="scoreButton "><img src="alog_assets/skill_icon_hunter.gif"
-                  alt="Hunter"></button>
-              <button data-skill-name="construction" class="scoreButton "><img src="alog_assets/skill_icon_construction.gif"
-                  alt="Construction"></button>
-              <button disabled class="scoreButton quest"><img src="alog_assets/quest_icon.gif" alt="quest points"/><span id="questpoints">0</span></button>
-              <a href="https://secure.runescape.com/m=hiscore_oldschool/hiscorepersonal?user1=playerName" class="compare"
-                target="_blank">Compare hiscores</a>
-            </div>
-          </div>
-          <div id="myAchievements" class="parchment" style="position: relative;">
-            <div class="title">Recent Events</div>
-            <div id="RAAccordion" class="accordion ui-accordion ui-widget ui-helper-reset ui-accordion-icons"
-              role="tablist">
-              <p class="defaultText">This user has not logged any events yet, is this your profile? Get started with setting up a webhook in Dink!</p>
-            </div>
-          </div>
-          <div id="quests">
-            <div class="title">Activities</div>
-            <div class="details title" id="activitydetail">
-              <span id="activity name"></span>
-              <span id="activitycount"></span>
-              <span id="activityrank"></span>
-            </div>
-            <div class="one_col" id="quest_div">
-              <div class="buttonContainer activitycontainer">
-                
-              </div>
-            </div>
-          </div>
+          <h1>Home</h1>
         </div>
       </section>
       <footer>
@@ -159,7 +81,6 @@
 
   <script src="/js/client/hiscores.js"></script>
   <script src="/js/client/websocket.js"></script>
-  <script src="/js/client/accordion.js"></script>
   <script src="/js/client/modal.js"></script>
 
 </body>

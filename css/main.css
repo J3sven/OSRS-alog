@@ -111,7 +111,7 @@ footer a {
   text-align: center;
   height: 35px;
   width: 100%;
-  background: url("../alog_assets/log_header_wide.jpg") no-repeat; }
+  background: url("../img/log_header_wide_blank.png") no-repeat; }
   #logHeader #searchPanel {
     float: right;
     display: inline;
@@ -577,6 +577,16 @@ footer a {
 .buttonContainer a.compare:hover,
 #avatar a.privacy:hover {
   background-position: left -25px; }
+
+#logHeader a.profile,
+#logHeader_buttonless a.profile {
+  background: linear-gradient(to bottom, #7d7d7d, #525252, #3b3b3b);
+  border: 1px solid #2a2a2a;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.3s;
+  position: relative; }
 
 #logHeader a.profile:hover,
 #logHeader_buttonless a.profile:hover {
