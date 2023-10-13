@@ -9,61 +9,26 @@
 </head>
 
 <body class="adventurerslog">
-  <style>
-          .video-background {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-        overflow: hidden;
-      }
-      .video-background video {
-        width: 100%;
-        height: auto;
-        object-fit: cover;
-      }
-    </style>
-  </style>
-  <div class="video-background">
-    <video autoplay loop muted controlsList="nodownload nofullscreen noremoteplayback">
-      <source src="img/bg.webm" type="video/webm">
-    </video>
-  </div>
+  <%- include('modules/menubar') %>
+  <%- include('modules/video') %>
   <div class="container">
-    <section class="header">
-      <img class="hdos_logo" src="/img/hdos_logo.png" alt="">
-    </section>
     <section id="content">
       <div id="plog_other" class="section">
         <div id="logHeader">
           <a style="float: left;" class="profile" href="#" id="openModalBtn">Settings</a>
           <div id="searchPanel">
-            <form id="searchForm">
-              <input maxlength="12" type="text" name="player" id="searchBox" autocomplete="off" value="playerName"
-                onfocus="if (this.value=='Search other users...') {this.value=''}"
-                onblur="if(this.value=='')this.value='Search other users...';">
-              <input class="go" type="submit" value="Go">
-              <script type="text/javascript">
-                document.getElementById("searchForm").addEventListener('submit', function(event) {
-                  event.preventDefault();
-                  const playersearch = document.getElementById("searchBox").value;
-                  window.location.href = `/log?player=${playersearch}`;
-                });
-              </script>
-            </form>          
+            <%- include('modules/search') %>       
           </div>
           <div id="logTitle">Adventurer's Log</div>
         </div>
         <div id="greyBack">
           <div id="avatar" class="logSmallSlate private">
-            <div class="title">playerName</div>
+            <div class="title"><%= playerName %></div>
             <br class="clear">
             <div class="avatar-wrapper">
               <div class="profile-pics">
-                <img src="alog_assets/default_chat.png" class="head" alt="playerName avatar head">
-                <img src="alog_assets/default_full.png" class="body" alt="playerName avatar body">
+                <img src="alog_assets/default_chat.png" class="head" alt="<%= playerName %> avatar head">
+                <img src="alog_assets/default_full.png" class="body" alt="<%= playerName %> avatar body">
               </div>
               <div class="achievement-details">
                 <div class="achievement-tile"><img src="img/collectionlog.png" alt="collectionlog">
@@ -134,7 +99,7 @@
               <button data-skill-name="construction" class="scoreButton "><img src="alog_assets/skill_icon_construction.gif"
                   alt="Construction"></button>
               <button disabled class="scoreButton quest"><img src="alog_assets/quest_icon.gif" alt="quest points"/><span id="questpoints">0</span></button>
-              <a href="https://secure.runescape.com/m=hiscore_oldschool/hiscorepersonal?user1=playerName" class="compare"
+              <a href="https://secure.runescape.com/m=hiscore_oldschool/hiscorepersonal?user1=<%= playerName %>" class="compare"
                 target="_blank">Compare hiscores</a>
             </div>
           </div>
@@ -160,9 +125,7 @@
           </div>
         </div>
       </section>
-      <footer>
-        <p>Built by <a href="https://j3.gg" target="_blank">J3</a> and powered by <a href="https://github.com/pajlads/DinkPlugin" target="_blank">Dink</a> <img style="margin-bottom: -3px;" width="13" src="https://raw.githubusercontent.com/pajlads/DinkPlugin/master/icon.png" alt=""/> - This page contains assets that are property of Jagex Limited and RuneScape</p>
-      </footer>
+      <%- include('modules/footer') %>
   </div>
 
   <div class="modal" id="modal">

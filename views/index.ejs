@@ -1,0 +1,22 @@
+<html>
+
+<!-- Most of the structure, images and styles on this page are retrieved from an old cache of the official Runescape website. This is not my work, I just it used as scaffolding to recreate the page. The visual design is not my work, but the functionality is. I have included the images and styles in the repo as they are no longer available on the official website. The visual assets that are retrieved from the cache are separated in the alog_assets directory. -->
+
+<head>
+  <link rel="SHORTCUT ICON" href="alog_assets/favicon.ico">
+  <title>Adventurer's log</title>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body class="adventurerslog">
+  <%- include('modules/menubar') %>
+  <%- include('modules/video') %>
+  <div class="container">
+    <section id="content">
+      <div style="background-color: #2C2F33; color: white; border-radius: 12px; padding: 25px; min-height: 200px;"> 
+        <%- include('modules/search') %>
+      </div>
+    </section>
+    <%- include('modules/footer') %>
+  </div>
+</body>

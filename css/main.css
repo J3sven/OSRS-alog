@@ -1,3 +1,24 @@
+#discord-button .icon {
+  width: 25px;
+  height: 25px;
+  margin-right: 15px; }
+  #discord-button .icon svg {
+    fill: white; }
+
+#discord-button a {
+  color: white;
+  font-weight: bold;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 7px;
+  background-color: #7289da;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 12px; }
+  #discord-button a:hover {
+    background-color: #6a7fc9; }
+
 :root {
   --alog-title-color: #e8e8e8;
   --alog-img-border-grey: #707070;
@@ -6,7 +27,8 @@
   --alog-color-log-font-brown: #43392d;
   --alog-color-font-accordion: #3d281d;
   --alog-color-accordion-border: #292926;
-  --alog-active-gold: #C0B679; }
+  --alog-active-gold: #C0B679;
+  --alog-discord-grey: #2C2F33; }
 
 body {
   height: 100%;
@@ -30,12 +52,15 @@ body {
 #content {
   position: relative;
   font-size: 12px;
+  justify-items: center;
+  justify-content: center;
   padding: 0;
   margin: 0 auto;
   max-width: 754px;
   display: flex;
   flex-direction: column;
   min-height: 100%;
+  z-index: 1;
   flex: 1; }
 
 .section {
@@ -67,14 +92,52 @@ footer {
 footer a {
   color: #7c7c7c; }
 
-.hdos_logo {
-  position: absolute;
-  top: 0; }
-
 .container {
   display: flex;
   flex-direction: column;
   min-height: 100%; }
+
+.menubar {
+  position: fixed;
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--alog-discord-grey);
+  color: white; }
+  .menubar a, .menubar a:visited, .menubar a:hover, .menubar a:active, .menubar a:focus {
+    color: white; }
+
+.menucontent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%; }
+
+a[href='https://hdos.dev'] {
+  flex: 1;
+  text-align: left;
+  padding-left: 20px; }
+
+.hdos_logo {
+  flex: 8;
+  text-align: center; }
+  .hdos_logo img {
+    max-width: 65px;
+    max-height: 65px; }
+
+#userPanel {
+  flex: 1;
+  text-align: right;
+  padding-right: 20px;
+  display: flex;
+  justify-items: center;
+  justify-content: center; }
+  #userPanel p {
+    margin: auto 0; }
+  #userPanel .avatar {
+    margin: auto 0;
+    margin-right: 15px; }
 
 #searchPanel {
   float: right;

@@ -1,22 +1,22 @@
-const express = require('express');
-const fs = require('fs');
-const path = require('path');
-const hiscores = require('osrs-json-hiscores');
+const express = require('express')
+const fs = require('fs')
+const path = require('path')
+const hiscores = require('osrs-json-hiscores')
 
-const router = express.Router();
+const router = express.Router()
 
 router.get('/updateProfile/:player', async (req, res) => {
-  const { player } = req.params;
-  const profilePath = path.join(__dirname, '..', '..', `data/${player}/profile.json`);
-  let existingData = {};
+  const { player } = req.params
+  const profilePath = path.join(__dirname, '..', '..', `data/${player}/profile.json`)
+  let existingData = {}
 
   if (fs.existsSync(profilePath)) {
-    const rawExistingData = fs.readFileSync(profilePath, 'utf8');
-    existingData = JSON.parse(rawExistingData);
+    const rawExistingData = fs.readFileSync(profilePath, 'utf8')
+    existingData = JSON.parse(rawExistingData)
   }
 
   try {
-    const hiscoreData = await hiscores.getStats(player);
+    const hiscoreData = await hiscores.getStats(player)
     const updatedData = {
       Skills: {
         ...hiscoreData.main.skills,
@@ -37,32 +37,32 @@ router.get('/updateProfile/:player', async (req, res) => {
       achievements: existingData.achievements || 0,
       combatachievements: existingData.combatachievements || 0,
       questpoints: existingData.questpoints || 0,
-    };
+    }
 
-    fs.mkdirSync(path.dirname(profilePath), { recursive: true });
-    fs.writeFileSync(profilePath, JSON.stringify(updatedData), 'utf8');
+    fs.mkdirSync(path.dirname(profilePath), { recursive: true })
+    fs.writeFileSync(profilePath, JSON.stringify(updatedData), 'utf8')
 
-    res.status(200).send({ message: 'Profile updated successfully' });
+    res.status(200).send({ message: 'Profile updated successfully' })
   } catch (error) {
-    console.log('Error fetching and updating profile:', error);
-    res.status(500).send({ message: 'Error fetching and updating profile' });
+    console.log('Error fetching and updating profile:', error)
+    res.status(500).send({ message: 'Error fetching and updating profile' })
   }
-});
+})
 
 const updatePointsInProfile = (player, points, key) => {
-  const profilePath = path.join(__dirname, '..', '..', `data/${player}/profile.json`);
+  const profilePath = path.join(__dirname, '..', '..', `data/${player}/profile.json`)
 
   if (fs.existsSync(profilePath)) {
-    const rawExistingData = fs.readFileSync(profilePath, 'utf8');
-    const existingData = JSON.parse(rawExistingData);
+    const rawExistingData = fs.readFileSync(profilePath, 'utf8')
+    const existingData = JSON.parse(rawExistingData)
 
-    existingData[key] = points;
+    existingData[key] = points
 
-    fs.writeFileSync(profilePath, JSON.stringify(existingData), 'utf8');
+    fs.writeFileSync(profilePath, JSON.stringify(existingData), 'utf8')
   }
-};
+}
 
 module.exports = {
   router,
   updatePointsInProfile,
-};
+}

@@ -1,0 +1,14 @@
+
+<form id="searchForm">
+    <input maxlength="12" type="text" name="player" id="searchBox" autocomplete="off" placeholder="Search other users..."
+      onfocus="if (this.value=='Search other users...') {this.value=''}"
+      onblur="if(this.value=='')this.value='Search other users...';">
+    <input class="go" type="submit" value="Go">
+    <script type="text/javascript">
+      document.getElementById("searchForm").addEventListener('submit', function(event) {
+        event.preventDefault();
+        const playersearch = document.getElementById("searchBox").value;
+        window.location.href = `/log?player=${playersearch}`;
+      });
+    </script>
+</form>

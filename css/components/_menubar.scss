@@ -1,0 +1,50 @@
+.menubar {
+    position: fixed;
+    width: 100vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--alog-discord-grey);
+    color: white;
+    a, a:visited, a:hover, a:active, a:focus {
+        color: white;
+    }
+  }
+  
+  .menucontent {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+  
+  a[href='https://hdos.dev'] {
+    flex: 1;
+    text-align: left;
+    padding-left: 20px;
+  }
+  
+  .hdos_logo {
+    flex: 8;
+    text-align: center;
+    img{
+        max-width: 65px;
+        max-height: 65px;
+    }
+  }
+  
+  #userPanel {
+    flex: 1;
+    text-align: right;
+    padding-right: 20px;  
+    display: flex;
+    justify-items: center;
+    justify-content: center;
+    p {
+        margin: auto 0;
+    }
+    .avatar {
+        margin: auto 0;
+        margin-right: 15px;
+    }
+  }
