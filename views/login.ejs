@@ -9,28 +9,8 @@
 </head>
 
 <body class="adventurerslog">
-  <style>
-          .video-background {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-        overflow: hidden;
-      }
-      .video-background video {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-    </style>
-  </style>
-  <div class="video-background">
-    <video autoplay loop muted controlsList="nodownload nofullscreen noremoteplayback">
-      <source src="img/bg.webm" type="video/webm">
-    </video>
-  </div>
+  <%- include('modules/menubar') %>
+  <%- include('modules/video') %>
   <div class="container">
     <section class="header">
       <img class="hdos_logo" src="/img/hdos_logo.png" alt="">
@@ -52,13 +32,9 @@
             <span>Login via Discord</span>
           </a>
         </div>
-
-        <!-- <button onclick="window.location.href='/auth/discord'">Login via Discord</button> -->
       
       </div>
       </section>
-      <footer>
-        <p>Built by <a href="https://j3.gg" target="_blank">J3</a> and powered by <a href="https://github.com/pajlads/DinkPlugin" target="_blank">Dink</a> <img style="margin-bottom: -3px;" width="13" src="https://raw.githubusercontent.com/pajlads/DinkPlugin/master/icon.png" alt=""/> - This page contains assets that are property of Jagex Limited and RuneScape</p>
-      </footer>
+      <%- include('modules/footer') %>
   </div>
 </body>
