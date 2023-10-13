@@ -1,24 +1,3 @@
-#discord-button .icon {
-  width: 25px;
-  height: 25px;
-  margin-right: 15px; }
-  #discord-button .icon svg {
-    fill: white; }
-
-#discord-button a {
-  color: white;
-  font-weight: bold;
-  border-radius: 8px;
-  display: inline-flex;
-  align-items: center;
-  padding: 5px 7px;
-  background-color: #7289da;
-  text-decoration: none;
-  cursor: pointer;
-  font-size: 12px; }
-  #discord-button a:hover {
-    background-color: #6a7fc9; }
-
 :root {
   --alog-title-color: #e8e8e8;
   --alog-img-border-grey: #707070;
@@ -104,7 +83,8 @@ footer a {
   justify-content: space-between;
   align-items: center;
   background-color: var(--alog-discord-grey);
-  color: white; }
+  color: white;
+  z-index: 3; }
   .menubar a, .menubar a:visited, .menubar a:hover, .menubar a:active, .menubar a:focus {
     color: white; }
 
@@ -138,6 +118,27 @@ a[href='https://hdos.dev'] {
   #userPanel .avatar {
     margin: auto 0;
     margin-right: 15px; }
+
+#discord-button .icon {
+  width: 25px;
+  height: 25px;
+  margin-right: 15px; }
+  #discord-button .icon svg {
+    fill: white; }
+
+#discord-button a {
+  color: white;
+  font-weight: bold;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 7px;
+  background-color: #7289da;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 12px; }
+  #discord-button a:hover {
+    background-color: #6a7fc9; }
 
 #searchPanel {
   float: right;
