@@ -6,8 +6,6 @@ const { updatePointsInProfile } = require('./updateprofile')
 class PayloadProcessor {
   constructor() {
     this.lastId = null
-    // this.lastSource = null;
-    // this.tallyCount = 0;
     this.lastActivity = new Date().getTime()
     this.methodNameCache = {}
 
@@ -55,7 +53,6 @@ class PayloadProcessor {
     const unixTimestamp = Math.floor(Date.now() / 1000)
     const { type, playerName } = payload.body
     const newId = PayloadProcessor.generateTimeBasedHash(this.hash)
-    console.log('payload receiver from: ', playerName)
 
     const processorMethod = this.getMethodName(type)
     if (this[processorMethod]) {
@@ -121,16 +118,6 @@ class PayloadProcessor {
     }
   }
 
-  // updateTally(currentSource, newId) {
-  //   if (this.lastSource === currentSource) {
-  //     this.tallyCount += 1;
-  //     return this.lastId;
-  //   }
-  //   this.tallyCount = 1;
-  //   this.lastId = newId;
-  //   return this.lastId;
-  // }
-
   formatItemList(items) {
     if (items.length === 0) {
       return ''
@@ -194,6 +181,19 @@ class PayloadProcessor {
       `I levelled up ${highestSkill}`,
       `I levelled my ${highestSkill} skill, I am now level ${highestLevel}`,
     )
+  }
+
+  processPlayerKillPayload(payload, newId, unixTimestamp) {
+    console.log('player kill payload invoked', payload)
+    const commonData = this.processPayloadCommon(payload, newId, unixTimestamp)
+    const {
+      victimName, myHitpoints, myLastDamage,
+    } = payload.extra
+
+    const titleText = `I killed ${victimName}`
+    const displayText = `I defeated ${victimName} in battle. I had ${myHitpoints} hitpoints remaining and dealt ${myLastDamage} damage last.`
+
+    return this.formatDisplayText(commonData, titleText, displayText)
   }
 
   processAchievementDiaryPayload(payload, newId, unixTimestamp) {

@@ -1,5 +1,5 @@
 const ws = new WebSocket('ws://localhost:3000')
-
+const MAX_LOG_COUNT = 10
 let isFirstFetch = true
 const logs = {}
 
@@ -51,10 +51,7 @@ function insertElementsIntoDOM(newHeader, newBody, logsElement) {
 async function fetchAndUpdateLogs(playerName) {
   try {
     const url = `/data/${playerName}/log.json`
-    console.log('url', url)
-
     const newLogsData = await fetchLogsData(url)
-    console.log('newLogsData', newLogsData)
     sortLogsData(newLogsData)
 
     const logsElement = document.getElementById('RAAccordion')
@@ -64,50 +61,56 @@ async function fetchAndUpdateLogs(playerName) {
       isFirstFetch = false
     }
 
-    // const prevLog = null;
+    let displayedLogCount = 0
+    const reversedLogs = newLogsData.reverse()
 
-    newLogsData.forEach((currentLog) => {
+    // Create a temporary container to hold new elements
+    const tempContainer = document.createElement('div')
+
+    reversedLogs.forEach((currentLog) => {
+      if (displayedLogCount >= MAX_LOG_COUNT) {
+        return
+      }
+
       const {
         type, id, titleText, displayText,
       } = currentLog
 
-      // if (prevLog && prevLog.currentSource === currentLog.currentSource) {
-      //   // If this log is a continuation of a tally, update existing
-      //   const existingHeader = document.getElementById(`A${prevLog.id}`);
-      //   const existingBody = document.getElementById(`A${prevLog.id}Body`);
-
-      //   if (existingHeader && existingBody) {
-      //     updateExistingElement(existingHeader, existingBody, id, titleText, displayText);
-      //     logs[id] = currentLog;
-      //     prevLog = currentLog;
-      //     return;
-      //   }
-      // }
-
       if (type === 'QUEST' && !logs[id]) {
         const { newHeader, newBody } = createNewElement(id, titleText, displayText)
-        insertElementsIntoDOM(newHeader, newBody, logsElement)
+        newBody.style.height = '0px' // Make sure it starts collapsed
+        tempContainer.appendChild(newHeader)
+        tempContainer.appendChild(newBody)
         logs[id] = currentLog
-        return
-      }
-
-      const existingHeader = document.getElementById(`A${id}`)
-      const existingBody = document.getElementById(`A${id}Body`)
-
-      if (existingHeader && existingBody) {
-        updateExistingElement(existingHeader, existingBody, id, titleText, displayText)
+        displayedLogCount += 1
       } else {
-        const { newHeader, newBody } = createNewElement(id, titleText, displayText)
-        insertElementsIntoDOM(newHeader, newBody, logsElement)
-        // eslint-disable-next-line no-undef
-        expandNewlyAddedElement(newHeader)
+        const existingHeader = document.getElementById(`A${id}`)
+        const existingBody = document.getElementById(`A${id}Body`)
+
+        if (existingHeader && existingBody) {
+          updateExistingElement(existingHeader, existingBody, id, titleText, displayText)
+        } else {
+          const { newHeader, newBody } = createNewElement(id, titleText, displayText)
+          newBody.style.height = '0px' // Make sure it starts collapsed
+          tempContainer.appendChild(newHeader)
+          tempContainer.appendChild(newBody)
+          displayedLogCount += 1
+        }
       }
+
       logs[id] = currentLog
-      // prevLog = currentLog;
-      setTimeout(() => {
-        document.getElementById('RAAccordion').classList.add('ready')
-      }, 300)
     })
+
+    // Append the newly created elements in reversed order to logsElement
+    while (tempContainer.lastChild) {
+      logsElement.insertBefore(tempContainer.lastChild, logsElement.firstChild)
+    }
+
+    expandNewlyAddedElement(logsElement.firstChild)
+
+    setTimeout(() => {
+      document.getElementById('RAAccordion').classList.add('ready')
+    }, 300)
   } catch (error) {
     console.error('Failed to fetch and update logs:', error)
   }
