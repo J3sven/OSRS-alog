@@ -38,16 +38,6 @@ function createNewElement(id, titleText, displayText) {
   return { newHeader, newBody }
 }
 
-function insertElementsIntoDOM(newHeader, newBody, logsElement) {
-  if (logsElement.firstChild) {
-    logsElement.insertBefore(newBody, logsElement.firstChild)
-    logsElement.insertBefore(newHeader, logsElement.firstChild)
-  } else {
-    logsElement.appendChild(newHeader)
-    logsElement.appendChild(newBody)
-  }
-}
-
 async function fetchAndUpdateLogs(playerName) {
   try {
     const url = `/data/${playerName}/log.json`
@@ -64,7 +54,6 @@ async function fetchAndUpdateLogs(playerName) {
     let displayedLogCount = 0
     const reversedLogs = newLogsData.reverse()
 
-    // Create a temporary container to hold new elements
     const tempContainer = document.createElement('div')
 
     reversedLogs.forEach((currentLog) => {
@@ -78,7 +67,7 @@ async function fetchAndUpdateLogs(playerName) {
 
       if (type === 'QUEST' && !logs[id]) {
         const { newHeader, newBody } = createNewElement(id, titleText, displayText)
-        newBody.style.height = '0px' // Make sure it starts collapsed
+        newBody.style.height = '0px'
         tempContainer.appendChild(newHeader)
         tempContainer.appendChild(newBody)
         logs[id] = currentLog
@@ -91,7 +80,7 @@ async function fetchAndUpdateLogs(playerName) {
           updateExistingElement(existingHeader, existingBody, id, titleText, displayText)
         } else {
           const { newHeader, newBody } = createNewElement(id, titleText, displayText)
-          newBody.style.height = '0px' // Make sure it starts collapsed
+          newBody.style.height = '0px'
           tempContainer.appendChild(newHeader)
           tempContainer.appendChild(newBody)
           displayedLogCount += 1
@@ -101,12 +90,12 @@ async function fetchAndUpdateLogs(playerName) {
       logs[id] = currentLog
     })
 
-    // Append the newly created elements in reversed order to logsElement
     while (tempContainer.lastChild) {
       logsElement.insertBefore(tempContainer.lastChild, logsElement.firstChild)
     }
 
-    expandNewlyAddedElement(logsElement.firstChild)
+    // eslint-disable-next-line no-undef
+    expandNewlyAddedElement(logsElement.firstChild) // Not imported from accordion.js because it's client code
 
     setTimeout(() => {
       document.getElementById('RAAccordion').classList.add('ready')
