@@ -40,7 +40,7 @@ function createNewElement(id, titleText, displayText) {
 
 async function fetchAndUpdateLogs(playerName) {
   try {
-    const url = `/data/${playerName}/log.json`
+    const url = `/getLatestLogs/${playerName}`
     const newLogsData = await fetchLogsData(url)
     sortLogsData(newLogsData)
 
