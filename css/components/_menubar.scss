@@ -41,8 +41,12 @@
     display: flex;
     justify-items: center;
     justify-content: center;
-    p {
+    a {
         margin: auto 0;
+        text-decoration: none;
+        &:hover {
+        text-decoration: underline;
+        }
     }
     .avatar {
         margin: auto 0;

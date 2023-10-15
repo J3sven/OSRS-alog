@@ -5,14 +5,59 @@ const cors = require('cors')
 const querystring = require('querystring')
 const fetch = require('node-fetch')
 const session = require('express-session')
+const admin = require('firebase-admin')
+const fs = require('fs')
+const path = require('path')
+const serviceAccount = require('./serviceAccountKey.json')
 const webhooks = require('./js/server/webhooks')
 const hiscoresRoute = require('./js/server/hiscores')
+const profileRoute = require('./js/server/profileRoute')
+const logRoute = require('./js/server/logRoute')
 const { router: updateProfileRouter } = require('./js/server/updateprofile')
 
 const app = express()
 app.set('view engine', 'ejs')
 app.use(cors())
+app.use(express.json())
+
+if (admin.apps.length === 0) {
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+  })
+}
+
+const db = admin.firestore()
+
+class FirestoreSessionStore extends session.Store {
+  constructor() {
+    super()
+    this.db = db.collection('sessions')
+  }
+
+  async get(sid, callback) {
+    const doc = await this.db.doc(sid).get()
+    if (!doc.exists) {
+      return callback(null, null)
+    }
+    return callback(null, doc.data().session)
+  }
+
+  async set(sid, callback) {
+    await this.db.doc(sid).set({ session })
+    callback(null)
+  }
+
+  async destroy(sid, callback) {
+    await this.db.doc(sid).delete()
+    callback(null)
+  }
+}
+
+const firestoreSessionStore = new FirestoreSessionStore()
+
+// Initialize session
 app.use(session({
+  firestoreSessionStore, // Use Firestore as session store
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
@@ -22,13 +67,14 @@ app.use(session({
     secure: false,
   },
 }))
-
 const server = http.createServer(app)
 webhooks.initWebSocket(server)
 
 app.use('/', webhooks.router)
 app.use('/', updateProfileRouter)
 app.use('/', hiscoresRoute)
+app.use('/', profileRoute)
+app.use('/', logRoute)
 app.use('/data', express.static('data'))
 app.use('/img', express.static('img'))
 app.use('/js/client', express.static('js/client'))
@@ -48,10 +94,10 @@ app.get('/auth/discord/callback', async (req, res) => {
   const { code } = req.query
 
   const tokenData = {
-    client_id: clientId, // Make sure this is the client_id
+    client_id: clientId,
     client_secret: clientSecret,
     grant_type: 'authorization_code',
-    redirect_uri: redirectUri, // Make sure this is the correct and registered redirect URI
+    redirect_uri: redirectUri,
     code,
     scope: 'identify',
   }
@@ -74,9 +120,20 @@ app.get('/auth/discord/callback', async (req, res) => {
   })
 
   const userInfo = await userInfoResponse.json()
+  const userRef = db.collection('users').doc(userInfo.id)
+  const userSnapshot = await userRef.get()
+
+  if (userSnapshot.exists) {
+    // Update only session-relevant data, keeping existing data like webhooks and characters
+    await userRef.update(userInfo)
+  } else {
+    // Create a new document with userInfo if it doesn't exist yet
+    await userRef.set(userInfo)
+  }
+
   req.session.userInfo = userInfo
 
-  res.redirect('/') // Redirect to homepage
+  res.redirect('/')
 })
 
 app.get('/api/user', (req, res) => {
@@ -98,6 +155,39 @@ app.get('/log', (req, res) => {
 
 app.get('/login', (req, res) => {
   res.render('login')
+})
+
+app.get('/checkImageExistence/:playerName', (req, res) => {
+  const { playerName } = req.params
+  const headPath = path.join(__dirname, `./data/${playerName}/img/head.png`)
+  const bodyPath = path.join(__dirname, `./data/${playerName}/img/full.png`)
+
+  const result = {
+    headExists: fs.existsSync(headPath),
+    bodyExists: fs.existsSync(bodyPath),
+  }
+
+  res.json(result)
+})
+
+app.get('/user-settings', async (req, res) => {
+  if (!req.session || !req.session.userInfo) {
+    return res.redirect('/')
+  }
+
+  const userId = req.session.userInfo.id
+  const userRef = db.collection('users').doc(userId)
+  const userSnapshot = await userRef.get()
+
+  if (!userSnapshot.exists) {
+    return res.status(404).send('User not found')
+  }
+
+  const userData = userSnapshot.data()
+  const userwebhooks = userData.webhooks || []
+  const characters = userData.characters || []
+
+  res.render('user-settings', { userwebhooks, characters, userData })
 })
 
 app.post('/api/logout', (req, res) => {

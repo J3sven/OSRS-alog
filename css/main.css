@@ -35,12 +35,26 @@ body {
   justify-content: center;
   padding: 0;
   margin: 0 auto;
-  max-width: 754px;
+  max-width: 900px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   min-height: 100%;
   z-index: 1;
   flex: 1; }
+  #content .basicpanel {
+    background-color: var(--alog-discord-grey);
+    color: white;
+    border-radius: 12px;
+    padding: 15px;
+    width: 100%;
+    margin: 0 auto;
+    min-height: 350px; }
+    #content .basicpanel #userPanel {
+      justify-content: left; }
+
+.adventurerslog #content {
+  max-width: 754px; }
 
 .section {
   text-align: left;
@@ -66,7 +80,8 @@ footer {
   padding-bottom: 10px;
   height: unset;
   box-shadow: 0 0 25px 15px #000;
-  flex-shrink: 0; }
+  flex-shrink: 0;
+  z-index: 1; }
 
 footer a {
   color: #7c7c7c; }
@@ -113,8 +128,11 @@ a[href='https://hdos.dev'] {
   display: flex;
   justify-items: center;
   justify-content: center; }
-  #userPanel p {
-    margin: auto 0; }
+  #userPanel a {
+    margin: auto 0;
+    text-decoration: none; }
+    #userPanel a:hover {
+      text-decoration: underline; }
   #userPanel .avatar {
     margin: auto 0;
     margin-right: 15px; }
@@ -793,7 +811,8 @@ input.go {
   display: none;
   opacity: 0; }
   .modal.show {
-    opacity: 1; }
+    opacity: 1;
+    z-index: 2; }
   .modal .modal-content {
     background-color: #252525;
     color: white;

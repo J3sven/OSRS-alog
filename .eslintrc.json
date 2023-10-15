@@ -13,6 +13,7 @@
         "max-len": ["error", { "code": 200 }],
         "class-methods-use-this": "off",
         "no-console": "off",
-        "semi": ["error", "never"]
+        "semi": ["error", "never"],
+        "import/no-extraneous-dependencies": "off"
     }
 }
