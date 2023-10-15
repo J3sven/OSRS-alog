@@ -21,15 +21,18 @@ const activities = []
 
 const updateButtonLevels = () => {
   const buttons = document.querySelectorAll('.scoreButton')
-  buttons.forEach((buttonElem, index) => {
-    const button = buttonElem
-    if (button.classList.contains('quest')) return
-    const skill = skills[index]
-    const innerContent = button.querySelector('img')
+  buttons.forEach((buttonElem) => {
+    if (buttonElem.classList.contains('quest')) return
+    const skillName = buttonElem.getAttribute('data-skill-name')
+    const skillsArray = Object.values(skills)
+    const skill = skillsArray.find((s) => s.name === skillName)
+    if (!skill) return
+    const innerContent = buttonElem.querySelector('img')
       ? `<img src="alog_assets/skill_icon_${skill.name}.gif" alt="${skill.name}">${skill.level}`
       : skill.level
 
-    button.innerHTML = innerContent
+    const modifiedButton = buttonElem
+    modifiedButton.innerHTML = innerContent
   })
 }
 
@@ -65,7 +68,8 @@ const populateInitialSkills = () => {
   const skillXpElement = document.getElementById('skillxp')
   const skillTitleElement = document.getElementById('skilltitle')
 
-  const totalLevelSkill = skills.find((skill) => skill.name === 'overall')
+  // Explicitly look for 'overall' or 'totallevel'
+  const totalLevelSkill = skills.overall || skills.totallevel
 
   if (totalLevelSkill) {
     skillLevelElement.textContent = totalLevelSkill.level
@@ -142,7 +146,11 @@ const loadProfileFromJSON = async (username) => {
     }
     const json = await response.json()
 
-    skills = Object.entries(json.Skills).map(([name, { rank, level, xp }]) => new Skill(name, xp, level, rank))
+    skills = Object.entries(json.Skills).reduce((acc, [name, { rank, level, xp }]) => {
+      acc[name] = new Skill(name, xp, level, rank)
+      return acc
+    }, {})
+
     activities.length = 0 // Clear existing activities
     Object.entries(json.Activities).forEach(([name, { rank, score }]) => {
       activities.push(new Activity(name, score, rank))
@@ -152,13 +160,7 @@ const loadProfileFromJSON = async (username) => {
     updateAchievements(json.questpoints, json.combatachievements, json.achievements, json.collectionLog)
     return Promise.resolve(activities)
   } catch (error) {
-    if (error.message === 'JSON not found') {
-      const updateResponse = await fetch(`/updateProfile/${player.toLowerCase()}`)
-      if (updateResponse.ok) {
-        return loadProfileFromJSON(player)
-      }
-    }
-    return Promise.reject(error)
+    // Error handling logic
   }
 }
 

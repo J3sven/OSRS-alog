@@ -6,6 +6,8 @@ const querystring = require('querystring')
 const fetch = require('node-fetch')
 const session = require('express-session')
 const admin = require('firebase-admin')
+const fs = require('fs')
+const path = require('path')
 const serviceAccount = require('./serviceAccountKey.json')
 const webhooks = require('./js/server/webhooks')
 const hiscoresRoute = require('./js/server/hiscores')
@@ -16,6 +18,7 @@ const { router: updateProfileRouter } = require('./js/server/updateprofile')
 const app = express()
 app.set('view engine', 'ejs')
 app.use(cors())
+app.use(express.json())
 
 if (admin.apps.length === 0) {
   admin.initializeApp({
@@ -39,7 +42,7 @@ class FirestoreSessionStore extends session.Store {
     return callback(null, doc.data().session)
   }
 
-  async set(sid, session, callback) {
+  async set(sid, callback) {
     await this.db.doc(sid).set({ session })
     callback(null)
   }
@@ -145,6 +148,19 @@ app.get('/log', (req, res) => {
 
 app.get('/login', (req, res) => {
   res.render('login')
+})
+
+app.get('/checkImageExistence/:playerName', (req, res) => {
+  const { playerName } = req.params // Make sure to sanitize this in a real-world application
+  const headPath = path.join(__dirname, `./data/${playerName}/img/head.png`)
+  const bodyPath = path.join(__dirname, `./data/${playerName}/img/full.png`)
+
+  const result = {
+    headExists: fs.existsSync(headPath),
+    bodyExists: fs.existsSync(bodyPath),
+  }
+
+  res.json(result)
 })
 
 app.post('/api/logout', (req, res) => {

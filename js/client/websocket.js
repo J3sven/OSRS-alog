@@ -128,26 +128,14 @@ window.onload = async function handleOnLoad() {
   const sanitizedPlayerName = playerName.replace(/ /g, '_')
   console.log('sanitizedPlayerName', sanitizedPlayerName)
   await fetchAndUpdateLogs(sanitizedPlayerName)
-
-  function imageExists(url, callback) {
-    const img = new Image()
-    img.onload = function onLoad() { callback(true) }
-    img.onerror = function onError() { callback(false) }
-    img.src = url
-  }
-
-  const headPath = `/data/${sanitizedPlayerName}/img/head.png`
-  const bodyPath = `/data/${sanitizedPlayerName}/img/full.png`
-
-  imageExists(headPath, (exists) => {
-    if (exists) {
-      document.querySelector('#avatar img.head').src = headPath
-    }
-  })
-
-  imageExists(bodyPath, (exists) => {
-    if (exists) {
-      document.querySelector('#avatar img.body').src = bodyPath
-    }
-  })
+  fetch(`/checkImageExistence/${sanitizedPlayerName}`)
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.headExists) {
+        document.querySelector('#avatar img.head').src = `/data/${sanitizedPlayerName}/img/head.png`
+      }
+      if (data.bodyExists) {
+        document.querySelector('#avatar img.body').src = `/data/${sanitizedPlayerName}/img/full.png`
+      }
+    })
 }
