@@ -51,7 +51,6 @@ function generateEndpointId() {
 }
 
 router.get('/generate-endpoint', async (req, res) => {
-  // Verify if user is authenticated
   if (!req.session || !req.session.userInfo) {
     return res.status(401).send({ message: 'Unauthorized' })
   }
