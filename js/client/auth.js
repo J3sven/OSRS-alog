@@ -25,35 +25,21 @@ async function fetchUserInfo() {
     avatarDeco.src = `https://cdn.discordapp.com/avatar-decoration-presets/${data.userInfo.avatar_decoration_data.asset}.png`
     avatarDiv.appendChild(avatarDeco)
 
-    const username = document.createElement('p')
+    const username = document.createElement('a')
     username.innerText = data.userInfo.global_name
+    username.href = '/user-settings'
     userPanel.appendChild(username)
-
-    // const logoutButton = document.createElement('button')
-    // logoutButton.id = 'logoutButton'
-    // logoutButton.innerText = 'Logout'
-    // userPanel.appendChild(logoutButton)
-
-    // logoutButton.addEventListener('click', async () => {
-    //   const res = await fetch('http://localhost:3000/api/logout', { method: 'POST' })
-    //   const data = await res.json()
-    //   if (data.loggedOut) {
-    //     // Clear the user info on the front-end and re-fetch user info
-    //     fetchUserInfo()
-    //   }
-    // })
   } else {
     // Create and append elements for unauthenticated users
     const discordButtonDiv = document.createElement('div')
     discordButtonDiv.id = 'discord-button'
 
     const discordButtonA = document.createElement('a')
-    discordButtonA.onclick = () => { window.location.href = '/auth/discord' }
+    discordButtonA.onclick = () => { window.location.href = '/login' }
 
     const iconDiv = document.createElement('div')
     iconDiv.className = 'icon'
 
-    // Fetch the SVG and embed it
     fetch('/img/discordicon.svg')
       .then((response) => response.text())
       .then((svgData) => {

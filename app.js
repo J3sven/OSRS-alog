@@ -94,10 +94,10 @@ app.get('/auth/discord/callback', async (req, res) => {
   const { code } = req.query
 
   const tokenData = {
-    client_id: clientId, // Make sure this is the client_id
+    client_id: clientId,
     client_secret: clientSecret,
     grant_type: 'authorization_code',
-    redirect_uri: redirectUri, // Make sure this is the correct and registered redirect URI
+    redirect_uri: redirectUri,
     code,
     scope: 'identify',
   }
@@ -120,9 +120,16 @@ app.get('/auth/discord/callback', async (req, res) => {
   })
 
   const userInfo = await userInfoResponse.json()
-
   const userRef = db.collection('users').doc(userInfo.id)
-  await userRef.set(userInfo)
+  const userSnapshot = await userRef.get()
+
+  if (userSnapshot.exists) {
+    // Update only session-relevant data, keeping existing data like webhooks and characters
+    await userRef.update(userInfo)
+  } else {
+    // Create a new document with userInfo if it doesn't exist yet
+    await userRef.set(userInfo)
+  }
 
   req.session.userInfo = userInfo
 
@@ -151,7 +158,7 @@ app.get('/login', (req, res) => {
 })
 
 app.get('/checkImageExistence/:playerName', (req, res) => {
-  const { playerName } = req.params // Make sure to sanitize this in a real-world application
+  const { playerName } = req.params
   const headPath = path.join(__dirname, `./data/${playerName}/img/head.png`)
   const bodyPath = path.join(__dirname, `./data/${playerName}/img/full.png`)
 
@@ -161,6 +168,26 @@ app.get('/checkImageExistence/:playerName', (req, res) => {
   }
 
   res.json(result)
+})
+
+app.get('/user-settings', async (req, res) => {
+  if (!req.session || !req.session.userInfo) {
+    return res.redirect('/')
+  }
+
+  const userId = req.session.userInfo.id
+  const userRef = db.collection('users').doc(userId)
+  const userSnapshot = await userRef.get()
+
+  if (!userSnapshot.exists) {
+    return res.status(404).send('User not found')
+  }
+
+  const userData = userSnapshot.data()
+  const userwebhooks = userData.webhooks || []
+  const characters = userData.characters || []
+
+  res.render('user-settings', { userwebhooks, characters, userData })
 })
 
 app.post('/api/logout', (req, res) => {
