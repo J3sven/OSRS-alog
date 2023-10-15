@@ -67,6 +67,7 @@ router.get('/generate-endpoint', async (req, res) => {
   })
 
   res.send({ endpoint: `/webhook/${id}` })
+  return null
 })
 
 router.post('/webhook/:id', upload.any(), async (req, res) => {
