@@ -1,5 +1,13 @@
-const fs = require('fs')
-const path = require('path')
+const admin = require('firebase-admin')
+const serviceAccount = require('../../serviceAccountKey.json')
+
+if (admin.apps.length === 0) {
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+  })
+}
+
+const db = admin.firestore()
 
 /**
  * Sanitizes the player name by replacing spaces with underscores.
@@ -8,71 +16,6 @@ const path = require('path')
  */
 function sanitizePlayerName(playerName) {
   return playerName.replace(/ /g, '_').toLowerCase()
-}
-
-/**
- * Returns the paths to the log and type files.
- * @param {string} playerName
- * @param {string} type
- * @returns
- */
-function getFilePaths(playerName, type) {
-  const folderPath = path.join(__dirname, '..', '..', 'data', playerName)
-  const logFilePath = path.join(folderPath, 'log.json')
-  const typeFilePath = path.join(folderPath, `${type.toLowerCase()}.json`)
-  return { folderPath, logFilePath, typeFilePath }
-}
-
-/**
- * Ensures that the folder exists.
- * @param {string} folderPath The path to the folder.
- */
-function ensureFolderExists(folderPath) {
-  const lowerCaseFolderPath = folderPath.toLowerCase()
-  if (!fs.existsSync(lowerCaseFolderPath)) {
-    fs.mkdirSync(lowerCaseFolderPath, { recursive: true })
-  }
-}
-
-/**
- * Reads a JSON file.
- * @param {string} filePath The path to the file.
- * @returns {object} The JSON object.
- */
-function readJSONFile(filePath) {
-  if (fs.existsSync(filePath)) {
-    const fileContent = fs.readFileSync(filePath, 'utf-8')
-    return fileContent ? JSON.parse(fileContent) : []
-  }
-  return []
-}
-
-/**
- * Updates the data, tallying if necessary.
- * @param {object} existingData The existing data.
- * @param {object} newData The new data.
- * @returns {object} The updated data.
- */
-
-// TODO: revisit tally logic
-// function updateData(existingData, newData) {
-//   const latestIndex = existingData.length - 1;
-//   const updatedData = [...existingData]; // Clone existingData
-
-//   if (latestIndex >= 0 && existingData[latestIndex].currentSource === newData.currentSource) {
-//     const updatedNewData = { ...newData, tallyCount: existingData[latestIndex].tallyCount + 1 };
-//     updatedData[latestIndex] = updatedNewData;
-//   } else {
-//     const updatedNewData = { ...newData, tallyCount: 1 };
-//     updatedData.push(updatedNewData);
-//   }
-
-//   return updatedData;
-// }
-
-function updateData(existingData, newData) {
-  const updatedData = [...existingData, newData]
-  return updatedData
 }
 
 /**
@@ -88,7 +31,7 @@ function updateLogData(logData, type, processedData) {
   // Initialize or read existing tallyCount and lastBoss
   let { tallyCount, lastBoss } = logData.length > 0 ? logData[logData.length - 1] : { tallyCount: 0, lastBoss: null }
 
-  // Initialize newLogEntry without tallyCount and lastBoss
+  // Initialize newLogEntry without tallyCount and lastBBoss
   const newLogEntry = { type, ...processedData }
 
   // Update the tally count based on the type and boss name
@@ -121,20 +64,27 @@ function updateLogData(logData, type, processedData) {
  * @param {string} type The type of data.
  * @param {object} processedData The processed data.
  */
-function storePayload(playerName, type, processedData) {
+
+function toPlainObject(obj) {
+  return JSON.parse(JSON.stringify(obj))
+}
+
+async function storePayload(playerName, type, processedData) {
   const sanitizedPlayerName = sanitizePlayerName(playerName).toLowerCase()
-  const { folderPath, logFilePath, typeFilePath } = getFilePaths(sanitizedPlayerName, type)
 
-  ensureFolderExists(folderPath)
+  const playerRef = db.collection('players').doc(sanitizedPlayerName)
+  const typeCollectionRef = playerRef.collection(type)
 
-  const logData = readJSONFile(logFilePath)
-  const existingTypeData = readJSONFile(typeFilePath.toLowerCase())
+  await typeCollectionRef.add({ id: processedData.id })
 
-  const updatedTypeData = updateData(existingTypeData, processedData)
-  fs.writeFileSync(typeFilePath, JSON.stringify(updatedTypeData, null, 2))
+  await typeCollectionRef.add(toPlainObject(processedData))
 
-  const updatedLogData = updateLogData(logData, type, processedData)
-  fs.writeFileSync(logFilePath, JSON.stringify(updatedLogData, null, 2))
+  const logCollectionRef = playerRef.collection('log')
+
+  const logData = await logCollectionRef.get()
+  const updatedLogData = updateLogData(logData.docs.map((doc) => doc.data()), type, processedData)
+
+  await logCollectionRef.add(toPlainObject(updatedLogData[updatedLogData.length - 1]))
 }
 
 module.exports = {

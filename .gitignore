@@ -132,3 +132,4 @@ dist
 data/*
 
 endpoints.json
+serviceAccountKey.json

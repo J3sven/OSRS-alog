@@ -5,14 +5,55 @@ const cors = require('cors')
 const querystring = require('querystring')
 const fetch = require('node-fetch')
 const session = require('express-session')
+const admin = require('firebase-admin')
+const serviceAccount = require('./serviceAccountKey.json')
 const webhooks = require('./js/server/webhooks')
 const hiscoresRoute = require('./js/server/hiscores')
+const profileRoute = require('./js/server/profileRoute')
 const { router: updateProfileRouter } = require('./js/server/updateprofile')
 
 const app = express()
 app.set('view engine', 'ejs')
 app.use(cors())
+
+if (admin.apps.length === 0) {
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+  })
+}
+
+const db = admin.firestore()
+
+class FirestoreSessionStore extends session.Store {
+  constructor() {
+    super()
+    this.db = db.collection('sessions')
+  }
+
+  async get(sid, callback) {
+    const doc = await this.db.doc(sid).get()
+    if (!doc.exists) {
+      return callback(null, null)
+    }
+    return callback(null, doc.data().session)
+  }
+
+  async set(sid, session, callback) {
+    await this.db.doc(sid).set({ session })
+    callback(null)
+  }
+
+  async destroy(sid, callback) {
+    await this.db.doc(sid).delete()
+    callback(null)
+  }
+}
+
+const firestoreSessionStore = new FirestoreSessionStore()
+
+// Initialize session
 app.use(session({
+  firestoreSessionStore, // Use Firestore as session store
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
@@ -22,13 +63,13 @@ app.use(session({
     secure: false,
   },
 }))
-
 const server = http.createServer(app)
 webhooks.initWebSocket(server)
 
 app.use('/', webhooks.router)
 app.use('/', updateProfileRouter)
 app.use('/', hiscoresRoute)
+app.use('/', profileRoute)
 app.use('/data', express.static('data'))
 app.use('/img', express.static('img'))
 app.use('/js/client', express.static('js/client'))
@@ -74,9 +115,13 @@ app.get('/auth/discord/callback', async (req, res) => {
   })
 
   const userInfo = await userInfoResponse.json()
+
+  const userRef = db.collection('users').doc(userInfo.id)
+  await userRef.set(userInfo)
+
   req.session.userInfo = userInfo
 
-  res.redirect('/') // Redirect to homepage
+  res.redirect('/')
 })
 
 app.get('/api/user', (req, res) => {

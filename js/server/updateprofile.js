@@ -1,18 +1,28 @@
 const express = require('express')
-const fs = require('fs')
-const path = require('path')
+const admin = require('firebase-admin')
 const hiscores = require('osrs-json-hiscores')
+const serviceAccount = require('../../serviceAccountKey.json')
+
+if (admin.apps.length === 0) {
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+  })
+}
+
+const db = admin.firestore()
 
 const router = express.Router()
 
 router.get('/updateProfile/:player', async (req, res) => {
   const { player } = req.params
-  const profilePath = path.join(__dirname, '..', '..', `data/${player}/profile.json`)
-  let existingData = {}
+  const sanitizedPlayerName = player.replace(/ /g, '_').toLowerCase()
+  const playerRef = db.collection('players').doc(sanitizedPlayerName)
+  const profileRef = playerRef.collection('profile')
 
-  if (fs.existsSync(profilePath)) {
-    const rawExistingData = fs.readFileSync(profilePath, 'utf8')
-    existingData = JSON.parse(rawExistingData)
+  let existingData = await profileRef.get()
+  if (!existingData.empty) {
+    const [existingDataDoc] = await profileRef.get().then((snapshot) => snapshot.docs.map((doc) => doc.data()))
+    existingData = existingDataDoc || {}
   }
 
   try {
@@ -39,8 +49,7 @@ router.get('/updateProfile/:player', async (req, res) => {
       questpoints: existingData.questpoints || 0,
     }
 
-    fs.mkdirSync(path.dirname(profilePath), { recursive: true })
-    fs.writeFileSync(profilePath, JSON.stringify(updatedData), 'utf8')
+    await profileRef.add(updatedData)
 
     res.status(200).send({ message: 'Profile updated successfully' })
   } catch (error) {
@@ -49,16 +58,16 @@ router.get('/updateProfile/:player', async (req, res) => {
   }
 })
 
-const updatePointsInProfile = (player, points, key) => {
-  const profilePath = path.join(__dirname, '..', '..', `data/${player}/profile.json`)
+const updatePointsInProfile = async (player, points, key) => {
+  const sanitizedPlayerName = player.replace(/ /g, '_').toLowerCase()
+  const playerRef = db.collection('players').doc(sanitizedPlayerName)
+  const profileRef = playerRef.collection('profile')
 
-  if (fs.existsSync(profilePath)) {
-    const rawExistingData = fs.readFileSync(profilePath, 'utf8')
-    const existingData = JSON.parse(rawExistingData)
+  const existingData = await profileRef.get()
 
-    existingData[key] = points
-
-    fs.writeFileSync(profilePath, JSON.stringify(existingData), 'utf8')
+  if (!existingData.empty) {
+    const docId = existingData.docs[0].id
+    await profileRef.doc(docId).update({ [key]: points })
   }
 }
 

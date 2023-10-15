@@ -136,7 +136,7 @@ const loadProfileFromJSON = async (username) => {
 
   const player = username.replace(/ /g, '_').toLowerCase()
   try {
-    const response = await fetch(`/data/${player}/profile.json`)
+    const response = await fetch(`/getProfile/${player}`)
     if (!response.ok) {
       throw new Error('JSON not found')
     }
