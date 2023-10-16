@@ -17,12 +17,13 @@ router.get('/updateProfile/:player', async (req, res) => {
   const { player } = req.params
   const sanitizedPlayerName = player.replace(/ /g, '_').toLowerCase()
   const playerRef = db.collection('players').doc(sanitizedPlayerName)
-  const profileRef = playerRef.collection('profile')
+  const profileRef = playerRef.collection('profile').doc('profileData')
 
   let existingData = await profileRef.get()
-  if (!existingData.empty) {
-    const [existingDataDoc] = await profileRef.get().then((snapshot) => snapshot.docs.map((doc) => doc.data()))
-    existingData = existingDataDoc || {}
+  if (existingData.exists) {
+    existingData = existingData.data() || {}
+  } else {
+    existingData = {}
   }
 
   try {
@@ -49,7 +50,7 @@ router.get('/updateProfile/:player', async (req, res) => {
       questpoints: existingData.questpoints || 0,
     }
 
-    await profileRef.add(updatedData)
+    await profileRef.set(updatedData, { merge: true })
 
     res.status(200).send({ message: 'Profile updated successfully' })
   } catch (error) {
@@ -61,13 +62,14 @@ router.get('/updateProfile/:player', async (req, res) => {
 const updatePointsInProfile = async (player, points, key) => {
   const sanitizedPlayerName = player.replace(/ /g, '_').toLowerCase()
   const playerRef = db.collection('players').doc(sanitizedPlayerName)
-  const profileRef = playerRef.collection('profile')
+  const profileRef = playerRef.collection('profile').doc('profileData')
 
   const existingData = await profileRef.get()
 
-  if (!existingData.empty) {
-    const docId = existingData.docs[0].id
-    await profileRef.doc(docId).update({ [key]: points })
+  if (existingData.exists) {
+    await profileRef.update({ [key]: points })
+  } else {
+    await profileRef.set({ [key]: points }, { merge: true })
   }
 }
 

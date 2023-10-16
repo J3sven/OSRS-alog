@@ -75,16 +75,33 @@ async function storePayload(playerName, type, processedData) {
   const playerRef = db.collection('players').doc(sanitizedPlayerName)
   const typeCollectionRef = playerRef.collection(type)
 
-  await typeCollectionRef.add({ id: processedData.id })
+  // Check if the type already exists for this player
+  const existingTypeDoc = await typeCollectionRef.doc(processedData.id).get()
 
-  await typeCollectionRef.add(toPlainObject(processedData))
+  if (existingTypeDoc.exists) {
+    await typeCollectionRef.doc(processedData.id).update(toPlainObject(processedData))
+  } else {
+    await typeCollectionRef.doc(processedData.id).set(toPlainObject(processedData))
+  }
 
   const logCollectionRef = playerRef.collection('log')
 
+  // Fetch log data for this player
   const logData = await logCollectionRef.get()
+
   const updatedLogData = updateLogData(logData.docs.map((doc) => doc.data()), type, processedData)
 
-  await logCollectionRef.add(toPlainObject(updatedLogData[updatedLogData.length - 1]))
+  // Add a new log entry or update an existing one
+  const newLogData = toPlainObject(updatedLogData[updatedLogData.length - 1])
+  const logId = newLogData.id || new Date().toISOString()
+
+  const existingLogDoc = await logCollectionRef.doc(logId).get()
+
+  if (existingLogDoc.exists) {
+    await logCollectionRef.doc(logId).update(newLogData)
+  } else {
+    await logCollectionRef.doc(logId).set(newLogData)
+  }
 }
 
 module.exports = {
