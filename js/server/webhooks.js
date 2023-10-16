@@ -55,15 +55,31 @@ router.get('/generate-endpoint', async (req, res) => {
     return res.status(401).send({ message: 'Unauthorized' })
   }
 
+  const userId = req.session.userInfo.id
+  const userRef = db.collection('users').doc(userId)
+
+  const userData = await userRef.get()
+  const userWebhook = userData.data().webhook || []
+
+  // Remove existing webhook ID if it exists, as we only want one per user
+  const [existingId] = userWebhook
+
+  if (existingId) {
+    endpoints.delete(existingId)
+    await userRef.update({
+      webhooks: admin.firestore.FieldValue.arrayRemove(existingId),
+    })
+  }
+
+  // Generate a new endpoint ID
   const id = generateEndpointId()
   endpoints.set(id, true)
   saveEndpoints()
 
-  // Store endpoint id in the user's Firebase document
-  const userRef = db.collection('users').doc(req.session.userInfo.id)
-  await userRef.update({
-    webhooks: admin.firestore.FieldValue.arrayUnion(id),
-  })
+  // Store the new endpoint ID in the user's Firebase document
+  await userRef.set({
+    webhook: id,
+  }, { merge: true })
 
   res.send({ endpoint: `/webhook/${id}` })
   return null

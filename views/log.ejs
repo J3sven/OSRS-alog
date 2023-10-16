@@ -135,8 +135,7 @@
       <p>Use the generate button below to generate a webhook.</p>
       <input type="text" id="textField" placeholder="Your generated webhook will appear here" readonly>
       <button id="generateBtn">Generate</button>
-      <button id="copyBtn" class="hidden">
-        <span id="tooltip">Copied!</span>Copy</button>
+      <button id="copyBtn" class="hidden"><span id="tooltip">Copied!</span>Copy</button>
       <p>Then locate your dink plugin inside HDOS and add the webhook url to your Dink webhook URLs</p>
       <img src="img/hdos_tutorial.gif"/>
     </div>
@@ -146,5 +145,33 @@
   <script src="/js/client/websocket.js"></script>
   <script src="/js/client/accordion.js"></script>
   <script src="/js/client/modal.js"></script>
+  <script>
+document.addEventListener('DOMContentLoaded', () => {
+  const textField = document.getElementById('textField');
+  const generateBtn = document.getElementById('generateBtn');
+  const copyBtn = document.getElementById('copyBtn');
+
+  // Show/hide buttons based on initial text field value
+  if (textField.value) {
+    generateBtn.classList.add('hidden');
+    copyBtn.classList.remove('hidden');
+  } else {
+    generateBtn.classList.remove('hidden');
+    copyBtn.classList.add('hidden');
+  }
+
+  generateBtn.addEventListener('click', async () => {
+    const response = await fetch('/generate-endpoint');
+    const data = await response.json();
+    const domain = window.location.origin;
+    textField.value = `${domain}${data.endpoint}`;
+
+    generateBtn.classList.add('hidden');
+    copyBtn.classList.remove('hidden');
+  });
+});
+
+
+  </script>
 
 </body>

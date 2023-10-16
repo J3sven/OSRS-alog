@@ -184,10 +184,10 @@ app.get('/user-settings', async (req, res) => {
   }
 
   const userData = userSnapshot.data()
-  const userwebhooks = userData.webhooks || []
+  const userwebhook = userData.webhook || null
   const characters = userData.characters || []
 
-  res.render('user-settings', { userwebhooks, characters, userData })
+  res.render('user-settings', { userwebhook, characters, userData })
 })
 
 app.post('/api/logout', (req, res) => {

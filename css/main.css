@@ -52,6 +52,34 @@ body {
     min-height: 350px; }
     #content .basicpanel #userPanel {
       justify-content: left; }
+    #content .basicpanel .tab {
+      overflow: hidden;
+      border-radius: 0;
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px; }
+    #content .basicpanel .tab button {
+      background-color: inherit;
+      float: left;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 8px 16px;
+      transition: 0.3s;
+      font-size: 14px;
+      border-radius: 0;
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
+      color: white;
+      background-color: #242424; }
+    #content .basicpanel .tab button:hover {
+      background-color: #5c5858; }
+    #content .basicpanel .tab button.active {
+      background-color: #3B3D40; }
+    #content .basicpanel .tabcontent {
+      display: none;
+      padding: 6px 12px;
+      border: 1px solid #3B3D40;
+      text-align: left; }
 
 .adventurerslog #content {
   max-width: 754px; }
@@ -833,44 +861,49 @@ input.go {
       cursor: pointer; }
       .modal .modal-content #closeModalBtn:hover {
         background: rgba(96, 95, 95, 0.9); }
-  .modal #textfield {
-    width: 415px;
-    max-width: 90%;
-    background: rgba(96, 95, 95, 0.522);
-    border: none;
-    padding: 5px;
-    border-radius: 6px;
-    color: honeydew; }
-  .modal button {
-    background: rgba(96, 95, 95, 0.522);
-    border: none;
-    padding: 5px;
-    border-radius: 6px;
-    color: honeydew;
-    cursor: pointer; }
-  .modal #generateBtn.hidden {
+
+.basicpanel #textfield {
+  width: 415px;
+  max-width: 90%;
+  background: rgba(96, 95, 95, 0.522);
+  border: none;
+  padding: 5px;
+  border-radius: 6px;
+  color: honeydew; }
+
+.basicpanel button {
+  background: rgba(96, 95, 95, 0.522);
+  border: none;
+  padding: 5px;
+  border-radius: 6px;
+  color: honeydew;
+  cursor: pointer; }
+
+.basicpanel #generateBtn.hidden {
+  display: none; }
+
+.basicpanel #copyBtn {
+  position: relative;
+  display: inline; }
+  .basicpanel #copyBtn.hidden {
     display: none; }
-  .modal #copyBtn {
-    position: relative;
-    display: inline; }
-    .modal #copyBtn.hidden {
-      display: none; }
-  .modal #tooltip {
-    position: absolute;
-    background-color: #5d8b74;
-    color: white;
-    padding: 5px;
-    border-radius: 3px;
-    font-size: 12px;
-    top: -45px;
-    right: 0;
-    display: none;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    width: 110px; }
-    .modal #tooltip.show {
-      display: block;
-      opacity: 1; }
+
+.basicpanel #tooltip {
+  position: absolute;
+  background-color: #5d8b74;
+  color: white;
+  padding: 5px;
+  border-radius: 3px;
+  font-size: 12px;
+  top: -45px;
+  right: 0;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  width: 110px; }
+  .basicpanel #tooltip.show {
+    display: block;
+    opacity: 1; }
 
 #myAchievements.parchment {
   width: 367px;
