@@ -13,8 +13,25 @@
   <%- include('modules/video') %>
   <div class="container">
     <section id="content">
-      <div style="background-color: #2C2F33; color: white; border-radius: 12px; padding: 25px; min-height: 200px;"> 
-        <%- include('modules/search') %>
+      <div id="plog_other" class="section">
+        <div id="logHeader">
+          <div id="searchPanel">
+            <%- include('modules/search') %>       
+          </div>
+          <div id="logTitle">Adventurer's Log</div>
+        </div>
+        <div class="home-wrap">
+          <div class="home-view"> 
+            <div class="card left">
+              <p>To start keeping your own Adventurer's Log</p>
+              <a class="generic-button" href="/login" id="openModalBtn">Login</a>
+            </div>
+            <div class="card right">
+              <p>To view any Adventurer's Log</p>
+              <%- include('modules/search') %>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
     <%- include('modules/footer') %>

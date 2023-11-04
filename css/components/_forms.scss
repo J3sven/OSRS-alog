@@ -18,17 +18,18 @@ input.go {
     margin: 0;
 }
 
-#searchBox {
+.searchBox {
     background: white;
     border: none;
     float: left;
     height: 15px;
     margin-left: 2px;
-    margin-top: 4px;
+    margin-top: 2px;
     padding-left: 6px;
     width: 140px;
     display: inline;
     font-size: 12px;
+    margin-right: 3px;
 }
 
 

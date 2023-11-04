@@ -119,6 +119,78 @@ footer a {
   flex-direction: column;
   min-height: 100%; }
 
+.home-wrap {
+  display: flex;
+  width: 100%;
+  border: 4px solid #363636; }
+
+.home-view {
+  display: flex;
+  background-color: #2C2F33;
+  color: white;
+  padding: 25px;
+  min-height: 200px;
+  justify-content: space-evenly;
+  width: 100%;
+  background: url("../../img/textures2.jpg");
+  background-size: 50%;
+  position: relative;
+  border-radius: 4px;
+  margin: 0.75em;
+  z-index: 0; }
+  .home-view:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(2, 2, 2, 0.73);
+    /* Red color filter */
+    mix-blend-mode: multiply; }
+  .home-view .card {
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border-radius: 3px;
+    background: transparent;
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.2);
+    border: #4d4d4d 1px solid;
+    width: 40%; }
+    .home-view .card p {
+      text-align: center; }
+    .home-view .card form {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      height: 20px; }
+    .home-view .card.left .generic-button {
+      width: 80%; }
+
+.generic-button {
+  background: linear-gradient(to bottom, #7d7d7d, #525252, #3b3b3b);
+  color: #a9a9a9;
+  text-decoration: none;
+  border: 1px solid #2a2a2a;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.3s;
+  position: relative;
+  display: block;
+  padding: 4px;
+  text-align: center;
+  font-family: Palatino Linotype, Book Antiqua, Palatino, Times New Roman, Times, serif; }
+  .generic-button:hover {
+    color: #c0b679;
+    background: linear-gradient(to bottom, #949494 0%, #585858 20%, #363636 60%, #333232 100%); }
+  .generic-button.small {
+    padding: 0px 4px;
+    font-size: 10px; }
+
 .menubar {
   position: fixed;
   width: 100vw;
@@ -790,17 +862,18 @@ input.go {
   padding: 0;
   margin: 0; }
 
-#searchBox {
+.searchBox {
   background: white;
   border: none;
   float: left;
   height: 15px;
   margin-left: 2px;
-  margin-top: 4px;
+  margin-top: 2px;
   padding-left: 6px;
   width: 140px;
   display: inline;
-  font-size: 12px; }
+  font-size: 12px;
+  margin-right: 3px; }
 
 #plog_login {
   left: 12px; }

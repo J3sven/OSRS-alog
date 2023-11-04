@@ -1,9 +1,9 @@
 
-<form id="searchForm">
+<!-- <form id="searchForm">
     <input maxlength="12" type="text" name="player" id="searchBox" autocomplete="off" placeholder="Search other users..."
       onfocus="if (this.value=='Search other users...') {this.value=''}"
       onblur="if(this.value=='')this.value='Search other users...';">
-    <input class="go" type="submit" value="Go">
+    <input class="generic-button small" type="submit" value="Go">
     <script type="text/javascript">
       document.getElementById("searchForm").addEventListener('submit', function(event) {
         event.preventDefault();
@@ -11,4 +11,24 @@
         window.location.href = `/log?player=${playersearch}`;
       });
     </script>
+</form> -->
+
+<form class="searchForm">
+  <input maxlength="12" type="text" class="searchBox" autocomplete="off" placeholder="Search other users..."
+    onfocus="if (this.value=='Search other users...') {this.value=''}"
+    onblur="if(this.value=='')this.value='Search other users...';">
+  <input class="generic-button small" type="submit" value="Go">
 </form>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', function() {
+  var forms = document.querySelectorAll('.searchForm');
+
+  forms.forEach(function(form) {
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      var playersearch = this.querySelector('.searchBox').value;
+      window.location.href = '/log?player=' + encodeURIComponent(playersearch);
+    });
+  });
+});
+</script>
